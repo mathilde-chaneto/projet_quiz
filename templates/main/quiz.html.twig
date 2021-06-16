@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} {% endblock %}
+
+{% block body %} {{ parent() }}
+
+{% if is_granted("ROLE_USER") %} 
+
+                <section class="color-quiz">
+                    <div class="container">
+                        <article class="media-quiz columns is-multiline is-mobile is-two-thirds-tablet is-desktop">
+                                    <div class="content column">
+                                            <h3 class="title">
+                                                About :
+                                            </h3>
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.</br> 
+                                                Proin ornare magna eros, eu pellentesque tortor vestibulum ut. 
+                                                Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</br> 
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                                Proin ornare magna eros, eu pellentesque tortor vestibulum ut. </br> 
+                                                Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.</br>  
+                                                Proin ornare magna eros, eu pellentesque tortor vestibulum ut. </br> 
+                                                Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
+                                            </p>
+                                    </div>
+                        </article>
+                    </div>
+                </section>
+                            
+                <section class="color-quiz">
+                    <div class="container">
+                        <article class="media-quiz columns is-multiline is-mobile is-two-thirds-tablet is-desktop">
+                                <div class="content column">
+            
+                                    <h3 class="title">
+                                        Quiz :
+                                    </h3>
+
+                                </div>
+                                
+
+                                <div class="content is-flex is-flex-direction-row is-flex-wrap-wrap">
+                                           {% for name in quiz  %}     
+                                        <figure class="image is-128x128">
+                                            <img src="https://bulma.io/images/placeholders/128x128.png">
+                                            <p><a href="{{path('dev-quiz_question-read', {'id' : name.id}) }}">{{name.name}}</a></p>
+                                        </figure>
+                                        {% endfor %}
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                {% else %}
+
+                <section class="color-quiz">
+                    <div class="container">
+                        <article class="media-quiz columns is-multiline is-mobile is-two-thirds-tablet is-desktop">
+                                    
+                                            
+                                            <p class="subtitle">
+                                                You can't access this content
+                                            </p>
+                                    
+                        </article>
+                    </div>
+                </section>
+                
+                {% endif %}
+                 <p class=" quiz has-text-centered"><a href="{{ path('dev-quiz_create-quiz') }}" class="has-text-white">Create your quiz</a></p>
+
+             <footer class="hero-footer">
+                <div class="content">
+                    <p class="has-text-centered"><a href="{{ path('dev-quiz_contact') }}" class="has-text-white">Contact</a></p>
+
+                </div>
+
+            </footer>
+
+        </div>
+    </section>
+
+{% endblock %}

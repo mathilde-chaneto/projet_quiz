@@ -1,0 +1,336 @@
+/*html, .hero, .hreo-body and body*/
+
+/*
+set html and body for the content take
+all available space in browser
+*/
+
+html, body {
+    min-height: 100vh;
+    width: 100%;
+}
+
+.hero {
+    background-color: #212121;
+    width: 100%;
+}
+
+.hero-body {
+    padding: 0;
+}
+/*end html, .hero, .hero-body and body*/
+
+
+/* start nav*/
+.hero .navbar, .navbar-brand {
+    background-color: black;
+    align-items: center;
+}
+
+.navbar-brand {
+    justify-content: space-between;
+}
+
+#navbarBasic, .navbar-brand, footer {
+    height: 5rem;
+}
+
+#navbarBurger {
+    background-color: black; 
+}
+
+#navbarBurger > .navbar-start > .navbar-item .buttons .button:not(:last-child):not(.is-fullwidth) {
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+}
+
+.navbar-burger {
+    margin-left: 0;
+
+}
+
+.container>.navbar #navbarBasic {
+    margin-right: 1rem;
+}
+
+.navbar {
+    background-color: black;
+}
+
+.navbar-end > a {
+    margin-right: 1rem;
+}
+
+#navbarBasic {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#navbarBasic > .navbar-end > .navbar-item .buttons .button:not(:last-child):not(.is-fullwidth) {
+    margin-right: 1rem;
+    
+}
+
+.navbar-item {
+    margin: 1rem;
+}
+
+.navbar-item img {
+    width: auto;
+}
+
+a.navbar-item:hover{
+    background-color: unset;   
+}
+
+a.button.is-info {
+    background-color: #1e88e5;
+}
+/* end nav*/
+
+
+/*start container*/
+.container {
+    width: 100%;
+}
+
+.container-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-account {
+    min-width: 30%;
+    max-width: 40%;
+    margin: auto;
+}
+/*end container*/
+
+.title {
+    color: wheat;
+}
+
+.subtitle {
+    color: wheat;
+}
+
+/*start global css*/
+.color, .color-quiz {
+    color: wheat;
+}
+
+h3.title {
+    color: wheat;
+}
+
+label {
+    color: wheat;
+}
+
+/*end global css*/
+
+
+/*start of homepage*/
+.color-contact article, .color article {
+    margin-top: 4rem;
+}
+
+.color-contact .contact {
+    margin-bottom: 4rem;
+}
+
+.article-right {
+    padding-bottom: 4rem;
+}
+
+.article-left figure, .article-right figure {
+    margin: 2rem;
+}
+/*end of homepage*/
+
+
+
+/*start Contact page*/
+.color-contact {
+    color: wheat;
+    margin: auto
+}
+/*end Contact page*/
+
+
+/* start sign-up page and log in page*/
+form {
+    margin: 4rem auto 4rem auto;
+}
+
+.field {
+    margin-top: 4rem;
+}
+
+.field .control {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.field .control.validate {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.button-green {
+    background-color: #004d40;
+    margin: 1rem;
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+
+.field .label {
+    color: wheat;
+}
+
+.control button {
+    width: auto;
+}
+
+.field .control.add {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.avatar {
+    margin-top: 4rem;
+}
+
+.file {
+flex-direction: column;
+justify-content: flex-end;
+max-width: 50%;
+}
+
+.file.is-fullwidth .file-name {
+    flex-grow: 1;
+    max-width: max-content;
+}
+
+.file.has-name.is-right.is-fullwidth {
+    margin-top: 4rem;
+    width: 50%;
+}
+
+.file.has-name.is-right.is-fullwidth p {
+    margin-bottom: .5rem;
+}
+
+.avatar figure {
+    margin-left: 2rem;
+}
+
+
+
+
+/*end sign-up page and log in page*/
+
+/*start quiz page*/
+.color-quiz .media-quiz {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.media-quiz:nth-child(1) {
+    margin-top: 4rem;
+}
+
+.media-quiz .content figure:nth-child(1){
+    margin: 2rem;
+}
+
+.buuton-orange {
+    margin: 1rem;
+}
+
+.button-orange, .button-edit {
+    background-color: #f57c00;
+    color: white;
+    font-weight: bold;
+    border: none;
+}
+.quiz {
+    background-color: #212121;
+    padding: 3rem;
+}
+
+.content.column.answer .title, .content.column.answer .subtitle {
+    color: wheat;
+}
+
+.content.column.answer .title {
+    margin-top: 3rem;
+}
+/*end quiz page*/
+
+.content.column.add {
+    margin-bottom: 5rem;
+}
+
+
+/*
+footer
+*/
+.hero-footer {
+    padding: 2rem;
+    background-color: black;
+}
+
+.hero-footer .content p a {
+    color: wheat;
+}
+/*
+modify the behavior of few classes for responsive
+*/
+@media screen and (max-width: 768px) {
+
+    .article-left {
+        flex-direction: column-reverse;
+        align-items: center;
+        
+    }
+
+    .article-right {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .content .title {
+        text-align: center;
+    }
+
+    .field .control, .field .control.validate, .field .control.add {
+        justify-content: center;
+    }
+
+    .article-left figure, .article-right figure {
+        max-width: 70%;  
+    }
+
+    .content.figure {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 1023px) {
+    #navbarBasic {
+        display: none;
+    }
+
+}
+
+
+
+
+
+
+

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} {% endblock %}
+
+{% block body %} {{ parent() }}
+
+                <section class="color-contact">
+                    <div class="container">
+                        <article class="contact columns is-multiline is-mobile is-two-thirds-tablet is-desktop">
+                                    <div class="content column">
+                                            <h3 class="title has-text-centered">
+                                                Contact me :
+                                            </h3>
+                                            <p class="has-text-centered">
+                                            To get more informations about this website or about updates, please, send mail to this adress :
+                                            </p>
+                                            <p class="has-text-centered">contact-me@gmailcom</p>
+
+                                    </div>
+                        </article>
+                    </div>
+                </section>
+
+            <footer class="hero-footer">
+                <div class="content">
+                    <p class="has-text-centered"><a href="{{ path('dev-quiz_contact') }}" class="has-text-white">Contact</a></p>
+
+                </div>
+
+            </footer>
+
+        </div>
+    </section>
+
+
+{% endblock %}
