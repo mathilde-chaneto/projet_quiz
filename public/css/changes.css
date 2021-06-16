@@ -32,21 +32,18 @@ html, body {
 }
 
 #navbarBasic, .navbar-brand, footer {
-    height: 7rem;
+    height: 5rem;
 }
 
 .image {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-right: 1rem;
 }
 
 .is-rounded {
     border : 1px solid wheat;
 }
 
-.content {
-    margin-bottom: 1rem;
-}
+
 
 #navbarBurger {
     background-color: black; 
@@ -110,9 +107,10 @@ a.button.is-info {
 
 .container-block {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
+    margin-bottom: .75rem;
 }
 
 .container-account {
