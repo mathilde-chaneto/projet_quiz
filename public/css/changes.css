@@ -32,7 +32,20 @@ html, body {
 }
 
 #navbarBasic, .navbar-brand, footer {
-    height: 5rem;
+    height: 7rem;
+}
+
+.image {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.is-rounded {
+    border : 1px solid wheat;
+}
+
+.content {
+    margin-bottom: 1rem;
 }
 
 #navbarBurger {
@@ -283,6 +296,9 @@ footer
 .hero-footer {
     padding: 2rem;
     background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .hero-footer .content p a {

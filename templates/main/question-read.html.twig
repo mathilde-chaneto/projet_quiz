@@ -4,8 +4,6 @@
 
 {% block body %} {{ parent() }}
 
-{% if is_granted("ROLE_USER") %} 
-
                 <section class="color-quiz">
                     <div class="container">
                         <article class="media-quiz columns is-multiline is-mobile is-two-thirds-tablet is-desktop">
@@ -130,23 +128,6 @@
                     </div>
                 </section>
 
-                 {% else %}
-
-                <section class="color-quiz">
-                    <div class="container">
-                        <article class="media-quiz columns is-multiline is-mobile is-two-thirds-tablet is-desktop">
-                                    
-                                            
-                                            <p class="subtitle">
-                                                You can't access this content
-                                            </p>
-                                    
-                        </article>
-                    </div>
-                </section>
-                            
-               
-                {% endif %}
              <footer class="hero-footer">
                 <div class="content">
                     <p class="has-text-centered"><a href="{{ path('dev-quiz_contact') }}" class="has-text-white">Contact</a></p>

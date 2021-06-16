@@ -30,16 +30,12 @@
                     
                       <div class="container-block">
                     <figure class="image is-48x48">
-                        <img src="https://bulma.io/images/placeholders/128x128.png" class="is-rounded">
+                        {% if app.user %}<img src="/avatar/{{ app.user.image}}" class="is-rounded"/>{% endif %} 
                     </figure>
                      <div class="content">
-                     <p class="subtitle"> {% if app.user %}{{ app.user.username}}{% endif %}</p>
+                     <p class="subtitle has-text-weight-bold"> {% if app.user %}{{ app.user.username}}{% endif %}</p>
                      </div>
                     </div>
-                
-        
-
-               
                 
                     <a role="button" class="navbar-burger has-text-white has-text-weight-bold" aria-label="menu"
                         aria-expanded="false" data-target="navbarBurger">
@@ -49,7 +45,6 @@
                     </a>
                 </div>
 
-                
                 <div id="navbarBurger" class="navbar-menu is-hidden-desktop">
                     <div class="navbar-start">
                         
@@ -99,10 +94,10 @@
                    
                         <div class="container-block">
                     <figure class="image is-48x48">
-                        <img src="https://bulma.io/images/placeholders/128x128.png" class="is-rounded">
+                        {% if app.user %}<img src="/avatar/{{ app.user.image}}" class="is-rounded"/>{% endif %} 
                     </figure>
                      <div class="content">
-                     <p class="subtitle"> {% if app.user %} {{ app.user.username}} {% endif %}</p>
+                     <p class="subtitle has-text-weight-bold"> {% if app.user %} {{ app.user.username}} {% endif %}</p>
                      </div>
                     </div>
                    

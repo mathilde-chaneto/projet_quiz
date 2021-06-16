@@ -3,8 +3,7 @@
 {% block title %} {{ parent() }} {% endblock %}
 
 {% block body %} {{ parent() }}
-
-{% if is_granted("ROLE_USER") %}            
+       
                 <section class="color-quiz">
                     <div class="container">
                         <article class="media-quiz columns is-multiline is-mobile is-two-thirds-tablet is-desktop">
@@ -30,71 +29,18 @@
 
                                 </div>
                                 
-
                                 <div class="content figure is-flex is-flex-direction-row is-flex-wrap-wrap">
-                                                
+                                    {% for name in quiz %}     
                                         <figure class="image is-128x128">
                                             <img src="https://bulma.io/images/placeholders/128x128.png">
-                                            <p>test</p>
+                                           <p class="subtitle">{{name.name}}</p>
                                         </figure>
-                                        <figure class="image is-128x128">
-                                            <img src="https://bulma.io/images/placeholders/128x128.png">
-                                            <p>test</p>
-                                        </figure>
-                                        <figure class="image is-128x128">
-                                            <img src="https://bulma.io/images/placeholders/128x128.png">
-                                            <p>test</p>
-                                        </figure>
-                                        <figure class="image is-128x128">
-                                            <img src="https://bulma.io/images/placeholders/128x128.png">
-                                            <p>test</p>
-                                        </figure>
-                                         <figure class="image is-128x128">
-                                            <img src="https://bulma.io/images/placeholders/128x128.png">
-                                            <p>test</p>
-                                        </figure>
-                                        <figure class="image is-128x128">
-                                            <img src="https://bulma.io/images/placeholders/128x128.png">
-                                            <p>test</p>
-                                        </figure>
-                                        <figure class="image is-128x128">
-                                            <img src="https://bulma.io/images/placeholders/128x128.png">
-                                            <p>test</p>
-                                        </figure>
-                                        <figure class="image is-128x128">
-                                            <img src="https://bulma.io/images/placeholders/128x128.png">
-                                            <p>test</p>
-                                        </figure>
-                                        <figure class="image is-128x128">
-                                            <img src="https://bulma.io/images/placeholders/128x128.png">
-                                            <p>test</p>
-                                        </figure>
-                                        <figure class="image is-128x128">
-                                            <img src="https://bulma.io/images/placeholders/128x128.png">
-                                            <p>test</p>
-                                        </figure>
+                                     {% endfor %}
                                 </div>
                             </div>
                         </article>
                     </div>
                 </section>
-
-                  {% else %}
-
-                <section class="color-quiz">
-                    <div class="container">
-                        <article class="media-quiz columns is-multiline is-mobile is-two-thirds-tablet is-desktop">
-                                    
-                                            
-                                            <p class="subtitle">
-                                                You can't access this content
-                                            </p>
-                                    
-                        </article>
-                    </div>
-                </section>
-                
-                {% endif %}
                 
                  <p class=" quiz has-text-centered"><a href="{{ path('dev-quiz_create-quiz') }}" class="has-text-white">Create your quiz</a></p>
 

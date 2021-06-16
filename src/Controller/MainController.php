@@ -5,10 +5,16 @@ namespace App\Controller;
 use App\Entity\Play;
 use App\Repository\UserRepository;
 use App\Repository\QuizRepository;
+use App\Entity\User;
+use App\Form\SignUpType;
 use App\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 
 
 /**
@@ -32,66 +38,50 @@ class MainController extends AbstractController
         return $this->render('main/contact.html.twig');
     }
 
-   
-
     /**
      * @Route("/signup", name="sign-up")
      */
-    public function sign_up(): Response
+    public function sign_up(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
-        return $this->render('main/sign-up.html.twig');
-    }
+        $user = new User();
 
-    /**
-     * @Route("/quiz", name="quiz")
-     */
-    public function quiz(QuizRepository $quiz, UserRepository $user): Response
-    {
-        return $this->render('main/quiz.html.twig', [
-            "quiz" => $quiz->findAll(),
-            "users" => $user->findAll(),
+        $form = $this->createForm(SignUpType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //upload file $imageFile which match with the 'image' field
+            //$imageFile = object of uploadFile class
+            $imageFile = $form->get('image')->getData();
+
+            //rename $imageFile
+            //guessClientExtension knows the image's extension
+            $newFileName = uniqid() . '.' . $imageFile->guessClientExtension();
+
+            //move the file to this way (in public folder)
+            $imageFile->move('avatar', $newFileName);
+
+            // this property get now the avatar's image
+            $user->setImage($newFileName);
+
+            // Encodage du mot de passe
+            $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
+            // Assignation du rôle par défaut VIA le nom du rôle et non l'ID
+            $user->setRoles(["ROLE_USER"]);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Vous êtes enregistré. Vous pouvez maintenant vous connecter.');
+
+            return $this->redirectToRoute('app_login');
+        }
+
+        return $this->render('main/sign-up.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 
-    /**
-     * @Route("/quiz/{id}", name="question-read", requirements={"id": "\d+"})
-     */
-    public function read(): Response
-    {
-        
-        return $this->render('main/question-read.html.twig');
-    }
-
-    /**
-     * @Route("/create/quiz", name="create-quiz")
-     */
-    public function create_quiz(): Response
-    {
-        return $this->render('main/create-quiz.html.twig');
-    }
-
-    /**
-     * @Route("/score", name="score")
-     */
-    public function score(): Response
-    {
-        return $this->render('main/score.html.twig');
-    }
-
-     /**
-     * @Route("/account", name="account")
-     */
-    public function account(): Response
-    {
-        return $this->render('main/account.html.twig');
-    }
-
-      /**
-     * @Route("/account/update", name="account-update")
-     */
-    public function account_update(): Response
-    {
-        return $this->render('main/account_update.html.twig');
-    }
 
 }
