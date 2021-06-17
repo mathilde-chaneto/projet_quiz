@@ -11,6 +11,8 @@ use App\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -41,10 +43,10 @@ class MainController extends AbstractController
     /**
      * @Route("/signup", name="sign-up")
      */
-    public function sign_up(Request $request, UserPasswordEncoderInterface $encoder): Response
+    public function sign_up(Request $request, UserPasswordEncoderInterface $encoder, MailerInterface $mailer): Response
     {
         $user = new User();
-
+       
         $form = $this->createForm(SignUpType::class, $user);
 
         $form->handleRequest($request);
@@ -69,11 +71,21 @@ class MainController extends AbstractController
             // Assignation du rôle par défaut VIA le nom du rôle et non l'ID
             $user->setRoles(["ROLE_USER"]);
 
+           
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Vous êtes enregistré. Vous pouvez maintenant vous connecter.');
+            $email = (new Email())
+            ->from('sysadmin@dev-quiz.fr')
+            ->to($user->getEmail())
+            ->subject('Your user ID')
+            ->html('<p>Here, there are your User Id : </p><p>Email: '.$user->getEmail().'</p><p>Username : ' . $user->getusername().'</p>');
+
+        $mailer->send($email);
+
+            $this->addFlash('success', 'Vous êtes enregistré. Vous pouvez maintenant vous connecter. Un mail vous a été envoyer contenant vos identifiants.');
 
             return $this->redirectToRoute('app_login');
         }
