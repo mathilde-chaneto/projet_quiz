@@ -259,11 +259,11 @@ max-width: 50%;
     margin: 2rem;
 }
 
-.buuton-orange {
+.button-orange-questions {
     margin: 1rem;
 }
 
-.button-orange, .button-edit {
+.button-orange-questions, .button-edit, .button-orange-next {
     background-color: #f57c00;
     color: white;
     font-weight: bold;
@@ -280,6 +280,10 @@ max-width: 50%;
 
 .content.column.answer .title {
     margin-top: 3rem;
+}
+
+.none {
+    display: none;
 }
 /*end quiz page*/
 

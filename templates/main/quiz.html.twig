@@ -40,10 +40,10 @@
                                 
 
                                 <div class="content is-flex is-flex-direction-row is-flex-wrap-wrap">
-                                           {% for name in quiz %}     
+                                           {% for listQuiz in quiz %}     
                                         <figure class="image is-128x128">
                                             <img src="https://bulma.io/images/placeholders/128x128.png">
-                                            <p><a href="{{path('dev-quiz_question-read', {'id' : name.id}) }}">{{name.name}}</a></p>
+                                            <p><a href="{{path('dev-quiz_quiz-read', {'id' : listQuiz.id}) }}">{{listQuiz.name}}</a></p>
                                         </figure>
                                         {% endfor %}
                                 </div>

@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Play;
-use App\Repository\User;
+use App\Entity\User;
 use App\Repository\QuizRepository;
 use App\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,5 +24,6 @@ class AccountController extends AbstractController
         return $this->render('main/account.html.twig');
     }
 
+     
 
 }

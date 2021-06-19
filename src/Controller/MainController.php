@@ -81,7 +81,7 @@ class MainController extends AbstractController
             ->from('sysadmin@dev-quiz.fr')
             ->to($user->getEmail())
             ->subject('Your user ID')
-            ->html('<p>Here, there are your User Id : </p><p>Email: '.$user->getEmail().'</p><p>Username : ' . $user->getusername().'</p>');
+            ->html('<p>Here, there is your User Id : </p><p>Email: '.$user->getEmail().'</p><p>Username : ' . $user->getusername().'</p>');
 
         $mailer->send($email);
 

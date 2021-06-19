@@ -21,20 +21,23 @@ class QuestionsRepository extends ServiceEntityRepository
 
     // /**
     //  * @return Questions[] Returns an array of Questions objects
+    // get all question's quiz with quiz id
+    //exemple : if quiz id = 1, fecth questions where quiz_id = 1
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function findByQuiz($id): array
     {
         return $this->createQueryBuilder('q')
-            ->andWhere('q.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('q.quiz = :id')
+            ->setParameter('id', $id)
             ->orderBy('q.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
+ 
+    
 
     /*
     public function findOneBySomeField($value): ?Questions

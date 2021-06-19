@@ -42,15 +42,10 @@
         <div class="content column is-flex is-flex-wrap-wrap">
 
             {% for key, question in arrayQuestionsAnswer %}
-                <button class="button button-orange-questions column is-flex is-align-items-center">
+                <button id="{{question.questionId}}" class="button button-orange-questions column is-flex is-align-items-center">
                     <p>
-                  <a href="{{path('dev-quiz_quiz-questions', {'id' : question.questionId})}}">
                         Question 
                         {{ key + 1 }}
-                        </a>
-                        <span class="none">
-                            {{ question.questionId }}
-                        </span>
                     </p>
 
             </button>
@@ -63,29 +58,27 @@
 <div class="container">
     <article class="media-quiz columns is-multiline is-mobile is-two-thirds-tablet is-desktop">
         <div class="content column">
-            <form method="GET" action="">
 
                 <h3 class="title">
-
                     Question n° 
                     {{ key + 1 }}
                     <span class="none">
                         {{ question.questionId }}
                     </span>
-
                 </h3>
-
                 <p>
-
                     {{ question.questionTitle }}
-
                 </p>
-
+                
                 {% for answer in question.answers %}
+
                     <label class="checkbox column">
-                        <input type="checkbox">
+                        <input type="checkbox" name="checkbox" value=" {{ answer.answerName }}">
                             <span class="none">
                                 {{ answer.answerId }}
+                            </span>
+                            <span class="is-correct none">
+                                {{ answer.answerIsCorrect }}
                             </span>
                             {{ answer.answerName }}
                         </label>

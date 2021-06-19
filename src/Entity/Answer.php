@@ -28,10 +28,11 @@ class Answer
     private $is_correct;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Questions::class, inversedBy="answer")
+     * @ORM\ManyToOne(targetEntity=Questions::class, inversedBy="answers")
      * @ORM\JoinColumn(nullable=false)
      */
     private $questions;
+
 
     public function getId(): ?int
     {

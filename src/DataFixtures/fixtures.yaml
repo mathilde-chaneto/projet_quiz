@@ -1,18 +1,3 @@
-
-App\Entity\Questions:
-    questions{1..50}:
-        title: '<sentence()>'
-
-App\Entity\Answer:
-    answer{1..100}:
-      name: '<sentence()>'
-      is_correct: '<boolean()>'
-      questions: '@questions*'
-
-App\Entity\Category:
-    category{1..5}:
-      name: '<word()>'
-
 App\Entity\User:
   user_1:
     email: 'mathildenatsuki@gmail.com'
@@ -26,11 +11,26 @@ App\Entity\User:
     password: '\$argon2i\$v=19\$m=65536,t=4,p=1\$LjNOem52M0J3UjY5RTJiUQ$/EKtLtjH9vuwxTJZvaBl4rfDp3CgqpOlFGbZIrZPKa8'
     username: 'natsu'
 
+App\Entity\Category:
+    category{1..5}:
+      name: '<word()>'
+
 App\Entity\Quiz:
     quiz{1..10}:
       name: '<word()>'
       category: ['@category*']
       user: '@user_1'
+
+App\Entity\Questions:
+    questions{1..50}:
+        title: '<sentence()>'
+        quiz: '@quiz*'
+
+App\Entity\Answer:
+    answer{1..100}:
+      name: '<sentence()>'
+      is_correct: '<boolean()>'
+      questions: '@questions*'
 
 App\Entity\Play:
     play{1..10}:

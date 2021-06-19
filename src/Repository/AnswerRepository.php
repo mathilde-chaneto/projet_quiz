@@ -22,19 +22,18 @@ class AnswerRepository extends ServiceEntityRepository
     // /**
     //  * @return Answer[] Returns an array of Answer objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function findByQuestion($id): array
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('a.questions = :id')
+            ->setParameter('id', $id)
             ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Answer

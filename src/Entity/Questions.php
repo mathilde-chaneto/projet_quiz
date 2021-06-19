@@ -24,14 +24,23 @@ class Questions
      */
     private $title;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Quiz::class, inversedBy="questions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $quiz;
+
     /**
      * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="questions", orphanRemoval=true)
      */
-    private $answer;
+    private $answers;
+
+   
 
     public function __construct()
     {
-        $this->answer = new ArrayCollection();
+        $this->answers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -51,18 +60,30 @@ class Questions
         return $this;
     }
 
+    public function getQuiz(): ?Quiz
+    {
+        return $this->quiz;
+    }
+
+    public function setQuiz(?Quiz $quiz): self
+    {
+        $this->quiz = $quiz;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Answer[]
      */
-    public function getAnswer(): Collection
+    public function getAnswers(): Collection
     {
-        return $this->answer;
+        return $this->answers;
     }
 
     public function addAnswer(Answer $answer): self
     {
-        if (!$this->answer->contains($answer)) {
-            $this->answer[] = $answer;
+        if (!$this->answers->contains($answer)) {
+            $this->answers[] = $answer;
             $answer->setQuestions($this);
         }
 
@@ -71,7 +92,7 @@ class Questions
 
     public function removeAnswer(Answer $answer): self
     {
-        if ($this->answer->removeElement($answer)) {
+        if ($this->answers->removeElement($answer)) {
             // set the owning side to null (unless already changed)
             if ($answer->getQuestions() === $this) {
                 $answer->setQuestions(null);
@@ -80,4 +101,5 @@ class Questions
 
         return $this;
     }
+
 }

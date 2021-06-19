@@ -22,7 +22,7 @@
                                 </label>
                             </div>
                         <figure class="image is-128x128">
-                            {% if app.user %}<img src="/avatar/{{ app.user.image}}" class="is-rounded"/>{% endif %} 
+                            {% if app.user %}<img src="/avatar/{{ app.user.image}}" class="is-rounded image is-128x128"/>{% endif %} 
                         </figure>
                         </div>
 
@@ -70,6 +70,8 @@
                                        <img src="https://img.icons8.com/nolan/48/visible.png"/>
                                        </figure>
                                 </div>
+
+                                 <button class="button is-danger">Delete your account</button>
 
                               <!-- div class="field">
                                 <label class="label">Confirm your password</label>
