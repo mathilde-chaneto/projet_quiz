@@ -56,6 +56,12 @@ class MainController extends AbstractController
             //$imageFile = object of uploadFile class
             $imageFile = $form->get('image')->getData();
 
+            if($imageFile == null) {
+                
+                $user->setImage('icons8-utilisateur-48.png');
+
+            }else {
+
             //rename $imageFile
             //guessClientExtension knows the image's extension
             $newFileName = uniqid() . '.' . $imageFile->guessClientExtension();
@@ -65,6 +71,8 @@ class MainController extends AbstractController
 
             // this property get now the avatar's image
             $user->setImage($newFileName);
+
+            }
 
             // Encodage du mot de passe
             $user->setPassword($encoder->encodePassword($user, $user->getPassword()));

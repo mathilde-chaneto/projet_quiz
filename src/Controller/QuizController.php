@@ -41,25 +41,43 @@ class QuizController extends AbstractController
     public function read(Quiz $quiz, QuestionsRepository $questionsRepo, AnswerRepository $answerRepo, Questions $questionsObject, $id, Request $request): Response
     {
         //fetch all questions bound to one quiz
-        $questions = $questionsRepo->findByQuiz($id);
         // result = object array
+        $questions = $questionsRepo->findByQuiz($id);
+        
          
         // create an array with Question's methods
         foreach($questions as $question) {
+
             $cpt = 0;
+
+            $typeInput = null;
+
             $answers = $answerRepo->findByQuestion($question->getId());
+
+
             foreach($answers as $answer){
+
                 if($answer->getIsCorrect()){
-                    $cpt++;                    
+
+                    $cpt++; 
+
+                    if($cpt > 1) {
+                    $typeInput = "checkbox";
+
+                    }else{
+                        $typeInput = "radio";
+                    }
+
                 }
 
                 $ans[] = [
                     'answerId' => $answer->getId(),
-                    'answerName' => $answer->getName(),
+                    'answerName' => $answer->getSuperName(),
                     'answerIsCorrect' => $answer->getIsCorrect(),
                 ] ;
                 
             }
+
         $arrayQuestionsAnswer[] = [
             'questionId' => $question->getId(),
             'questionTitle' => $question->getTitle(),
@@ -69,20 +87,16 @@ class QuizController extends AbstractController
             unset($ans);
             unset($answers);
         }
-          //dd($arrayQuestionsAnswer);
 
-       /*$form = $this->createForm(AnswerType::class, $answer);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        //dd($typeInput);
+        // dd($arrayQuestionsAnswer);
 
-        }*/
+      
 
         return $this->render('main/quiz-read.html.twig', [
-            //"questionsByQuiz" => $questions,
-            //"answers" => $answers,
             'arrayQuestionsAnswer' => $arrayQuestionsAnswer,
             "quiz" => $quiz,
-            //"form" => $form->createView(),
+            "typeInput" => $typeInput,
 
         ]);
 

@@ -191,7 +191,7 @@ form {
     justify-content: flex-end;
 }
 
-.button-green {
+.button-green, .input-green {
     background-color: #004d40;
     margin: 1rem;
     border: none;
@@ -259,7 +259,7 @@ max-width: 50%;
     margin: 2rem;
 }
 
-.button-orange-questions {
+.button-orange-questions, .button-orange-next {
     margin: 1rem;
 }
 
@@ -269,12 +269,21 @@ max-width: 50%;
     font-weight: bold;
     border: none;
 }
+
+#text {
+    text-align: center;
+}
+
+.button:focus, .button:active {
+    color: none;
+}
+
 .quiz {
     background-color: #212121;
     padding: 3rem;
 }
 
-.content.column.answer .title, .content.column.answer .subtitle {
+.content.column.answer .title, .content.column.answer-content .subtitle {
     color: wheat;
 }
 
@@ -282,8 +291,12 @@ max-width: 50%;
     margin-top: 3rem;
 }
 
-.none {
+.none, .hidden, .answer-id {
     display: none;
+}
+
+.color-quiz.infos-plus {
+    margin-bottom: 4rem;
 }
 /*end quiz page*/
 

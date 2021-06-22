@@ -31,7 +31,9 @@
                                                         
         </p>
     </div>
-</article></div></section><section class="color-quiz"><div class="container">
+</article></div></section>
+
+<section class="color-quiz"><div class="container">
 <article class="media-quiz columns is-multiline is-mobile is-two-thirds-tablet is-desktop">
     <div class="content column">
         <h3 class="title">
@@ -42,11 +44,11 @@
         <div class="content column is-flex is-flex-wrap-wrap">
 
             {% for key, question in arrayQuestionsAnswer %}
-                <button id="{{question.questionId}}" class="button button-orange-questions column is-flex is-align-items-center">
-                    <p>
+                <button class="button button-orange-questions column is-flex is-align-items-center" data-id="{{ question.questionId }}">
+                  
                         Question 
                         {{ key + 1 }}
-                    </p>
+                    
 
             </button>
             {% endfor %}
@@ -54,73 +56,83 @@
         </div>
     </div>
 
-</article></div></section>{% for key, question in arrayQuestionsAnswer %}<section class="color-quiz">
+ 
+</article></div></section>{% for key, question in arrayQuestionsAnswer %}<section class="color-quiz questions none" data-id="{{ question.questionId }}" data-step=" {{ key + 1 }}">
 <div class="container">
     <article class="media-quiz columns is-multiline is-mobile is-two-thirds-tablet is-desktop">
         <div class="content column">
-
+            <form method="POST" action="" id="quiz">
                 <h3 class="title">
                     Question n° 
                     {{ key + 1 }}
-                    <span class="none">
-                        {{ question.questionId }}
-                    </span>
                 </h3>
                 <p>
                     {{ question.questionTitle }}
                 </p>
+              
                 
+            
                 {% for answer in question.answers %}
-
-                    <label class="checkbox column">
-                        <input type="checkbox" name="checkbox" value=" {{ answer.answerName }}">
-                            <span class="none">
-                                {{ answer.answerId }}
-                            </span>
-                            <span class="is-correct none">
-                                {{ answer.answerIsCorrect }}
-                            </span>
+        
+                    <label class="{{typeInput}} column">
+                        <input type="{{typeInput}}" name="type" value=" {{ answer.answerName }}" data-id="{{ answer.answerId }}" data-name="type">
                             {{ answer.answerName }}
                         </label>
 
+                   
                     {% endfor %}
+              
 
                     <div class="field">
                         <p class="control validate">
-                            <button class="button button-green">
+                            <button class="button button-green" name="send" type="submit">
                                 Validate
                             </button>
                         </p>
                         <p class="control validate">
-                            <button class="button button-orange-next none">
+                            <button class="button button-orange-next hidden">
                                 Next
                             </button>
                         </p>
                     </div>
-
-                <!--<div class="content column answer">
-                                                                <p class="subtitle">Good answer</p>
-                
-                                                                <h4 class="title">INFO +</h4>
-                                                                <p>
-                                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.</br> 
-                                                                Proin ornare magna eros, eu pellentesque tortor vestibulum ut. 
-                                                                Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-                                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                                                Proin ornare magna eros, eu pellentesque tortor vestibulum ut. </br> 
-                                                                Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-                                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                                Proin ornare magna eros, eu pellentesque tortor vestibulum ut. </br> 
-                                                                Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-                                                                </p>
-                                                            
-                                                            </div>-->
-
-                </form>
+              </form>
             </div>
         </article>
     </div>
-</section>{% endfor %}<footer class="hero-footer">
+</section>{% endfor %}
+
+<section class="color-quiz infos-plus ">
+    <div class="container answer-container">
+        <div class="content column answer-content none">
+                                                                    <p class="subtitle"></p>
+                    
+                                                                    <h4 class="title">INFO +</h4>
+                                                                    <p>
+                                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.</br> 
+                                                                    Proin ornare magna eros, eu pellentesque tortor vestibulum ut. 
+                                                                    Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
+                                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                                                    Proin ornare magna eros, eu pellentesque tortor vestibulum ut. </br> 
+                                                                    Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
+                                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                                    Proin ornare magna eros, eu pellentesque tortor vestibulum ut. </br> 
+                                                                    Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
+                                                                    </p>
+                                                                
+        </div>
+
+        <div class="warning content column none">
+           <p class="subtitle no-answer"> No answer is selected </p>
+        </div>
+    </div>
+
+
+    
+
+</section>
+
+
+<footer class="hero-footer">
 <div class="content">
     <p class="has-text-centered">
         <a href="{{ path('dev-quiz_contact') }}" class="has-text-white">

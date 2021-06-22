@@ -33,20 +33,23 @@ class Answer
      */
     private $questions;
 
+    public function __construct($SuperName) {
+        $this->name = $SuperName;
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getSuperName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setSuperName(string $SuperName): self
     {
-        $this->name = $name;
+        $this->name = $SuperName;
 
         return $this;
     }

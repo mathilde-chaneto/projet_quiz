@@ -7,32 +7,22 @@
                 <section class="color-connect">
                     <div class="container-account">
                         <div class="avatar is-flex is-justify-content-center">
-                        <div class="file has-name is-left is-normal">
-                                    <p class="subtitle">Avatar</p>
-                                    
-                                <label class="file-label">
-                                    <input class="file-input" type="file" name="resume">
-                                    <span class="file-cta">
-                                    <span class="file-icon">
-                                        <i class="fas fa-upload"></i>
-                                    </span>
-                                    <span class="file-label">
-                                        Choose a file…
-                                    </span>
-                                </label>
-                            </div>
-                        <figure class="image is-128x128">
-                            {% if app.user %}<img src="/avatar/{{ app.user.image}}" class="is-rounded image is-128x128"/>{% endif %} 
-                        </figure>
+                            <div class="is-left is-normal">
+                            <figure class="image is-128x128">
+                                {% if app.user %}<img src="/avatar/{{ app.user.image}}" class="is-rounded image is-128x128"/>{% endif %} 
+                            </figure>
+                             </div>
                         </div>
 
                         
-                       <form method="POST" action="">
+                       <form method="GET" action="">
                             <div class="field">
                                 <label class="label">Email</label>
                                     <p class="control has-icons-left has-icons-right">
                                         <input class="input" type="email" value="{{ app.user.email}}">
-                                         <button class="button button-edit">EDIT</button>
+                                         
+                                         <button class="button button-validate none">Validate</button>
+                                           <button class="button button-validate none"></button>
                                         <span class="icon is-small is-left">
                                         <i class="fas fa-envelope"></i>
                                         </span>
@@ -47,7 +37,7 @@
                                 <label class="label">Username</label>
                                     <p class="control has-icons-left has-icons-right">
                                         <input class="input" type="text" value="{{ app.user.username}}">
-                                           <button class="button button-edit">EDIT</button>
+                                         
                                         <span class="icon is-small is-left">
                                         <i class="fas fa-envelope"></i>
                                         </span>
@@ -61,27 +51,18 @@
                                 <label class="label">Password</label>
                                     <p class="control has-icons-left">
                                         <input class="input" type="password" value="{{ app.user.password}}">
-                                        <button class="button button-edit">EDIT</button>
+                                       
                                         <span class="icon is-small is-left">
                                         <i class="fas fa-lock"></i>
                                         </span>
                                     </p>
                                     <figure>
-                                       <img src="https://img.icons8.com/nolan/48/visible.png"/>
+                                       <!--<img src="https://img.icons8.com/nolan/48/visible.png"/>-->
                                        </figure>
                                 </div>
-
-                                 <button class="button is-danger">Delete your account</button>
-
-                              <!-- div class="field">
-                                <label class="label">Confirm your password</label>
-                                    <p class="control has-icons-left">
-                                        <input class="input" type="password" placeholder="123efD4">
-                                        <span class="icon is-small is-left">
-                                        <i class="fas fa-lock"></i>
-                                        </span>
-                                    </p>
-                                </div>-->
+                                
+                                <button class="button button-edit"><a href="{{ path('dev-quiz_account-edit', {id: app.user.id}) }}">EDIT</a></button>
+                                 <button class="button is-danger"><a href="{{ path('dev-quiz_account-delete', {id: app.user.id}) }}">Delete your account</a></button>
                         </form>
                     </div>
                 </section>

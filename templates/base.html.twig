@@ -15,6 +15,7 @@
 
         {% block javascripts %}
         <script src="/js/app.js"></script>
+        <script src="/js/submitanswer.js"></script>
             {#{{ encore_entry_script_tags('app') }}#}
         {% endblock %}
     </head>
@@ -58,7 +59,7 @@
                         <a class="navbar-item has-text-centered has-text-white has-text-weight-bold" href="{{ path('dev-quiz_score') }}">
                             SCORE
                         </a>
-                        <a class="navbar-item has-text-centered has-text-white has-text-weight-bold" href="{{ path('dev-quiz_account') }}">
+                        <a class="navbar-item has-text-centered has-text-white has-text-weight-bold" href="{{ path('dev-quiz_account', {id: app.user.id}) }}">
                             ACCOUNT
                         </a>
 
@@ -116,7 +117,7 @@
                         <a class="navbar-item has-text-centered has-text-white has-text-weight-bold" href="{{ path('dev-quiz_score') }}">
                             SCORE
                         </a>
-                        <a class="navbar-item has-text-centered has-text-white has-text-weight-bold" href="{{ path('dev-quiz_account') }}">
+                        <a class="navbar-item has-text-centered has-text-white has-text-weight-bold" href="{{ path('dev-quiz_account', {id: app.user.id}) }}">
                             ACCOUNT
                         </a>
 
