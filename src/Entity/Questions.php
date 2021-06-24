@@ -36,6 +36,11 @@ class Questions
      */
     private $answers;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $infoplus;
+
    
 
     public function __construct()
@@ -98,6 +103,18 @@ class Questions
                 $answer->setQuestions(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getInfoplus(): ?string
+    {
+        return $this->infoplus;
+    }
+
+    public function setInfoplus(?string $infoplus): self
+    {
+        $this->infoplus = $infoplus;
 
         return $this;
     }

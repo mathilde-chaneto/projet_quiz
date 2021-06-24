@@ -21,8 +21,7 @@ class QuestionsRepository extends ServiceEntityRepository
 
     // /**
     //  * @return Questions[] Returns an array of Questions objects
-    // get all question's quiz with quiz id
-    //exemple : if quiz id = 1, fecth questions where quiz_id = 1
+    // get all question's quiz with quiz 
     //  */
     
     public function findByQuiz($id): array

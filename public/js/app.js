@@ -49,17 +49,6 @@ const app = {
     //get button which is being clicked
     let clickedButton = event.target;
 
-    //add class'is-active' when we click on it and disappear when we click again while this class is present
-    clickedButton.classList.toggle('is-active');
-
-    //change button's text color if class 'is-active' exist
-    if (clickedButton.classList.contains('is-active')) {
-      clickedButton.style.color = "white";
-    } else {
-      clickedButton.style.color = "white";
-    }
-
-
     //put in variable the data-id of clickedButton
     let test = clickedButton.dataset.id;
 
@@ -80,19 +69,20 @@ const app = {
         //end of test
 
         sections.style.display = "block";
-        sections.classList.add('is-active');
 
       } else {
 
         sections.style.display = "none";
-        sections.classList.remove('is-active');
+        
       
       }
 
     }
 
-    let formQuiz = document.querySelector('#quiz');
-    formQuiz.addEventListener('submit', submitanswer.checkAnswer);
+    const formQuiz = document.querySelectorAll('#quiz');
+    for(const quiz of formQuiz){
+    quiz.addEventListener('submit', submitanswer.checkAnswer);
+    }
   },
   
 

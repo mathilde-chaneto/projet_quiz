@@ -240,6 +240,9 @@ max-width: 50%;
     margin-left: 2rem;
 }
 
+.button.is-danger > a, .button.is-danger > a:hover{
+    color: white;
+}
 
 
 
@@ -255,12 +258,21 @@ max-width: 50%;
     margin-top: 4rem;
 }
 
+.quiz.media-quiz {
+    display: flex;
+    flex-direction: column;
+}
+
 .media-quiz .content figure:nth-child(1){
     margin: 2rem;
 }
 
 .button-orange-questions, .button-orange-next {
     margin: 1rem;
+}
+
+.button-edit > a, .button >a:hover {
+    color:  white;
 }
 
 .button-orange-questions, .button-edit, .button-orange-next {
@@ -319,6 +331,8 @@ footer
 .hero-footer .content p a {
     color: wheat;
 }
+
+
 /*
 modify the behavior of few classes for responsive
 */

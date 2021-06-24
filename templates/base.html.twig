@@ -53,13 +53,13 @@
                             HOME
                         </a>
                         {% if app.user %}
-                        <a class="navbar-item has-text-centered has-text-white has-text-weight-bold" href="{{ path('dev-quiz_quiz') }}">
+                        <a class="navbar-item has-text-centered has-text-white has-text-weight-bold" href="{{ path('dev-quiz_quiz', {'id': app.user.id}) }}">
                             QUIZ
                         </a>
-                        <a class="navbar-item has-text-centered has-text-white has-text-weight-bold" href="{{ path('dev-quiz_score') }}">
+                        <a class="navbar-item has-text-centered has-text-white has-text-weight-bold" href="{{ path('dev-quiz_score', {'id': app.user.id}) }}">
                             SCORE
                         </a>
-                        <a class="navbar-item has-text-centered has-text-white has-text-weight-bold" href="{{ path('dev-quiz_account', {id: app.user.id}) }}">
+                        <a class="navbar-item has-text-centered has-text-white has-text-weight-bold" href="{{ path('dev-quiz_account', {'id': app.user.id}) }}">
                             ACCOUNT
                         </a>
 
@@ -111,13 +111,13 @@
                             </a>
 
                             {% if app.user %}
-                        <a class="navbar-item has-text-centered has-text-white has-text-weight-bold" href="{{ path('dev-quiz_quiz') }}">
+                        <a class="navbar-item has-text-centered has-text-white has-text-weight-bold" href="{{ path('dev-quiz_quiz', {'id': app.user.id}) }}">
                             QUIZ
                         </a>
-                        <a class="navbar-item has-text-centered has-text-white has-text-weight-bold" href="{{ path('dev-quiz_score') }}">
+                        <a class="navbar-item has-text-centered has-text-white has-text-weight-bold" href="{{ path('dev-quiz_score', {'id': app.user.id}) }}">
                             SCORE
                         </a>
-                        <a class="navbar-item has-text-centered has-text-white has-text-weight-bold" href="{{ path('dev-quiz_account', {id: app.user.id}) }}">
+                        <a class="navbar-item has-text-centered has-text-white has-text-weight-bold" href="{{ path('dev-quiz_account', {'id': app.user.id}) }}">
                             ACCOUNT
                         </a>
 

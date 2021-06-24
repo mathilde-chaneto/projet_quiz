@@ -11,7 +11,7 @@
                                      <h3 class="title">
                                         Score :
                                     </h3>
-                                        <span>{{dump(player)}}</span>
+                                        <span>{{player.id}}</span>
                                             <progress class="progress" value="" max="100"></progress>
                                     </div>
                         </article>
@@ -32,8 +32,8 @@
                                 <div class="content figure is-flex is-flex-direction-row is-flex-wrap-wrap">
                                     {% for name in quiz %}     
                                         <figure class="image is-128x128">
-                                            <img src="https://bulma.io/images/placeholders/128x128.png">
-                                           <p class="subtitle">{{name.name}}</p>
+                                             <img src="/icones/{{name.icone}}">
+                                           <p class="subtitle" data-id="{{name.id}}">{{name.name}}</p>
                                         </figure>
                                      {% endfor %}
                                 </div>
@@ -47,6 +47,7 @@
              <footer class="hero-footer">
                 <div class="content">
                     <p class="has-text-centered"><a href="{{ path('dev-quiz_contact') }}" class="has-text-white">Contact</a></p>
+                    
 
                 </div>
 

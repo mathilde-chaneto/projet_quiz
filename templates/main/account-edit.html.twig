@@ -8,22 +8,12 @@
                     <div class="container-account">
                         <div class="avatar is-flex is-justify-content-center">
                         <div class="file has-name is-left is-normal">
-                                    <p class="subtitle">Avatar</p>
-                                    
-                                <label class="file-label">
-                                    <input class="file-input" type="file" name="resume">
-                                    <span class="file-cta">
-                                    <span class="file-icon">
-                                        <i class="fas fa-upload"></i>
-                                    </span>
-                                    <span class="file-label">
-                                        Choose a file…
-                                    </span>
-                                </label>
+                               <figure class="image is-128x128">
+                                    {% if app.user %}<img src="/avatar/{{ app.user.image}}" class="is-rounded image is-128x128"/>{% endif %} 
+                                </figure>
+                               
                             </div>
-                        <figure class="image is-128x128">
-                            {% if app.user %}<img src="/avatar/{{ app.user.image}}" class="is-rounded image is-128x128"/>{% endif %} 
-                        </figure>
+                     
                         </div>
 
                         {{form_start(form)}}                           
@@ -49,7 +39,7 @@
 
             <footer class="hero-footer">
                 <div class="content">
-                    <p class="has-text-centered"><a href="{{ path('dev-quiz_contact') }}" class="has-text-white">Contact</a></p>
+                    <p class="has-text-centered"><a href="{{ path('dev-quiz_contact') }}">Contact</a></p>
 
                 </div>
 

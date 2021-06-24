@@ -22,19 +22,17 @@ class QuizRepository extends ServiceEntityRepository
     // /**
     //  * @return Quiz[] Returns an array of Quiz objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function findByUser($user)
     {
         return $this->createQueryBuilder('q')
-            ->andWhere('q.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('q.user = :id')
+            ->setParameter('id', $user)
             ->orderBy('q.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Quiz

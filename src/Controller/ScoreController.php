@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Play;
+use App\Entity\User;
 use App\Repository\PlayRepository;
 use App\Repository\UserRepository;
 use App\Repository\QuizRepository;
@@ -16,14 +18,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class ScoreController extends AbstractController
 {
       /**
-     * @Route("/score", name="score")
+     * @Route("/score/{id}", name="score", requirements={"id": "\d+"})
      */
-    public function score(PlayRepository $play, QuizRepository $quiz, UserRepository $user): Response
+    public function score(PlayRepository $play, QuizRepository $quiz, UserRepository $userRepo, User $user, $id): Response
     {
         return $this->render('main/score.html.twig', [
-            "player" => $play->findAll(),
+            "player" => $play->findByUser($id),
             "quiz" => $quiz->findAll(),
-            "user" => $user->findAll(),
+            "user" => $userRepo->findByUser($id),
         ]);
     }
 

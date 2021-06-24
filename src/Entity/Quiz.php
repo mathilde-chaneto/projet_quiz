@@ -45,6 +45,11 @@ class Quiz
      */
     private $questions;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $icone;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -164,6 +169,18 @@ class Quiz
                 $question->setQuiz(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIcone(): ?string
+    {
+        return $this->icone;
+    }
+
+    public function setIcone(?string $icone): self
+    {
+        $this->icone= $icone;
 
         return $this;
     }
