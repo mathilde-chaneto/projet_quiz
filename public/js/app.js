@@ -55,6 +55,7 @@ const app = {
     // this variable contains specific element : section html which have as class : 'questions' 
     const sectionQuestion = document.querySelectorAll('section.questions');
 
+
     //like sectionQuestion is an array, I must do a loop with condition.
     //if their value of dataset.id is matching so, let appear the block, if not, hide him.
     for (const sections of sectionQuestion) {
@@ -73,8 +74,7 @@ const app = {
       } else {
 
         sections.style.display = "none";
-        
-      
+
       }
 
     }

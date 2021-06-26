@@ -39,10 +39,7 @@ class AccountController extends AbstractController
      */
     public function edit(User $user, Request $request, UserPasswordEncoderInterface $encoder, MailerInterface $mailer): Response
     {
-        //dd($user->getImage() );
-        //$test = 'avatar/'.$user->getImage() ;
-        //dd($test);
-    
+        
         $form = $this->createForm(AccountType::class, $user);
 
         $form->handleRequest($request);
@@ -51,56 +48,71 @@ class AccountController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $imageFile = $form->get('image')->getData(); 
-            $pasword =  $form->get('password')->getData(); 
+            $password =  $form->get('password')->getData(); 
+            $encodePass = $encoder->encodePassword($user, $password);
+       
             $email =  $form->get('email')->getData();
             $username =  $form->get('username')->getData();  
+
+            //dd($imageFile), in this case it's null;
+            //dd($email) show email;
+           // dd($username) show username;
+        
             
-            if($imageFile == null){
-
-                $user->setImage($user->getImage());  
-
-            }else if ($imageFile != null) {
+            if ($imageFile != null) {
                 
                 $newFileName = uniqid() . '.' . $imageFile->guessClientExtension();
 
           
                 $imageFile->move('avatar', $newFileName);
-    
+
+
+                //dd($user->setImage($newFileName)) show the new name of $newFileName;
 
                 $user->setImage($newFileName);
-    
-            
-            }else if($pasword == null){
+            } 
 
-                $user->setPassword($user->getPassword());
-            
-            }else if ($pasword != null){
+            if ($imageFile == null) {
 
-                $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
-
-            }else if ($email == null){
-
-                $user->setEmail($user->getEmail());
-
-            }else if ($email != null){
-
-                $user->setEmail($form->get('email')->getData());
-
-            }else if ($username == null){
-
-                $user->setUsername($user->getUsername());
-
-            }else if ($username != null){
-
-                $user->setUsername($form->get('username')->getData());
+                //dd($user->setImage('icons8-utilisateur-48.png')) if the field is null, put a default image;
+                //next feature : get the previous image of user
+                
+                $user->setImage('icons8-utilisateur-48.png');
 
             }
 
+            if ($password != null){
+
+                //dd($password);
+
+                //dd($user->getPassword());
+
+                 $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
+
+                //dd($user->setPassword($encodePass)) show this user object and we can show the encode password;
+
+              
+
+            }
+
+            if ($email != null){
+
+                $user->setEmail($email);
+
+
+            }
             
-            $this->getDoctrine()->getManager()->flush();
+            if ($username != null){
+
+                $user->setUsername($username);
+
+            }
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
 
             $email = (new Email())
-            ->from('dev.quiz.systeme@gmail.com')
+            ->from('sysadmin@devquiz.fr')
             ->to($user->getEmail())
             ->subject('Your user ID')
             ->html('<p>Here, there is your User Id : </p><p>Email: '.$user->getEmail().'</p><p>Username : ' . $user->getusername().'</p>');

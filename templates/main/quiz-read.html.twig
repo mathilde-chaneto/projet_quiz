@@ -42,7 +42,7 @@
     </div>
 
  
-</article></div></section>{% for key, question in arrayQuestionsAnswer %}<section class="color-quiz questions none" data-id="{{ question.questionId }}" data-step=" {{ key + 1 }}">
+</article></div></section>{% for key, question in arrayQuestionsAnswer %}<section class="color-quiz questions none" data-id="{{ question.questionId }}" data-step="{{ key + 1 }}">
 <div class="container">
     <article class="quiz media-quiz columns is-multiline is-mobile is-two-thirds-tablet is-desktop">
         <div class="content column">
@@ -58,7 +58,7 @@
                 {% for answer in question.answers %}
         
                     <label class="{{typeInput}} column">
-                        <input type="{{typeInput}}" name="type" value=" {{ answer.answerName }}" data-id="{{ answer.answerId }}" data-name="type">
+                        <input type="{{typeInput}}" name="type" value=" {{ answer.answerName }}" data-id="{{ answer.answerId }}">
                             {{ answer.answerName }}
                         </label>
 
@@ -80,7 +80,7 @@
                     </div>
             </form>                                            
         </div>
-        <div class="content column answer-content none">
+        <div class="content column answer-content none" data-id="{{ question.questionId }}">
                                                                     <p class="subtitle"></p>
                     
                                                                     <h4 class="title">INFO +</h4>
@@ -89,7 +89,7 @@
                                                                     </p>
         </div>
 
-        <div class="warning content column none">
+        <div class="warning content column none" data-id="{{ question.questionId }}">
            <p class="subtitle no-answer"> No answer is selected </p>
         </div>
         </article>

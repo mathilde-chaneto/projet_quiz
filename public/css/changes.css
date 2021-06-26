@@ -160,6 +160,18 @@ label {
 .article-left figure, .article-right figure {
     margin: 2rem;
 }
+
+.content li, .content p {
+    font-size: 1.5rem;;
+}
+
+.content ul {
+    margin-top: 3rem;
+}
+
+.content ul li {
+    margin-bottom: 1.5rem;
+}
 /*end of homepage*/
 
 
@@ -330,6 +342,10 @@ footer
 
 .hero-footer .content p a {
     color: wheat;
+}
+
+.hero-footer .content p {
+    margin-bottom: 0;
 }
 
 

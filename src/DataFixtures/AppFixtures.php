@@ -23,6 +23,6 @@ class AppFixtures extends Fixture
         //enregistre
         $manager->flush();
 
-        $manager->flush();
+     
     }
 }
