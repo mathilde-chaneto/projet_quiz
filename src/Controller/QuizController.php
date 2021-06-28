@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
+
 /**
      * @Route("/", name="dev-quiz_")
      */
@@ -270,6 +271,7 @@ class QuizController extends AbstractController
             'arrayQuestionsAnswer' => $arrayQuestionsAnswer,
             "quiz" => $quiz,
             "typeInput" => $typeInput,
+        
 
         ]);
     }

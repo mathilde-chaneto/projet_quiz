@@ -6,6 +6,7 @@ use App\Repository\AnswerRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+
 /**
  * @ORM\Entity(repositoryClass=AnswerRepository::class)
  */
@@ -15,19 +16,22 @@ class Answer
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"answer_list"})
+     * @Groups({"detail_info"})
+     * @Groups({"user_info"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
+     * 
      */
     private $name;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"answer_list"})
+     * @Groups({"detail_info"})
+     * @Groups({"user_info"})
      */
     private $is_correct;
 
@@ -48,7 +52,8 @@ class Answer
 
    /**
     * 
-    @Groups({"answer_list"})
+    *@Groups({"detail_info"})
+    *@Groups({"user_info"})
     */
     public function getSuperName(): ?string
     {
@@ -85,4 +90,6 @@ class Answer
 
         return $this;
     }
+
+
 }

@@ -6,6 +6,7 @@ use App\Repository\QuestionsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=QuestionsRepository::class)
@@ -16,11 +17,16 @@ class Questions
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"detail_info"})
+     * @Groups({"user_info"})
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"detail_info"})
+     * @Groups({"user_info"})
      */
     private $title;
 
@@ -38,6 +44,8 @@ class Questions
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"detail_info"})
+     * @Groups({"user_info"})
      */
     private $infoplus;
 
@@ -117,6 +125,25 @@ class Questions
         $this->infoplus = $infoplus;
 
         return $this;
+    }
+
+    /**
+     * @Groups({"detail_info"})
+     * @Groups({"user_info"})
+     */
+    public function getAnswerId() {
+        $answersArray = [];
+      
+        foreach($this->answers as $answerId){
+
+            if ($answerId instanceof Answer){
+
+               $answersArray[] = $answerId;
+           
+            } 
+        
+        }
+        return $answersArray;
     }
 
 }

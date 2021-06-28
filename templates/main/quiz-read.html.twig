@@ -15,7 +15,10 @@
                     <h3 class="title">
                         {{ quiz.name }}
                     </h3>
-    </div>
+    </div> 
+
+
+   
 </article></div></section>
 
 <section class="color-quiz"><div class="container">
@@ -46,7 +49,7 @@
 <div class="container">
     <article class="quiz media-quiz columns is-multiline is-mobile is-two-thirds-tablet is-desktop">
         <div class="content column">
-            <form method="POST" action="" id="quiz">
+            <form method="POST" action="" id="quiz" data-step="{{ key + 1 }}">
                 <h3 class="title">
                     Question n° 
                     {{ key + 1 }}
@@ -58,7 +61,7 @@
                 {% for answer in question.answers %}
         
                     <label class="{{typeInput}} column">
-                        <input type="{{typeInput}}" name="type" value=" {{ answer.answerName }}" data-id="{{ answer.answerId }}">
+                        <input type="{{typeInput}}" name="type" value=" {{ answer.answerName }}" data-id="{{ answer.answerId }}" data-step="{{ key + 1 }}" data-question ="{{ question.questionId }}">
                             {{ answer.answerName }}
                         </label>
 
@@ -68,7 +71,7 @@
 
                     <div class="field">
                         <p class="control validate">
-                            <button class="button button-green" name="send" type="submit">
+                            <button class="button button-green" name="send" type="submit" data-step="{{ key + 1 }}">
                                 Validate
                             </button>
                         </p>
@@ -80,16 +83,17 @@
                     </div>
             </form>                                            
         </div>
-        <div class="content column answer-content none" data-id="{{ question.questionId }}">
-                                                                    <p class="subtitle"></p>
-                    
+        <span class="subtitle score">Score: </span>
+        
+        <div class="content column answer-content none" data-step="{{ key + 1 }}">
+    <p class="subtitle result-answer"></p>
                                                                     <h4 class="title">INFO +</h4>
                                                                     <p>
                                                                     {{question.questionInfoplus}}
                                                                     </p>
         </div>
 
-        <div class="warning content column none" data-id="{{ question.questionId }}">
+        <div class="warning content column none" data-step="{{ key + 1 }}">
            <p class="subtitle no-answer"> No answer is selected </p>
         </div>
         </article>
@@ -99,9 +103,5 @@
 
 <footer class="hero-footer">
 <div class="content">
-    <p class="has-text-centered">
-        <a href="{{ path('dev-quiz_contact') }}">Contact</a></p> 
-            
-        </a>
-    </p>
+    <p class="has-text-centered"><a href="{{ path('dev-quiz_contact') }}">Contact</a></p> 
 </div></footer></div></section>{% endblock %}
