@@ -2,9 +2,13 @@
 
 {% block title %} {{ parent() }} {% endblock %}
 
+{% block javascripts %}
+<script src="/js/user.js"></script>
+{% endblock %}
+
 {% block body %} {{ parent() }}
 
-                <section class="color-quiz">
+                <section class="color-quiz main-quiz">
                     <div class="container">
                         <article class="media-quiz columns is-multiline is-mobile is-two-thirds-tablet is-desktop">
                                     <div class="content column">
@@ -40,7 +44,7 @@
                                 <div class="content is-flex is-flex-direction-row is-flex-wrap-wrap">
                                            {% for listQuiz in quiz %}     
                                         <figure class="image is-128x128">
-                                            <img src="/icones/{{listQuiz.icone}}">
+                                            <img src="/icones/{{listQuiz.icone}}" alt="">
                                             <p><a href="{{path('dev-quiz_quiz-read', {'id' : listQuiz.id}) }}">{{listQuiz.name}}</a></p>
                                         </figure>
                                         {% endfor %}

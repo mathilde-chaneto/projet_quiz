@@ -19,12 +19,13 @@ class User implements UserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({"user_info"})
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"user_info"})
+     * 
      */
     private $email;
 
@@ -67,12 +68,17 @@ class User implements UserInterface
         $this->plays = new ArrayCollection();
     }
 
+    /**
+     * @Groups({"user_info"})
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-
+    /**
+     * 
+     */
     public function getEmail(): ?string
     {
         return $this->email;

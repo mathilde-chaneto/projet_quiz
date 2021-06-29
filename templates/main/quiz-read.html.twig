@@ -4,6 +4,11 @@
     {{ parent() }}
 {% endblock %}
 
+{% block javascripts %}
+<script src="/js/quiz.js"></script>
+<script src="/js/submitanswer.js"></script>
+{% endblock %}
+
 {% block body %}
     {{ parent() }}
 
@@ -49,7 +54,7 @@
 <div class="container">
     <article class="quiz media-quiz columns is-multiline is-mobile is-two-thirds-tablet is-desktop">
         <div class="content column">
-            <form method="POST" action="" id="quiz" data-step="{{ key + 1 }}">
+            <form method="POST" action="" class="form" data-step="{{ key + 1 }}">
                 <h3 class="title">
                     Question n° 
                     {{ key + 1 }}

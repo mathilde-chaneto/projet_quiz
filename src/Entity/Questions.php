@@ -18,7 +18,7 @@ class Questions
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({"detail_info"})
-     * @Groups({"user_info"})
+     * 
      * 
      */
     private $id;
@@ -26,7 +26,7 @@ class Questions
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"detail_info"})
-     * @Groups({"user_info"})
+     * )
      */
     private $title;
 
@@ -45,7 +45,7 @@ class Questions
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups({"detail_info"})
-     * @Groups({"user_info"})
+     * 
      */
     private $infoplus;
 
@@ -129,7 +129,7 @@ class Questions
 
     /**
      * @Groups({"detail_info"})
-     * @Groups({"user_info"})
+     * 
      */
     public function getAnswerId() {
         $answersArray = [];

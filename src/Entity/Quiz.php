@@ -17,13 +17,13 @@ class Quiz
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user_info"})
+     * @Groups({"quiz_info"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Groups({"user_info"})
+     * @Groups({"quiz_info"})
      */
     private $name;
 
@@ -55,8 +55,7 @@ class Quiz
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
-        $this->categories = new ArrayCollection();
+        $this->user = new ArrayCollection();
         $this->plays = new ArrayCollection();
         $this->category = new ArrayCollection();
         $this->questions = new ArrayCollection();
@@ -110,14 +109,26 @@ class Quiz
         return $this;
     }
 
-    public function getUser(): ?User
+   /**
+     * @return Collection|User[]
+     */
+    public function getUser(): Collection
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function addUser(User $user): self
     {
-        $this->user = $user;
+        if (!$this->user->contains($user)) {
+            $this->user[] = $user;
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        $this->user->removeElement($user);
 
         return $this;
     }
@@ -186,24 +197,6 @@ class Quiz
         $this->icone= $icone;
 
         return $this;
-    }
-
-     /**
-     * @Groups({"user_info"})
-     */
-    public function getUserId() {
-        $userArray = [];
-      
-        foreach($this->user as $userId){
-
-            if ($userId instanceof User){
-
-               $UserArray[] = $userId;
-           
-            } 
-        
-        }
-        return $userArray;
     }
 
 }

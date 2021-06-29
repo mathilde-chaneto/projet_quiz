@@ -17,7 +17,7 @@ class Answer
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({"detail_info"})
-     * @Groups({"user_info"})
+     * 
      */
     private $id;
 
@@ -31,7 +31,7 @@ class Answer
     /**
      * @ORM\Column(type="boolean")
      * @Groups({"detail_info"})
-     * @Groups({"user_info"})
+     * 
      */
     private $is_correct;
 
@@ -53,7 +53,7 @@ class Answer
    /**
     * 
     *@Groups({"detail_info"})
-    *@Groups({"user_info"})
+    *
     */
     public function getSuperName(): ?string
     {

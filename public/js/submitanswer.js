@@ -1,26 +1,69 @@
 const submitanswer = {
 
     checkAnswer: function(event) {
+        // start traitment of form
 
-       // avoid the reload of page
+       /*   - avoid the reload of page
+            - get the click in the submit
+            - get the data-step of form
+    
+        ------launch jax request to get infos about user
+            - select all div with class : 'answer-content' (show info+)
+            - select all div with class : 'warning' (show message: 'no answer is selected')
+            - select all sections with class : 'questions'
+            - browse section array, get their dataset id, add condition :
+            - if section has display block and if her dataset step of section match with dataset step of form :
+              select all radio button with name : 'type'
+              browse all div.answer-content and div.warning
+              get their dataset step
+            - another condition : if their dataset step match with the dataset step of form :
+              show div.warning
+            - browse radio buttons array
+            - define :
+              dataset step of radio button (id of step in form),  
+              dataset questions (id of questions is bound) 
+              dataset id (to identify id of answer in bdd)
+            - condition : if radiobutton is not null (if it's selected) and their dataset step match with form data step.
+
+        ------it is :  
+              launch ajax request 
+              define fetch options (methode http : 'post')
+              give the url, id of questions (dataset questions) and fetch option to get infos about questions and answer
+              get json data, save it in variable
+              in another variable, define the array to browse
+              browse this array and get porperty 'id'
+              check if these id match with dataset id radio button 
+              it is :
+              get the property 'is_Correct' in  isCorrect
+              select all div with class : 'score'
+              check if value of iscorrect is true : 
+              it is :
+              increment score
+              add  score in div.score
+              add text in div.result-answer : "bonne réponse !"
+              it is not :
+              add  score in div.score
+              add text in div.result-answer : "Dommage, mauvaise réponse"
+
+
+            --if dataset step of div.warnig and div.answer-content check with dataset step of form :
+              show div.answer-content
+              hide div.warning
+
+            --it is not :
+              hide div.answer-content
+              show div.warning 
+
+
+
+       */
         event.preventDefault();
 
-         // get the click in the submit
+ 
         let submitTarget = event.target;
-    
 
-        //get the data-step of form
         let stepValidate = submitTarget.dataset.step;
 
-        const urlCurrent = window.location.href;
-
-        const partUrl = urlCurrent.split('/');
-
-        const idURL = partUrl[4];
-    
-        console.log(idURL);
-  
-       
 
         const displayInfo = document.querySelectorAll('div.answer-content');
  
@@ -33,25 +76,11 @@ const submitanswer = {
         
 
 
-      
-
-       
-        
-        
-
-        //browse all sections
             for(const section of sectionQuestion){
-                //get their data step
+          
                 const keyStep = section.dataset.step;
 
-                // if it's display block and data step of section and form match
-                //browse all div info and no info, get their data step
                 if(section.style.display == "block" && keyStep == stepValidate){
-                  
-                    //console.log
-                    console.log(stepValidate);
-                    console.log(keyStep);
-                    console.log("premier check : ça correspond");
 
                     let checkedRadio = document.querySelectorAll('input[name="type"]:checked');
 
@@ -65,9 +94,7 @@ const submitanswer = {
                             
                             if(infoStep == stepValidate && noInfoStep == stepValidate){
                                 noInfo.classList.remove('none');
-                            //browse all radiobutton
-                            // for each of them, check if radiobutton is not null and their dsta step matchs with form data step
-                            // if it is, get their data step,check if info and no info macth with form
+
                            for(const radio of checkedRadio){
                                
                                let radioStep = radio.dataset.step;
@@ -77,9 +104,6 @@ const submitanswer = {
                                
                                 if(radio != null && radioStep == stepValidate) {
                                 
-                                    
-
-                                      //to access info about questions and answers
                                         let fetchOptions = {
                                             
                                             method: 'POST',
@@ -104,18 +128,14 @@ const submitanswer = {
 
                                                         const quest = jsonResponse;
                                                         const answerArray = quest.answerId;
-                                                        console.log(quest); 
                                                    
                                                         for(const testAanswer in answerArray){
 
                                                             let getId = answerArray[testAanswer].id;
-                                                            
-
-                                                           
 
                                                             if(answerId == getId){
                                                                 let isCorrect = answerArray[testAanswer].is_correct;
-                                                                console.log(isCorrect);
+ 
                                                                 
                                                                 scoreDom = document.querySelectorAll('.score');
 
@@ -123,7 +143,7 @@ const submitanswer = {
                                                                 if(isCorrect == true){
                                                                   
                                                                    score++;
-                                                                   console.log("Bonne réponse !");
+                                                                   
                                                                    scoreDom.innerHTML = score;
 
                                                                    for (const displayScore of scoreDom) {
@@ -134,7 +154,7 @@ const submitanswer = {
                                                                     displayAnswer.innerText = "Bonne réponse !" ;
                                                                  }
 
-                                                                   console.log("score" + score);
+                                                               
                                                              
                                                                 }else {
                                                                     score;
@@ -143,8 +163,7 @@ const submitanswer = {
                                                                     for (const displayAnswer of resultDom) {
                                                                         displayAnswer.innerText = "Dommage, mauvaise réponse" ;
                                                                      }
-                                                                    console.log("score" + score);
-                                                                    console.log("Dommage, mauvaise réponse ");
+                                                                    
                                                                 }
                                                             }
 
@@ -152,25 +171,22 @@ const submitanswer = {
                                                             
                                                         }
                                                      
-
+                                                        const userScore = {
+                                                            points : score,
+                                                        }
+                                                        const data = JSON.stringify(userScore);
+                                                        console.log(data);
                                                     }
                                                 )
 
-                                               
-
-
                                                 if(infoStep == stepValidate && noInfoStep == stepValidate){
 
-                                                        console.log("ça match !");
                                                         noInfo.classList.add('none');
                                                         info.classList.remove('none');
                                                     
-                                                     
-                                                        console.log('radio is selected');
                                                 }
 
-
-                                }else {
+                                }else{
                                  
                                             if(infoStep == stepValidate && noInfoStep == stepValidate){
                                             
@@ -179,13 +195,10 @@ const submitanswer = {
                                                
                                             }
                             
-                                 }
+                                    }
                                
-                           
                                 
                                 }
-
-                            
                              
 
                             }
@@ -202,8 +215,7 @@ const submitanswer = {
             }
         
     },
-     
-
+    
 }
 
 
