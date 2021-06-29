@@ -17,13 +17,13 @@ class Quiz
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"quiz_info"})
+     * @Groups({"user_info"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Groups({"quiz_info"})
+     * @Groups({"user_info"})
      */
     private $name;
 

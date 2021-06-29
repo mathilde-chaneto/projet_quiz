@@ -42,8 +42,7 @@ security:
     access_control:
    
          - { path: ^/info/questions/\d+$, roles: ROLE_USER }
-         - { path: ^/info/user/\d+$,roles: ROLE_USER }
-         - { path: ^/info/\d+$,roles: ROLE_USER }
+         - { path: ^/info$,method: ["POST"],roles: ROLE_USER }
          - { path: ^/account/\d+$, roles: ROLE_USER }
          - { path: ^/quiz/\d+$, roles: ROLE_USER }
          - { path: ^/create/quiz$, roles: ROLE_USER }

@@ -91,14 +91,11 @@ class AccountController extends AbstractController
 
                 //dd($user->setPassword($encodePass)) show this user object and we can show the encode password;
 
-              
-
             }
 
             if ($email != null){
 
                 $user->setEmail($email);
-
 
             }
             

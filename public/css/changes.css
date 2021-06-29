@@ -118,6 +118,8 @@ a.button.is-info {
     max-width: 40%;
     margin: auto;
 }
+
+
 /*end container*/
 
 .title {
@@ -328,6 +330,16 @@ max-width: 50%;
     margin-bottom: 5rem;
 }
 
+.progres {
+    margin-bottom: 0;
+    height: 1rem;
+    width: auto;
+    border-radius: 2rem;
+    background-color: cornflowerblue;
+}
+
+
+
 
 /*
 footer
@@ -379,6 +391,9 @@ modify the behavior of few classes for responsive
 
     .content.figure {
         justify-content: center;
+        align-items: center;
+        margin: auto;
+        width: auto;
     }
 }
 

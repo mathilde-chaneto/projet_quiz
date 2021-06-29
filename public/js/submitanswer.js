@@ -64,6 +64,7 @@ const submitanswer = {
 
         let stepValidate = submitTarget.dataset.step;
 
+        
 
         const displayInfo = document.querySelectorAll('div.answer-content');
  
@@ -73,9 +74,7 @@ const submitanswer = {
 
         const sectionQuestion = document.querySelectorAll('section.questions');
 
-        
-
-
+    
             for(const section of sectionQuestion){
           
                 const keyStep = section.dataset.step;
@@ -125,6 +124,7 @@ const submitanswer = {
 
                                                 .then(
                                                     function(jsonResponse) {
+                                                        //console.log(jsonResponse);
 
                                                         const quest = jsonResponse;
                                                         const answerArray = quest.answerId;
@@ -139,10 +139,46 @@ const submitanswer = {
                                                                 
                                                                 scoreDom = document.querySelectorAll('.score');
 
-                                                                
+                                                                // part to check if it's correct answer or not
                                                                 if(isCorrect == true){
+
+                                                                     score++;  
                                                                   
-                                                                   score++;
+                                                                     if(!submitTarget.dataset.clicked) {
+                                                                       
+                                                                        submitTarget.dataset.clicked = true;
+
+                                                                        console.log('1er click');
+
+
+                                                                    } else {
+
+                                                                        score--;
+                                                                        console.log('deja clické !');
+
+                                                                        return score;
+                                                                        
+                                                                    }
+                                                                     // condition to limit the score on the active question
+                                                                  
+                                                                       
+                                                                    
+
+                                                                    var http = new XMLHttpRequest();
+                                                                    var url = 'http://localhost:8000/info';
+                                                                    var params = 'score='+ score;
+                                                                    http.open('POST', url, true);
+                                            
+                                                                    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                                            
+                                                                    //Call a function when the state changes.
+                                                                    http.onreadystatechange = function() {
+                                                                        if(http.readyState == 4 && http.status == 200) {
+                                                                            console.log(score);
+                                                                        }
+                                                                    }
+                                                                    http.send(params);
+                                                    
                                                                    
                                                                    scoreDom.innerHTML = score;
 
@@ -153,6 +189,8 @@ const submitanswer = {
                                                                   for (const displayAnswer of resultDom) {
                                                                     displayAnswer.innerText = "Bonne réponse !" ;
                                                                  }
+
+                                                                
 
                                                                
                                                              
@@ -171,11 +209,7 @@ const submitanswer = {
                                                             
                                                         }
                                                      
-                                                        const userScore = {
-                                                            points : score,
-                                                        }
-                                                        const data = JSON.stringify(userScore);
-                                                        console.log(data);
+                                                       
                                                     }
                                                 )
 
@@ -207,13 +241,16 @@ const submitanswer = {
                             
                             
                         }
+
+                        
     
                     }
         
                 }
-                
+
             }
-        
+
+                     
     },
     
 }

@@ -23,11 +23,11 @@ class PlayRepository extends ServiceEntityRepository
     //  * @return Play[] Returns an array of Play objects
     //  */
     
-    public function findByUser($id)
+    public function findByQuiz($quiz)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.id = :id')
-            ->setParameter('id', $id)
+            ->andWhere('p.quiz = :id')
+            ->setParameter('id', $quiz)
             ->orderBy('p.id', 'ASC')
             ->getQuery()
             ->getResult()

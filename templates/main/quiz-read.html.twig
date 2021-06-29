@@ -20,6 +20,8 @@
                     <h3 class="title">
                         {{ quiz.name }}
                     </h3>
+                <span id="user" class="hidden">{{ userId }}</span>
+                
     </div> 
 
 
@@ -76,7 +78,7 @@
 
                     <div class="field">
                         <p class="control validate">
-                            <button class="button button-green" name="send" type="submit" data-step="{{ key + 1 }}">
+                            <button class="button button-green" name="send" type="submit" data-step="{{ key + 1 }}" data-clicked= >
                                 Validate
                             </button>
                         </p>

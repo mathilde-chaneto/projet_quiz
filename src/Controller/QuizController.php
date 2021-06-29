@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 
@@ -29,10 +30,14 @@ class QuizController extends AbstractController
     /**
      * @Route("/user/{id}/quiz", name="quiz", requirements={"id": "\d+"})
      */
-    public function quiz(User $user, QuizRepository $quizRepo): Response
+    public function quiz(User $user, QuizRepository $quizRepo, SessionInterface $session): Response
     {
         //get this user
         $thisUser = $this->getUser();
+
+        //get id of user in session
+        $sessionId = $session->set('user_id', $user->getId());
+   
 
         //check if quiz object is bound to this user exist. If it dosen't, create quiz
         if(!$quizRepo->findByUser($thisUser)){
@@ -82,9 +87,9 @@ class QuizController extends AbstractController
     /**
      * @Route("/quiz/{id}", name="quiz-read", requirements={"id": "\d+"})
      */
-    public function read(Quiz $quiz, QuestionsRepository $questionsRepo, AnswerRepository $answerRepo, Request $request): Response
+    public function read(Quiz $quiz, QuestionsRepository $questionsRepo, AnswerRepository $answerRepo, Request $request, SessionInterface $session): Response
     {
-       
+        $sessionGetId = $session->get('user_id');
 
         $questions = [
             
@@ -268,9 +273,10 @@ class QuizController extends AbstractController
      
 
         return $this->render('main/quiz-read.html.twig', [
-            'arrayQuestionsAnswer' => $arrayQuestionsAnswer,
+            "arrayQuestionsAnswer" => $arrayQuestionsAnswer,
             "quiz" => $quiz,
             "typeInput" => $typeInput,
+            "userId" => $sessionGetId,
         
 
         ]);

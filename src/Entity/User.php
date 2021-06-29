@@ -64,7 +64,6 @@ class User implements UserInterface
     public function __construct()
     {
         $this->quiz = new ArrayCollection();
-        $this->quizzes = new ArrayCollection();
         $this->plays = new ArrayCollection();
     }
 
@@ -239,6 +238,26 @@ class User implements UserInterface
 
         return $this;
     }
+
+ /**
+     * @Groups({"user_info"})
+     * 
+     */
+    public function getQuizId() {
+        $quizArray = [];
+      
+        foreach($this->quiz as $quizId){
+
+            if ($quizId instanceof Quiz){
+
+               $quizArray[] = $quizId;
+           
+            } 
+        
+        }
+        return $quizArray;
+    }
+
 
    
 }

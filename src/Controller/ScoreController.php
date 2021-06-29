@@ -20,12 +20,12 @@ class ScoreController extends AbstractController
       /**
      * @Route("/score/{id}", name="score", requirements={"id": "\d+"})
      */
-    public function score(PlayRepository $play, QuizRepository $quiz, UserRepository $userRepo, User $user, $id): Response
+    public function score(PlayRepository $play, QuizRepository $quiz, UserRepository $userRepo, User $user): Response
     {
         return $this->render('main/score.html.twig', [
-            "player" => $play->findByUser($id),
-            "quiz" => $quiz->findAll(),
-            "user" => $userRepo->findByUser($id),
+            "player" => $play->findByUser($user),
+            "quiz" => $quiz->findByUser($user),
+            "user" => $user,
         ]);
     }
 
