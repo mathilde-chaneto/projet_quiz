@@ -313,6 +313,10 @@ max-width: 50%;
     color: wheat;
 }
 
+.subtitle:not(.is-spaced)+.title{
+    margin-top: 0;
+}
+
 .content.column.answer .title {
     margin-top: 3rem;
 }

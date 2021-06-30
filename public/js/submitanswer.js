@@ -199,10 +199,12 @@ const submitanswer = {
 
                                                                    for (const displayScore of scoreDom) {
                                                                      displayScore.innerText = "Score: " + score;
+                                                                   
                                                                   }
 
                                                                   for (const displayAnswer of resultDom) {
                                                                     displayAnswer.innerText = "Bonne réponse !" ;
+                                                                    displayAnswer.style.color = "green";
                                                                  }
 
                                                                 
@@ -211,11 +213,47 @@ const submitanswer = {
                                                              
                                                                 }else {
                                                                     score;
-                                                                    scoreDom.inner = score;
+
+                                                                    if(!submitTarget.dataset.clicked) {
+                                                                       
+                                                                        submitTarget.dataset.clicked = true;
+
+                                                                        console.log('1er click');
+
+
+                                                                    } else {
+
+                                                                        score--;
+                                                                        console.log('deja clické !');
+
+                                                                        return score;
+                                                                        
+                                                                    }
+                                                                
+                                                                    for (const displayScore of scoreDom) {
+                                                                        displayScore.innerText = "Score: " + score;
+                                                                     }
 
                                                                     for (const displayAnswer of resultDom) {
                                                                         displayAnswer.innerText = "Dommage, mauvaise réponse" ;
+                                                                        displayAnswer.style.color = "red";
                                                                      }
+
+                                                                     var http = new XMLHttpRequest();
+                                                                     var url = 'http://localhost:8000/info';
+                                                                     var params = 'userId='+ parseInt(user) +'&quizId='+ parseInt(quizId) +'&score='+ score;
+                                                                     http.open('POST', url, true);
+                                             
+                                                                     http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                                             
+                                                                     //Call a function when the state changes.
+                                                                     http.onreadystatechange = function() {
+                                                                         if(http.readyState == 4 && http.status == 200) {
+                                                                             console.log(score);
+                                                                             //alert(http.responseText);
+                                                                         }
+                                                                     }
+                                                                     http.send(params);
                                                                     
                                                                 }
                                                             }
