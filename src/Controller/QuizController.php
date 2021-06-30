@@ -11,6 +11,7 @@ use App\Form\AnswerType;
 use App\Repository\QuestionsRepository;
 use App\Repository\AnswerRepository;
 use App\Repository\UserRepository;
+use App\Repository\PlayRepository;
 use App\Repository\QuizRepository;
 use App\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -87,7 +88,7 @@ class QuizController extends AbstractController
     /**
      * @Route("/quiz/{id}", name="quiz-read", requirements={"id": "\d+"})
      */
-    public function read(Quiz $quiz, QuestionsRepository $questionsRepo, AnswerRepository $answerRepo, Request $request, SessionInterface $session): Response
+    public function read(Quiz $quiz, QuestionsRepository $questionsRepo, AnswerRepository $answerRepo, PlayRepository $playRepo,Request $request, SessionInterface $session): Response
     {
         $sessionGetId = $session->get('user_id');
 
@@ -161,7 +162,11 @@ class QuizController extends AbstractController
         
     ];
 
+    // find the play object with id of quiz : result = array with objects
+    //$getPlayWithIdQuiz = $playRepo->findByQuiz($quiz->getId());
+                    
 
+   
         
 
     if(!$questionsRepo->findByQuiz($quiz->getId())) {

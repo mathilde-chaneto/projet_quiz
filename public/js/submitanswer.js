@@ -6,6 +6,10 @@ const submitanswer = {
        /*   - avoid the reload of page
             - get the click in the submit
             - get the data-step of form
+            - select current url
+            - cut url and get the id of quiz
+            - select elemnt with id user, get his value
+            - send theses data in back-end side
     
         ------launch jax request to get infos about user
             - select all div with class : 'answer-content' (show info+)
@@ -64,7 +68,17 @@ const submitanswer = {
 
         let stepValidate = submitTarget.dataset.step;
 
-        
+
+
+        const urlCurrent = window.location.href;
+
+        const partUrl = urlCurrent.split('/');
+
+        const quizId = partUrl[4];
+    
+        const user = document.getElementById('user').textContent;
+
+
 
         const displayInfo = document.querySelectorAll('div.answer-content');
  
@@ -166,7 +180,7 @@ const submitanswer = {
 
                                                                     var http = new XMLHttpRequest();
                                                                     var url = 'http://localhost:8000/info';
-                                                                    var params = 'score='+ score;
+                                                                    var params = 'userId='+ parseInt(user) +'&quizId='+ parseInt(quizId) +'&score='+ score;
                                                                     http.open('POST', url, true);
                                             
                                                                     http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -175,6 +189,7 @@ const submitanswer = {
                                                                     http.onreadystatechange = function() {
                                                                         if(http.readyState == 4 && http.status == 200) {
                                                                             console.log(score);
+                                                                            //alert(http.responseText);
                                                                         }
                                                                     }
                                                                     http.send(params);

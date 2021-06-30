@@ -27,46 +27,42 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class InfoController extends AbstractController
 {
     /**
-     * @Route("", name="quiz_info", methods={"POST"}, requirements={"id" : "\d+"})
+     * @Route("", name="quiz_info", methods={"POST"})
      */
-    public function player(Request $request, QuizRepository $quizRepo, UserRepository $userRepo, SessionInterface $session): Response
+    public function player(Request $request, QuizRepository $quizRepo, UserRepository $userRepo, PlayRepository $playRepo): Response
     {
-        $player = new Play();
-
-        $playRepo = $this->getDoctrine()->getRepository(Play::class);
 
         // get parameters passed in js in POST here
         // $request->request : get informations passed in POST
 
         // id of user
-       $userPlay = intval($request->request->get('userId'));
+       $userPlay = (int) $request->request->get('userId');
 
        // id of quiz
-       $quizPlay = intval($request->request->get('quizId'));
+       $quizPlay = (int) $request->request->get('quizId');
 
        //score
-       $scorePlay = intval($request->request->get('score'));
-
-       //get id of user in session
-       $sessionScore = $session->set('score', $scorePlay);
+       $scorePlay = (int) $request->request->get('score');
 
 
-        // find the quiz with this id
-       $quizFind = $quizRepo->find($quizPlay);
+        // find the quiz with this id ex: 136
+      $quizFind = $quizRepo->find($quizPlay);
 
-       // find quiz with id of user
+       // find quiz with id of user ex 44
        $quiz = $quizRepo->findByUser($userPlay);
 
-      /* $test = $playRepo->findByQuiz($quizPlay);
-       dd($test);*/
+        // find the play object with id of quiz : result = array with objects
+       $getPlayWithIdQuiz = $playRepo->findByQuiz($quizPlay);
+      
 
 
-        // if quiz with this id of user exist, set Play entity
+        // find all quiz of user with id of user.
         if($quizRepo->findByUser($userPlay)){
 
-                    
+                    // if don't find play with id of quiz, create new play object
                     if(!$playRepo->findByQuiz($quizPlay)) {
 
+                    $player = new Play();
                     $player->setUser($this->getUser()); 
                     $player->setQuiz($quizFind);
                     $player->setScore($scorePlay);
@@ -77,16 +73,23 @@ class InfoController extends AbstractController
                 
                     }
 
-                     //if play with this id of quiz exist,
-                  if($playRepo->findByQuiz($quizPlay)) {
+                     //if find the play with this id of quiz, get the id of play and update his score.
+                    else {
 
-                    //how i am suppose to get id of play and update the score ?
-                    $getPlayId = $playRepo->findOneBy([0]);
+                      // find the play object with id of quiz : result = array with objects
+                        $getPlayWithIdQuiz = $playRepo->findByQuiz($quizPlay);
                     
-                    $getObjectPlay = $playRepo->find($getPlayId);
+                        
+                        foreach ($getPlayWithIdQuiz as $keyPlay => $getPlay){
+                            $test[] = [
+                                   "id" => $getPlay->getId(),
+                                    "score" => $getPlay->setScore($scorePlay),
+                            ];
+                
+                            $this->getDoctrine()->getManager()->flush();
+                        }
 
-                    $getObjectPlay->setScore($scorePlay);
-                    $this->getDoctrine()->getManager()->flush();
+                       
                     
                     }
                    
@@ -96,7 +99,7 @@ class InfoController extends AbstractController
        //when we get these informations, we can create a new entry in Play table in BDD
        
        // create a new response to reply  front-end after the request
-       $response = new Response(Response::HTTP_OK);
+       $response = new Response( 'Score: '.$scorePlay.' Player : '.$userPlay.' Quiz: '.$quizPlay ,Response::HTTP_OK);
 
        return $response;
     }

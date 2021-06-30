@@ -33,6 +33,21 @@ class PlayRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+
+      // /**
+    //  * @return Play[] Returns an array of Play objects
+    //  */
+    public function findByUser($user)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.user = :id')
+            ->setParameter('id', $user)
+            ->orderBy('p.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     
 
     /*

@@ -3,10 +3,6 @@ const quiz = {
       // start part of quiz page feature
     
     /*
-       - select current url
-       - cut url and get the id of quiz
-       - select elemnt with id user, get his value
-       - send theses data in back-end side
        - select all button with class : button-orange-questions
        - define a global variable to access in another file to change score in submit.checkAnswer
        - select all div with class "score" (display "Score :" + number) use in submit.checkAnswer
@@ -19,30 +15,6 @@ const quiz = {
     const buttonQuestion = document.querySelectorAll('button.button-orange-questions');
 
     score = 0;
-
-    const urlCurrent = window.location.href;
-
-    const partUrl = urlCurrent.split('/');
-
-    const quizId = partUrl[4];
-   
-    const user = document.getElementById('user').textContent;
-
-    var http = new XMLHttpRequest();
-    var url = 'http://localhost:8000/info';
-    var params = 'userId='+ parseInt(user) +'&quizId='+ parseInt(quizId);
-    http.open('POST', url, true);
-
-    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-    //Call a function when the state changes.
-    http.onreadystatechange = function() {
-        if(http.readyState == 4 && http.status == 200) {
-            console.log("C'est ok :)");
-        }
-    }
-    http.send(params);
-
 
     scoreDom = document.querySelectorAll('.score');
 

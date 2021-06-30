@@ -22,10 +22,11 @@ class ScoreController extends AbstractController
      */
     public function score(PlayRepository $play, QuizRepository $quiz, UserRepository $userRepo, User $user): Response
     {
+
         return $this->render('main/score.html.twig', [
             "player" => $play->findByUser($user),
             "quiz" => $quiz->findByUser($user),
-            "user" => $user,
+            
         ]);
     }
 
