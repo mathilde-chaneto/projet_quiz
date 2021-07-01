@@ -33,15 +33,15 @@ class QuizController extends AbstractController
      */
     public function quiz(User $user, QuizRepository $quizRepo, SessionInterface $session): Response
     {
-        //get this user
-        $thisUser = $this->getUser();
+        
+        // dd($user);
 
         //get id of user in session
         $sessionId = $session->set('user_id', $user->getId());
    
 
         //check if quiz object is bound to this user exist. If it dosen't, create quiz
-        if(!$quizRepo->findByUser($thisUser)){
+        if(!$quizRepo->findByUser($user->getId())) {
         
             //dd($quiz->getUser());
             //dd($user->getId());
@@ -55,7 +55,7 @@ class QuizController extends AbstractController
                 "Langage web" => "code-48.png",
                 "Frameworks"=>  "frameworks-48.png",
                 "Terminal" => "terminal-48.png",
-                "Base de données" => "bdd-48.png" 
+                "Base de données" => "bdd-48.png" ,
             ];
          
             //browse the previous array and set quiz object
@@ -64,7 +64,7 @@ class QuizController extends AbstractController
                 $quiz = new Quiz();
                 $quiz->setIcone($quizConfig);
                 $quiz->setName($key);
-                $quiz->setUser($thisUser); 
+                $quiz->setUser($user);
                // $quiz->setDetail() 
 
                 $em = $this->getDoctrine()->getManager();
@@ -221,7 +221,8 @@ class QuizController extends AbstractController
             //fetch all questions bound with id of quiz
             $questionAll = $questionsRepo->findByQuiz($quiz->getId());
             // result = object array
-        
+
+            $arrayQuestionsAnswer = [];
             // create an array with Question's methods
             foreach($questionAll as $question) {
 

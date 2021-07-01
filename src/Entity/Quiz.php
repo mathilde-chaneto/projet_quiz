@@ -32,11 +32,7 @@ class Quiz
      */
     private $plays;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="quiz")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     */
-    private $user;
+  
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="quiz")
@@ -53,9 +49,15 @@ class Quiz
      */
     private $icone;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="quiz")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function __construct()
     {
-        $this->user = new ArrayCollection();
+       
         $this->plays = new ArrayCollection();
         $this->category = new ArrayCollection();
         $this->questions = new ArrayCollection();
@@ -109,29 +111,7 @@ class Quiz
         return $this;
     }
 
-   /**
-     * @return Collection|User[]
-     */
-    public function getUser(): Collection
-    {
-        return $this->user;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->user->contains($user)) {
-            $this->user[] = $user;
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        $this->user->removeElement($user);
-
-        return $this;
-    }
+  
 
     /**
      * @return Collection|Category[]
@@ -195,6 +175,18 @@ class Quiz
     public function setIcone(?string $icone): self
     {
         $this->icone= $icone;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
