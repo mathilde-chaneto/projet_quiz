@@ -20,14 +20,14 @@
                                    
                                 <div class="content figure is-flex is-flex-direction-row is-flex-wrap-wrap bottom">
                                   
-                                        <figure class="image">
+                                        <figure class="image score">
                                              <img src="/icones/{{name.icone}}" class="image is-128x128">
                                            <p class="subtitle" data-id="{{name.id}}">{{name.name}}</p>
                                            
                                     {% for players in player %}     
                                     {% if name.id == players.quiz.id and players.score is defined %}
                                        
-                                        <div class="progres" value="{{players.score}}" max="5"></div>
+                                        <progress value="{{players.score}}" max="5"></progress>
                                         <span class="score">Score : {{players.score}}</span>
                                     {% endif %}       
                                     {% endfor %}
@@ -38,7 +38,7 @@
 
                          
                             
-                        {% endfor %}
+                                {% endfor %}
                 
                         </article>
                     </div>

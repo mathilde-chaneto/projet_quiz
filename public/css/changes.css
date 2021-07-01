@@ -40,6 +40,11 @@ html, body {
     margin-right: 1rem;
 }
 
+.image.score {
+    display: flex;
+    flex-direction: column;
+}
+
 .is-rounded {
     border : 1px solid wheat;
 }
