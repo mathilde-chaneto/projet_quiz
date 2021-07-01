@@ -32,7 +32,6 @@ class Quiz
      */
     private $plays;
 
-  
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="quiz")
@@ -57,7 +56,6 @@ class Quiz
 
     public function __construct()
     {
-       
         $this->plays = new ArrayCollection();
         $this->category = new ArrayCollection();
         $this->questions = new ArrayCollection();
@@ -110,8 +108,6 @@ class Quiz
 
         return $this;
     }
-
-  
 
     /**
      * @return Collection|Category[]
