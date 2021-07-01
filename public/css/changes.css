@@ -13,6 +13,7 @@ html, body {
 .hero {
     background-color: #212121;
     width: 100%;
+    min-height: 100vh;
 }
 
 .hero-body {
@@ -352,15 +353,27 @@ footer
     padding: 2rem;
     background-color: black;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.hero-footer .content p a {
+    height: auto;
     color: wheat;
 }
 
-.hero-footer .content p {
+.hero-footer p a {
+    color: wheat;
+}
+
+.hero-footer .first {
+    font-size: 1.7rem;
+}
+
+.hero-footer .second {
+    font-size: 1.3rem;
+    color:#e0e0e0;
+}
+
+.hero-footer p {
     margin-bottom: 0;
 }
 
@@ -399,6 +412,7 @@ modify the behavior of few classes for responsive
         margin: auto;
         width: auto;
     }
+
 }
 
 @media screen and (max-width: 1023px) {
