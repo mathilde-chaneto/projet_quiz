@@ -1,7 +1,9 @@
 #To active the Url rewrite with Apache :
 RewriteEngine on
 
-#To redirect all folders and files to index.php
- RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.html.twig [L]
+# tous les fichiers avec .quelquechose sont sautés
+RewriteCond %{REQUEST_URI} \..+$
+RewriteCond %{REQUEST_URI} !\.html$
+RewriteRule .* - [L]
+# les autres sont redirigés vers le contrôleur de front
+RewriteRule ^(.*)$ index.php [QSA,L]

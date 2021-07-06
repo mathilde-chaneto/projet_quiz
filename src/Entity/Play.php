@@ -24,13 +24,13 @@ class Play
 
     /**
      * @ORM\ManyToOne(targetEntity=Quiz::class, inversedBy="plays")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $quiz;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="plays")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $user;
 

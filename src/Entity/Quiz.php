@@ -50,7 +50,7 @@ class Quiz
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="quiz")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $user;
 

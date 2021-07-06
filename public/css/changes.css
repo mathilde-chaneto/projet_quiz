@@ -199,15 +199,24 @@ form {
     margin: 4rem auto 4rem auto;
 }
 
+form .label {
+    margin-top: 5rem;
+}
 .field {
     margin-top: 4rem;
 }
 
 .field .control {
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+
 }
 
+.field .submit {
+    display: flex;
+    justify-content: flex-end;
+
+}
 .field .control.validate {
     display: flex;
     justify-content: flex-end;
@@ -350,6 +359,10 @@ max-width: 50%;
     background-color: cornflowerblue;
 }
 
+h3 {
+    margin-left: 2rem;
+}
+
 
 
 
@@ -360,28 +373,22 @@ footer
     padding: 2rem;
     background-color: black;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     height: auto;
     color: wheat;
+    font-size: 1.7rem;
+    
 }
 
 .hero-footer p a {
     color: wheat;
 }
 
-.hero-footer .first {
-    font-size: 1.7rem;
-}
-
-.hero-footer .second {
-    font-size: 1.3rem;
-    color:#e0e0e0;
-}
-
 .hero-footer p {
     margin-bottom: 0;
+    margin-right: 2rem;
 }
 
 

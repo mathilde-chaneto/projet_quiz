@@ -2,6 +2,10 @@
 
 {% block title %} {{ parent() }} {% endblock %}
 
+{% block javascripts %}
+<script src="/js/pass.js"></script>
+{% endblock %}
+
 {% block body %} {{ parent() }}
 
                 <section class="color-connect">
@@ -26,12 +30,12 @@
 
                         {{form_row(form.username)}}
                          
-                         {{ form_widget(form) }}
-                            <div class="field">
-                                <p class="control">
-                                    <button class="button button-green">Submit</button>
-                                </p>
-                                </div>
+                      
+                         <div class="field">
+                         <p class="submit">
+                             <button class="button button-green">Submit</button>
+                         </p>
+                         </div>
                         {{form_end(form)}}
 
                     </div>
@@ -40,6 +44,7 @@
             </div>
             <footer class="hero-footer">    
         <p class="has-text-centered first"><a href="{{ path('dev-quiz_contact') }}">Contact</a></p>
+    <p class="has-text-centered first"><a href="{{ path('dev-quiz_mentions-legales') }}">Mentions légales</a></p>
     <p class="has-text-centered second">Copyright 2021</p>
          
             </footer>

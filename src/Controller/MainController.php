@@ -40,6 +40,14 @@ class MainController extends AbstractController
     {
         return $this->render('main/contact.html.twig');
     }
+
+       /**
+     * @Route("/mentions-legales", name="mentions-legales")
+     */
+    public function mentions(): Response
+    {
+        return $this->render('main/mentions-legales.html.twig');
+    }
     
     /**
      * @Route("/signup", name="sign-up")
