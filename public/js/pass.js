@@ -6,7 +6,7 @@ const pass = {
             for(const pass of input){
         
                 const newElement = document.createElement('span');
-                newElement.innerHTML = '<img src="https://img.icons8.com/office/30/000000/visible--v2.png" class="showHide"/>';
+                newElement.innerHTML = '<img src="https://img.icons8.com/office/30/000000/visible--v2.png" class="showHide" alt="show password" title="affiche le mot de passe"/>';
                 newElement.classList.add('showHidden');
                 pass.classList.add('password');
                 
@@ -44,8 +44,6 @@ const pass = {
         console.log('id de l oeil' + idEye);
 
         const input = document.querySelectorAll('.password');
-        
-   
 
         for(const passInput of input){
             
@@ -55,6 +53,8 @@ const pass = {
                 
                     passInput.type = "text";
                     clickedEye.setAttribute("src", "https://img.icons8.com/office/30/000000/closed-eye.png");
+                    clickedEye.setAttribute("alt", "oeil fermé");
+                    clickedEye.setAttribute("title", "cache le mot de passe");
                         
 
             } else if (idEye == passInput.dataset.id && passInput.type === "text") {
@@ -62,25 +62,16 @@ const pass = {
                 
                     passInput.type = "password";
                     clickedEye.setAttribute("src", "https://img.icons8.com/office/30/000000/visible--v2.png");
-
-                        
+                    clickedEye.setAttribute("alt", "oeil ouvert");
+                    clickedEye.setAttribute("title", "affiche le mot de passe");
 
             } 
-                    
-            
-                    
-            
-            
+    
              
         }
-            
-        
-
       
       
-    },
-    
-    
+    }, 
    
 
   };

@@ -52,7 +52,7 @@ class MainController extends AbstractController
     /**
      * @Route("/signup", name="sign-up")
      */
-    public function sign_up(Request $request, UserPasswordEncoderInterface $encoder, MailerInterface $mailer): Response
+    public function sign_up(Request $request, UserPasswordEncoderInterface $encoder, MailerInterface $mailer, UserRepository $userRepo): Response
     {
         $user = new User();
        
@@ -64,6 +64,7 @@ class MainController extends AbstractController
             //upload file $imageFile which match with the 'image' field
             //$imageFile = object of uploadFile class
             $imageFile = $form->get('image')->getData();
+            
 
             if($imageFile == null) {
                 
@@ -87,6 +88,8 @@ class MainController extends AbstractController
             $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
             // Assignation du rôle par défaut VIA le nom du rôle et non l'ID
             $user->setRoles(["ROLE_USER"]);
+
+        
     
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -107,6 +110,7 @@ class MainController extends AbstractController
 
         return $this->render('main/sign-up.html.twig', [
             'form' => $form->createView(),
+            'email' => $userRepo->findByEmail($form->get('email')->getData()),
         ]);
     }
 

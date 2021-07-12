@@ -179,8 +179,8 @@ const submitanswer = {
                                                                     
 
                                                                     var http = new XMLHttpRequest();
-                                                                    var url = 'http://localhost:8000/info';
-                                                                    var params = 'userId='+ parseInt(user) +'&quizId='+ parseInt(quizId) +'&score='+ score;
+                                                                    var url = 'http://localhost:8000/info/'+ user;
+                                                                    var params = '&quizId='+ parseInt(quizId) +'&score='+ score;
                                                                     http.open('POST', url, true);
                                             
                                                                     http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -240,8 +240,8 @@ const submitanswer = {
                                                                      }
 
                                                                      var http = new XMLHttpRequest();
-                                                                     var url = 'http://localhost:8000/info';
-                                                                     var params = 'userId='+ parseInt(user) +'&quizId='+ parseInt(quizId) +'&score='+ score;
+                                                                     var url = 'http://localhost:8000/info/'+ user;
+                                                                     var params = '&quizId='+ parseInt(quizId) +'&score='+ score;
                                                                      http.open('POST', url, true);
                                              
                                                                      http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');

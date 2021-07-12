@@ -3,10 +3,10 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Play;
 use App\Entity\Questions;
 use App\Repository\PlayRepository;
-use App\Repository\UserRepository;
 use App\Repository\QuizRepository;
 
 use App\Repository\AnswerRepository;
@@ -27,43 +27,35 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class InfoController extends AbstractController
 {
     /**
-     * @Route("", name="quiz_info", methods={"POST"})
+     * @Route("/{id}", name="quiz_info", methods={"POST"}, requirements={"id": "\d+"})
      */
-    public function player(Request $request, QuizRepository $quizRepo, UserRepository $userRepo, PlayRepository $playRepo): Response
+    public function player(Request $request, QuizRepository $quizRepo, PlayRepository $playRepo, User $user): Response
     {
 
         // get parameters passed in js in POST here
         // $request->request : get informations passed in POST
 
-        // id of user
-       $userPlay = (int) $request->request->get('userId');
-
-       // id of quiz
+       // id of quiz ex = 184
        $quizPlay = (int) $request->request->get('quizId');
 
-       //score
+       //score ex = 1
        $scorePlay = (int) $request->request->get('score');
 
 
-        // find the quiz with this id ex: 136
+        // find the quiz with this id ex: 184
       $quizFind = $quizRepo->find($quizPlay);
 
-       // find quiz with id of user ex 44
-       $quiz = $quizRepo->findByUser($userPlay);
+        //dump($this->getUser());
 
         // find the play object with id of quiz : result = array with objects
        $getPlayWithIdQuiz = $playRepo->findByQuiz($quizPlay);
       
 
-
-        // find all quiz of user with id of user.
-        if($quizRepo->findByUser($userPlay)){
-
-                    // if don't find play with id of quiz, create new play object
-                    if(!$playRepo->findByQuiz($quizPlay)) {
+                    // if don't find play with id of user, create new play object
+                    if(!$playRepo->findByUser($user)) {
 
                     $player = new Play();
-                    $player->setUser($this->getUser()); 
+                    $player->setUser($user); 
                     $player->setQuiz($quizFind);
                     $player->setScore($scorePlay);
                     $em = $this->getDoctrine()->getManager();
@@ -77,13 +69,16 @@ class InfoController extends AbstractController
                     else {
 
                       // find the play object with id of quiz : result = array with objects
-                        $getPlayWithIdQuiz = $playRepo->findByQuiz($quizPlay);
+                        $getPlayWithIdQuiz = $playRepo->findByUser($user);
                     
                         
                         foreach ($getPlayWithIdQuiz as $keyPlay => $getPlay){
                             $test[] = [
                                    "id" => $getPlay->getId(),
+                                   "player" => $getPlay->getuser($user),
                                     "score" => $getPlay->setScore($scorePlay),
+                                    "quiz" => $getPlay->getQuiz($quizFind),
+                                   
                             ];
                 
                             $this->getDoctrine()->getManager()->flush();
@@ -93,13 +88,11 @@ class InfoController extends AbstractController
                     
                     }
                    
-                
-        }
 
        //when we get these informations, we can create a new entry in Play table in BDD
        
        // create a new response to reply  front-end after the request
-       $response = new Response( 'Score: '.$scorePlay.' Player : '.$userPlay.' Quiz: '.$quizPlay ,Response::HTTP_OK);
+       $response = new Response(Response::HTTP_OK);
 
        return $response;
     }
