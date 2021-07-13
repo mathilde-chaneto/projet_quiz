@@ -38,6 +38,7 @@ class QuizController extends AbstractController
 
         //get id of user in session
         $sessionId = $session->set('user_id', $user->getId());
+        //dump($user->getId());
         
         return $this->render('main/quiz.html.twig', [
             "quiz" => $quizRepo->findAll(),            
@@ -50,6 +51,7 @@ class QuizController extends AbstractController
     public function read(Quiz $quiz,  QuestionsRepository $questionsRepo, AnswerRepository $answerRepo ,Request $request, SessionInterface $session): Response
     {
         $sessionGetId = $session->get('user_id');
+        //dump($sessionGetId);
 
       
         //fetch all questions bound with id of quiz
