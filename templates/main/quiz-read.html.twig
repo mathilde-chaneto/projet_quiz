@@ -17,9 +17,13 @@
         <div class="container">
             <article class="media-quiz columns is-multiline is-mobile is-two-thirds-tablet is-desktop">
                 <div class="content column">
-                    <h3 class="title">
-                       Quiz : {{ quiz.name }}
-                    </h3>
+                    <h2 class="title">
+                       Quiz : {{ quiz.name}}          
+                    </h2>
+                <h5 class="catg title is-5"> Catégorie : {{ quiz.category.name }}</h5>
+                <p>{{ quiz.category.resume }}</p>
+                
+
                 <span id="user" class="hidden">{{ userId }}</span>
                 
     </div> 
@@ -36,7 +40,7 @@
                                                         
         </h3>
 
-        <div class="content column is-flex is-flex-wrap-wrap">
+        <div class="content not-padding column is-flex is-flex-wrap-wrap">
 
             {% for key, question in arrayQuestionsAnswer %}
                 <button class="button button-orange-questions column is-flex is-align-items-center" data-id="{{ question.questionId }}">
@@ -66,7 +70,14 @@
                 </p>
             
                 {% for answer in question.answers %}
-        
+              
+                {% if question.countAnswer > 1  %}
+                {% set typeInput = 'checkbox' %}
+                {% else %}
+                {% set typeInput = 'radio' %}
+
+                {% endif %}
+
                     <label class="{{typeInput}} column">
                         <input type="{{typeInput}}" name="type" value=" {{ answer.answerName }}" data-id="{{ answer.answerId }}" data-step="{{ key + 1 }}" data-question ="{{ question.questionId }}">
                             {{ answer.answerName }}
@@ -110,12 +121,7 @@
 {% endfor %}
 
 </div>
-<footer class="hero-footer">    
-<p class="has-text-centered first"><a href="{{ path('dev-quiz_contact') }}">Contact</a></p>
-<p class="has-text-centered first"><a href="{{ path('dev-quiz_mentions-legales') }}">Mentions légales</a></p>
-<p class="has-text-centered second">Copyright 2021</p>
-
-</footer>
+{{ include('main/footer.html.twig') }}
 
 
 </section>

@@ -130,26 +130,10 @@ a.button.is-info {
 
 /*end container*/
 
-.title {
+.title, .subtitle, .color, .color-quiz, h3.title, label {
     color: wheat;
 }
 
-.subtitle {
-    color: wheat;
-}
-
-/*start global css*/
-.color, .color-quiz {
-    color: wheat;
-}
-
-h3.title {
-    color: wheat;
-}
-
-label {
-    color: wheat;
-}
 
 /*end global css*/
 
@@ -275,6 +259,9 @@ max-width: 50%;
     color: white;
 }
 
+.color {
+    color: wheat;
+}
 
 
 /*end sign-up page and log in page*/
@@ -283,6 +270,18 @@ max-width: 50%;
 .color-quiz .media-quiz {
     margin-top: 1rem;
     margin-bottom: 1rem;
+}
+
+.color-quiz .container .media-quiz .catg {
+    color: #DCDCDC;
+}
+
+.color-quiz .container .media-quiz h2 {
+    color: wheat;
+}
+
+.color-quiz .container .media-quiz .content.column .not-padding {
+    padding-left: 0;
 }
 
 .media-quiz:nth-child(1) {
@@ -300,6 +299,10 @@ max-width: 50%;
 
 .button-orange-questions, .button-orange-next {
     margin: 1rem;
+}
+
+.button-orange-questions:first-child {
+    margin-left: 0;
 }
 
 .button-edit > a, .button >a:hover {
@@ -359,9 +362,7 @@ max-width: 50%;
     background-color: cornflowerblue;
 }
 
-h3 {
-    margin-left: 2rem;
-}
+
 
 
 

@@ -1,77 +1,104 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}
+    Log in!
+{% endblock %}
 
 {% block javascripts %}
-<script src="/js/pass.js"></script>
+    <script src="/js/pass.js"></script>
 {% endblock %}
 
-{% block body %} {{ parent() }}
- <section class="color-connect">
-<div class="container">
-    <div class="medium">
-<form method="post">
-    {% if error %}
-        <div class="notification is-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+{% block body %}
+    {{ parent() }}
+    <section class="color-connect">
+        <div class="container">
+            <div class="medium">
+                <form method="post">
+                    {% if error %}
+                        <div class="notification is-danger">
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                        </div>
+                    {% endif %}
 
-    {% if app.user %}
-        <div class="notification is-info">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
+                    {% if app.user %}
+                        <div class="notification is-info">
+                            You are logged in as 
+                            {{ app.user.username }}
+                            , 
+                            <a href="{{ path('app_logout') }}">
+                                Logout
+                            </a>
+                        </div>
+                    {% endif %}
 
-     {% for message in app.flashes('success') %}
-            <div class="notification is-success">
-                {{ message }}
+                    {% for message in app.flashes('success') %}
+                        <div class="notification is-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+
+                    <h1 class="title is-1">
+                        Please sign in
+                    </h1>
+                    <div class="field">
+                        <label class="label">
+                            Email
+                        </label>
+                        <p class="control has-icons-left has-icons-right">
+                            <input class="input" type="email" value="{{ last_username }}" name="email" autocomplete="email" required autofocus>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                <span class="icon is-small is-right">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                        </p>
+                    </div>
+
+                        <div class="field">
+                            <label class="label">
+                                Password
+                            </label>
+                            <p class="control has-icons-left has-icons-left">
+                                <input class="input" type="password" name="password" autocomplete="current-password" required>
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-lock"></i>
+                                        </span>
+                            </p>
+                        </div>
+
+                                <div class="link">
+                                    <a href="{{ path('app_forgot_password_request') }}" class="forget">
+                                        Mot de passe oublié ? 
+                                    </a>
+                                </div>
+
+                                {#
+                                        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                                        See https://symfony.com/doc/current/security/remember_me.html
+                                
+                                        <div class="checkbox mb-3">
+                                            <label>
+                                                <input type="checkbox" name="_remember_me"> Remember me
+                                            </label>
+                                        </div>
+                                    #}
+                                <div class="field">
+                                    <p class="submit">
+                                        <button class="button button-green">
+                                            Submit
+                                        </button>
+                                    </p>
+                                </div>
+                    
+
+                </form>
             </div>
-        {% endfor %}
-
-    <h1 class="title is-1">Please sign in</h1>
-       <div class="field">
-            <label class="label">Email</label>
-                <p class="control has-icons-left has-icons-right">
-                    <input class="input" type="email" value="{{ last_username }}" name="email" autocomplete="email" required autofocus>
-                        <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
-                        </span>
-                        <span class="icon is-small is-right">
-                        <i class="fas fa-check"></i>                  
-                    </span>
-                </p>
-        </div>         
-        
-        <div class="field">
-            <label class="label">Password</label>
-                <p class="control has-icons-left has-icons-left">
-                    <input class="input" type="password" name="password" autocomplete="current-password" required>
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                        <span class="icon is-small is-left">
-                        <i class="fas fa-lock"></i>
-                        </span>
-                </p>
-        </div>     
-        
-        
-
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
         </div>
-    #}
-    <div class="field">
-    <p class="submit">
-        <button class="button button-green">Submit</button>
-    </p>
-    </div>
-  
-</form>
+    </section>
 </div>
-</div>
+{{ include('main/footer.html.twig') }}
 </section>
-{% endblock %}
+    {% endblock %}
+            

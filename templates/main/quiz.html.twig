@@ -38,10 +38,12 @@
                                 
 
                                 <div class="content is-flex is-flex-direction-row is-flex-wrap-wrap">
-                                           {% for listQuiz in quiz %}     
+                                           {% for listQuiz in quiz %} 
+                                            
                                         <figure class="image is-128x128">
-                                            <img src="/icones/{{listQuiz.icone}}" alt="">
-                                            <p><a href="{{path('dev-quiz_quiz-read', {'id' : listQuiz.id}) }}">{{listQuiz.name}}</a></p>
+                                            <img src="/icones/{{listQuiz.category.icone}}" alt=""/>
+                                          
+                                            <p><a href="{{path('dev-quiz_quiz-read', {'id' : listQuiz.id}) }}">{{listQuiz.category.name}}</a></p>
                                         </figure>
                                         {% endfor %}
                                 </div>
@@ -53,12 +55,7 @@
                  <p class=" quiz has-text-centered"><a href="" class="has-text-white"></a></p>
 
                 </div>
-                <footer class="hero-footer">    
-            <p class="has-text-centered first"><a href="{{ path('dev-quiz_contact') }}">Contact</a></p>
-        <p class="has-text-centered first"><a href="{{ path('dev-quiz_mentions-legales') }}">Mentions légales</a></p>
-        <p class="has-text-centered second">Copyright 2021</p>
-             
-                </footer>
+                {{ include('main/footer.html.twig') }}
     
             
         </section>

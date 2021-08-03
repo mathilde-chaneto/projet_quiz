@@ -48,6 +48,14 @@ class MainController extends AbstractController
     {
         return $this->render('main/mentions-legales.html.twig');
     }
+
+           /**
+     * @Route("/credits", name="credits")
+     */
+    public function credits(): Response
+    {
+        return $this->render('main/credits.html.twig');
+    }
     
     /**
      * @Route("/signup", name="sign-up")

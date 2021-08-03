@@ -24,7 +24,7 @@ const pass = {
                 image.dataset.id = index++;
                 image.addEventListener('click', pass.hideFunction);
            
-                console.log("c'est passé ");
+                //console.log("c'est passé ");
                 
             }
 
@@ -41,7 +41,7 @@ const pass = {
 
         const idEye = clickedEye.dataset.id;
 
-        console.log('id de l oeil' + idEye);
+        //console.log('id de l oeil' + idEye);
 
         const input = document.querySelectorAll('.password');
 
@@ -49,7 +49,7 @@ const pass = {
             
 
             if (idEye == passInput.dataset.id && passInput.type === "password") {
-                console.log('je suis id de input ' + passInput.dataset.id);
+                //console.log('je suis id de input ' + passInput.dataset.id);
                 
                     passInput.type = "text";
                     clickedEye.setAttribute("src", "https://img.icons8.com/office/30/000000/closed-eye.png");
@@ -58,7 +58,7 @@ const pass = {
                         
 
             } else if (idEye == passInput.dataset.id && passInput.type === "text") {
-                console.log('je suis id de input ' + passInput.dataset.id);
+                //console.log('je suis id de input ' + passInput.dataset.id);
                 
                     passInput.type = "password";
                     clickedEye.setAttribute("src", "https://img.icons8.com/office/30/000000/visible--v2.png");

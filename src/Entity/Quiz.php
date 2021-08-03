@@ -34,19 +34,10 @@ class Quiz
 
 
     /**
-     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="quiz")
-     */
-    private $category;
-
-    /**
      * @ORM\OneToMany(targetEntity=Questions::class, mappedBy="quiz", orphanRemoval=true)
      */
     private $questions;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $icone;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="quiz")
@@ -54,10 +45,16 @@ class Quiz
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="quiz")
+     */
+    private $category;
+
+
+
     public function __construct()
     {
         $this->plays = new ArrayCollection();
-        $this->category = new ArrayCollection();
         $this->questions = new ArrayCollection();
     }
 
@@ -109,29 +106,6 @@ class Quiz
         return $this;
     }
 
-    /**
-     * @return Collection|Category[]
-     */
-    public function getCategory(): Collection
-    {
-        return $this->category;
-    }
-
-    public function addCategory(Category $category): self
-    {
-        if (!$this->category->contains($category)) {
-            $this->category[] = $category;
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Category $category): self
-    {
-        $this->category->removeElement($category);
-
-        return $this;
-    }
 
     /**
      * @return Collection|Questions[]
@@ -163,18 +137,6 @@ class Quiz
         return $this;
     }
 
-    public function getIcone(): ?string
-    {
-        return $this->icone;
-    }
-
-    public function setIcone(?string $icone): self
-    {
-        $this->icone= $icone;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -186,5 +148,19 @@ class Quiz
 
         return $this;
     }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+
 
 }

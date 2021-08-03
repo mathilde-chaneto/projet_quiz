@@ -87,13 +87,6 @@ class QuizController extends AbstractController
             
                                 $cpt++; 
             
-                                if($cpt > 1) {
-                                $typeInput = "checkbox";
-            
-                                }else{
-                                    $typeInput = "radio";
-                                }
-            
                             }
                         
                     }
@@ -117,7 +110,6 @@ class QuizController extends AbstractController
         return $this->render('main/quiz-read.html.twig', [
             "arrayQuestionsAnswer" => $arrayQuestionsAnswer,
             "quiz" => $quiz,
-            "typeInput" => $typeInput,
             "userId" => $sessionGetId,
         
 

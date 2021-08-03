@@ -16,6 +16,10 @@ const quiz = {
 
     score = 0;
 
+    cptTrue = 0;
+
+    confirm = null;
+
     scoreDom = document.querySelectorAll('.score');
 
     resultDom = document.querySelectorAll('.result-answer');

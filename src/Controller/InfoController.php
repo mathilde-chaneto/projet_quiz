@@ -55,7 +55,7 @@ class InfoController extends AbstractController
 
         //dump($this->getUser());
 
-                    // if don't find play with id of user, create new play object OR if it exist AND play object with id of quiz does not exist :
+                    // if don't find play with this id of user, create new play object :
                     if(!$playRepo->findByUser($user)) {
 
                     $player = new Play();
@@ -68,26 +68,53 @@ class InfoController extends AbstractController
                   
                 
                     }
-                     //if find the play with this id of quiz, get the id of play and update his score.
+                     //if find the play with this id of user
                     else {
 
-                            // find the play object with id of user: result = array with objects
-                        $getPlayWithIdQuiz = $playRepo->findByUser($user);
+                        // if play object with user id exit but there isn't quiz matching with $quizFind
+                        if(!$playRepo->findByQuiz($quizFind)){
+                                
+                            // insert new row in bdd (create new play object)
+                            $playerAdd = new Play();
+                            $playerAdd->setUser($user); 
+                            $playerAdd->setQuiz($quizFind);
+                            $playerAdd->setScore($scorePlay);
+                            $em = $this->getDoctrine()->getManager();
+                            $em->persist($playerAdd);
+                            $em->flush();
+
+                        }
                     
-                        
-                        foreach ($getPlayWithIdQuiz as $keyPlay => $getPlay){
-                            $test[] = [
+                    }
+                    
+                    // if play object with quiz id and user id exist
+                    if ($playRepo->findByQuiz($quizFind) && $playRepo->findByUser($user)) {
+
+                        // find the play object with id of quiz: result = array with objects
+                        $getPlayWithIdQuiz = $playRepo->findByQuiz($quizFind);
+
+                         // find the play object with id of user: result = array with objects
+                         $getPlayWithIdUser = $playRepo->findByUser($user);
+
+                         // browse play object with quiz id
+                         foreach ($getPlayWithIdQuiz as $getPlay) {
+                             
+                            // browse play object with user id
+                             foreach ($getPlayWithIdUser as $getPlayUser) {
+                            
+                            // update score
+                            $info[] = [
                                    "id" => $getPlay->getId(),
-                                   "player" => $getPlay->getuser($user),
+                                   "player" => $getPlayUser->getuser($user),
                                     "score" => $getPlay->setScore($scorePlay),
                                     "quiz" => $getPlay->getQuiz($quizFind),
                                    
                             ];
-                
-                            $this->getDoctrine()->getManager()->flush();
                         }
-                    
+                        $this->getDoctrine()->getManager()->flush();
+                        }
                     }
+                    
                    
 
        //when we get these informations, we can create a new entry in Play table in BDD

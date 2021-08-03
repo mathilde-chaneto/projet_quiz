@@ -61,6 +61,11 @@ class User implements UserInterface
      */
     private $quiz;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="user")
+     */
+    private $category;
+
    
 
     public function __construct()
@@ -68,6 +73,7 @@ class User implements UserInterface
       
         $this->plays = new ArrayCollection();
         $this->quiz = new ArrayCollection();
+        $this->category = new ArrayCollection();
     }
 
     /**
@@ -258,6 +264,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($quiz->getUser() === $this) {
                 $quiz->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategory(): Collection
+    {
+        return $this->category;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->category->contains($category)) {
+            $this->category[] = $category;
+            $category->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        if ($this->category->removeElement($category)) {
+            // set the owning side to null (unless already changed)
+            if ($category->getUser() === $this) {
+                $category->setUser(null);
             }
         }
 

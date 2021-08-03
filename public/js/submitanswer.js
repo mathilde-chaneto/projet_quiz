@@ -3,288 +3,268 @@ const submitanswer = {
     checkAnswer: function (event) {
         // start traitment of form
 
-        /*   - avoid the reload of page
-             - get the click in the submit
-             - get the data-step of form
-             - select current url
-             - cut url and get the id of quiz
-             - select elemnt with id user, get his value
-             - send theses data in back-end side
-     
-         ------launch jax request to get infos about user
-             - select all div with class : 'answer-content' (show info+)
-             - select all div with class : 'warning' (show message: 'no answer is selected')
-             - select all sections with class : 'questions'
-             - browse section array, get their dataset id, add condition :
-             - if section has display block and if her dataset step of section match with dataset step of form :
-               select all radio button with name : 'type'
-               browse all div.answer-content and div.warning
-               get their dataset step
-             - another condition : if their dataset step match with the dataset step of form :
-               show div.warning
-             - browse radio buttons array
-             - define :
-               dataset step of radio button (id of step in form),  
-               dataset questions (id of questions is bound) 
-               dataset id (to identify id of answer in bdd)
-             - condition : if radiobutton is not null (if it's selected) and their dataset step match with form data step.
- 
-         ------it is :  
-               launch ajax request 
-               define fetch options (methode http : 'post')
-               give the url, id of questions (dataset questions) and fetch option to get infos about questions and answer
-               get json data, save it in variable
-               in another variable, define the array to browse
-               browse this array and get porperty 'id'
-               check if these id match with dataset id radio button 
-               it is :
-               get the property 'is_Correct' in  isCorrect
-               select all div with class : 'score'
-               check if value of iscorrect is true : 
-               it is :
-               increment score
-               add  score in div.score
-               add text in div.result-answer : "bonne réponse !"
-               it is not :
-               add  score in div.score
-               add text in div.result-answer : "Dommage, mauvaise réponse"
- 
- 
-             --if dataset step of div.warnig and div.answer-content check with dataset step of form :
-               show div.answer-content
-               hide div.warning
- 
-             --it is not :
-               hide div.answer-content
-               show div.warning 
- 
- 
- 
-        */
+        // avoid the reload of page
+
+
         event.preventDefault();
 
+        cptInput = 0;
 
+        // get the click in the submit
         let submitTarget = event.target;
 
+        // get the data-step of form
         let stepValidate = submitTarget.dataset.step;
 
-
+        // get current url
         const urlCurrent = window.location.href;
 
+        // separate url
         const partUrl = urlCurrent.split('/');
 
+        // get quiz id
         const quizId = partUrl[4];
-        
 
+        // get user id 
         const user = document.getElementById('user').textContent;
         //console.log(user);
 
 
+        // select all info+
         const displayInfo = document.querySelectorAll('div.answer-content');
 
+        // select all warning message we send an empty form
         const noAnswerInfo = document.querySelectorAll('div.warning');
 
+        // select all div 'section.questions'
         const sectionQuestion = document.querySelectorAll('section.questions');
 
 
+
+
+
+
+
+
+
+        // browse section.questions array
         for (const section of sectionQuestion) {
 
+            // get their data-step
             const keyStep = section.dataset.step;
 
+            // if display section is block and their data-step matches with data-step of form
             if (section.style.display == "block" && keyStep == stepValidate) {
 
+                // get all input named by "type" and checked
+                //checked = property to check if it's true
                 let checkedRadio = document.querySelectorAll('input[name="type"]:checked');
 
 
+                // browse info+ array
                 for (const info of displayInfo) {
+
+                    // get their data-step
                     let infoStep = info.dataset.step;
 
+                    // browse warning message array
                     for (const noInfo of noAnswerInfo) {
+
+                        //get their data-step
                         let noInfoStep = noInfo.dataset.step;
 
-
+                        // if data-stepf of info+ matches with data-step of form and same thing with warning message data-step
                         if (infoStep == stepValidate && noInfoStep == stepValidate) {
+
+                            // remove class 'none'  on warning message
                             noInfo.classList.remove('none');
 
+                            // browse input named 'type' and checked (array) ***
                             for (const radio of checkedRadio) {
 
+                                // get data-step of input
                                 let radioStep = radio.dataset.step;
+
+                                // get data-questions (id of question)
                                 let radioDatasetQuestion = radio.dataset.question;
+
+                                // gete data-id of answer
                                 let answerId = radio.dataset.id;
 
 
+                                //console.log(arrayAnswerId);
+
+                                //  if input is not null and input data-step matches with data-step of form 
                                 if (radio != null && radioStep == stepValidate) {
 
-                                    //just get informations
+                                    // put in an array id of user answers he's selected
+                                    let arrayAnswerId = [
+                                        parseInt(answerId),
+                                    ];
 
+
+                                    for (let test of arrayAnswerId) {
+                                        cptInput++;
+                                    }
+
+                                    //just get informations on this link
                                     const url = "http://localhost:8000/info/questions/" + radioDatasetQuestion;
+
 
                                     var request = new Request(url, {
                                         method: 'POST',
                                         mode: 'cors',
                                         cache: 'no-cache'
                                     })
+
+                                    // get request
                                     fetch(request)
                                         .then(function (response) {
 
+                                            // get json object
                                             return response.json();
 
                                         })
                                         .then(function (jsonResponse) {
 
-                                            //console.log(jsonResponse);
+                                            //display in console json object
+                                            console.log(jsonResponse);
 
+                                            // put in variable json object
                                             const quest = jsonResponse;
+
+                                            // get answerId array
                                             const answerArray = quest.answerId;
 
-                                            for (const testAanswer in answerArray) {
-
-                                                let getId = answerArray[testAanswer].id;
-
-                                                if (answerId == getId) {
-                                                    let isCorrect = answerArray[testAanswer].is_correct;
 
 
-                                                    scoreDom = document.querySelectorAll('.score');
+                                            // browse answerId array (json object)
+                                            for (const answer in answerArray) {
 
-                                                    // part to check if it's correct answer or not
-                                                    if (isCorrect == true) {
+                                                // get id of answer in this array (ex : 712, 713)
+                                                var getId = answerArray[answer].id;
 
-                                                        score++;
+                                                // get value of is_correct in json object ( false, true...)
+                                                var isCorrect = answerArray[answer].is_correct;
 
-                                                        if (!submitTarget.dataset.clicked) {
+                                                scoreDom = document.querySelectorAll('.score');
 
-                                                            submitTarget.dataset.clicked = true;
+                                                // count number of answer are true 
+                                                if (isCorrect === true) {
 
-                                                            console.log('1er click');
+                                                    cptTrue++;
+                                                    //console.log('id des bonnes réponses ' + getId);
+
+
+                                                    let arrayGetId = [
+                                                        getId,
+                                                    ];
+
+                                                    for (var testId of arrayGetId) {
+                                                        console.log('je suis testId ' + testId);
+                                                        console.log(arrayAnswerId.includes(testId));
+
+                                                        if (testId == arrayAnswerId) {
+
+                                                            console.log('je suis testId : ' + testId + ' et je suis arrayAnswerId : ' + arrayAnswerId);
+                                                            confirm = true;
+
 
 
                                                         } else {
-
-                                                            score--;
-                                                            console.log('deja clické !');
-
-                                                            return score;
-
+                                                            console.log('Attention, ça ne correspond pas');
+                                                            confirm = false;
                                                         }
-                                                        // condition to limit the score on the active question
-
-                                                        // using in fetch
-                                                        
-                                                        fetch('http://localhost:8000/info/' + user, {
-                                                            method: 'POST',
-                                                            headers: { 'Content-Type': 'application/json' },
-                                                            body:  JSON.stringify({quiz: quizId, scoreGame: score})
-                                                        })
-                                                        
-                                                        
-                                                        .then(response => console.log(response.text()))
-                                                            .catch(error => console.log(error));
-                                                            
-                                                            // using XMLHttpRequest
-
-                                                           /* var http = new XMLHttpRequest();
-                                                            var url = 'http://localhost:8000/info/' + user;
-                                                            var params = 'quiz=' + quizId + "&scoreGame=" + score;
-                                                            http.open('POST', url, true);
-
-                                                            //Send the proper header information along with the request
-                                                            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-                                                            http.onreadystatechange = function() {//Call a function when the state changes.
-                                                            if(http.readyState == 4 && http.status == 200) {
-                                                                console.log(http.responseText);
-                                                            }
-                                                            }
-                                                            http.send(params);
-                                                            */
-
-
-                                                        scoreDom.innerHTML = score;
-
-                                                        for (const displayScore of scoreDom) {
-                                                            displayScore.innerText = "Score: " + score;
-
-                                                        }
-
-                                                        for (const displayAnswer of resultDom) {
-                                                            displayAnswer.innerText = "Bonne réponse !";
-                                                            displayAnswer.style.color = "green";
-                                                        }
-
-
-
-
-
-                                                    } else {
-                                                        score;
-
-                                                        if (!submitTarget.dataset.clicked) {
-
-                                                            submitTarget.dataset.clicked = true;
-
-                                                            console.log('1er click');
-
-
-                                                        } else {
-
-                                                            score--;
-                                                            console.log('deja clické !');
-
-                                                            return score;
-
-                                                        }
-
-                                                        for (const displayScore of scoreDom) {
-                                                            displayScore.innerText = "Score: " + score;
-                                                        }
-
-                                                        for (const displayAnswer of resultDom) {
-                                                            displayAnswer.innerText = "Dommage, mauvaise réponse";
-                                                            displayAnswer.style.color = "red";
-                                                        }
-
-                                                        // using in fetch
-                                                        
-                                                        fetch('http://localhost:8000/info/' + user, {
-                                                            method: 'POST',
-                                                            headers: { 'Content-Type': 'application/json' },
-                                                            body:  JSON.stringify({quiz: quizId, scoreGame: score})
-                                                        })
-                                                        
-                                                        .then(response => console.log(response.text()))
-                                                            .catch(error => console.log(error));
-                                                            
-                                                            // using XMLHttpRequest
-
-                                                           /* var http = new XMLHttpRequest();
-                                                            var url = 'http://localhost:8000/info/' + user;
-                                                            var params = 'quiz=' + quizId + "&scoreGame=" + score;
-                                                            http.open('POST', url, true);
-
-                                                            //Send the proper header information along with the request
-                                                            http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-                                                            http.onreadystatechange = function() {//Call a function when the state changes.
-                                                            if(http.readyState == 4 && http.status == 200) {
-                                                                console.log(http.responseText);
-                                                            }
-                                                            }
-                                                            http.send(params);
-                                                            */
-                                                      
                                                     }
+
                                                 }
-                                            
 
-
-
-                                        
                                             }
-                                        }
 
 
-                                    )
+                                            if (cptTrue == cptInput && confirm == true) {
+
+                                                console.log('ça fonctionne !!');
+
+                                                score++;
+
+
+                                                if (!submitTarget.dataset.clicked) {
+
+                                                    submitTarget.dataset.clicked = true;
+
+                                                    console.log('1er click');
+
+
+                                                } else  {
+                                                    
+                                                    score--;
+                                                    console.log('deja clické !');
+
+                                                }
+
+                                                scoreDom.innerHTML = score;
+
+                                                for (const displayScore of scoreDom) {
+                                                    displayScore.innerText = "Score: " + score;
+                                                }
+
+                                                for (const displayAnswer of resultDom) {
+                                                    displayAnswer.innerText = "Bien, bonne réponse";
+                                                    displayAnswer.style.color = "green";
+                                                }
+
+
+                                                // using in fetch
+
+                                                fetch('http://localhost:8000/info/' + user, {
+                                                    method: 'POST',
+                                                    headers: { 'Content-Type': 'application/json' },
+                                                    body: JSON.stringify({ quiz: quizId, scoreGame: score })
+                                                })
+
+
+                                                    .then(response => console.log(response.text()))
+                                                    .catch(error => console.log(error));
+
+                                            } else {
+                                                console.log('Il y a une erreur');
+
+                                                score;
+                                                scoreDom.innerHTML = score;
+
+                                                for (const displayScore of scoreDom) {
+                                                    displayScore.innerText = "Score: " + score;
+                                                }
+
+                                                for (const displayAnswer of resultDom) {
+                                                    displayAnswer.innerText = "Dommage, mauvaise réponse";
+                                                    displayAnswer.style.color = "red";
+
+                                                }
+
+                                                // using in fetch
+
+                                                fetch('http://localhost:8000/info/' + user, {
+                                                    method: 'POST',
+                                                    headers: { 'Content-Type': 'application/json' },
+                                                    body: JSON.stringify({ quiz: quizId, scoreGame: score })
+                                                })
+
+
+                                                    .then(response => console.log(response.text()))
+                                                    .catch(error => console.log(error));
+
+                                            }
+
+
+
+                                            console.log(cptInput);
+                                            console.log(cptTrue);
+
+                                            cptTrue = 0;
+
+                                        })
 
                                     if (infoStep == stepValidate && noInfoStep == stepValidate) {
 
@@ -292,7 +272,7 @@ const submitanswer = {
                                         info.classList.remove('none');
                                     }
 
-                            }else {
+                                } else {
 
                                     if (infoStep == stepValidate && noInfoStep == stepValidate) {
 
@@ -304,24 +284,17 @@ const submitanswer = {
                                 }
 
                             }
-                        }
 
+                        }
 
                     }
 
                 }
 
-
             }
+
 
         }
 
-        },
-
-    }
-
-
-
-
-                    
-                
+    },
+}

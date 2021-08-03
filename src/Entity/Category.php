@@ -25,11 +25,27 @@ class Category
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Quiz::class, mappedBy="category")
+     * @ORM\Column(type="string", length=150)
+     */
+    private $icone;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resume;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Quiz::class, mappedBy="category")
      */
     private $quiz;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="category")
+     */
+    private $user;
 
+
+  
     public function __construct()
     {
         $this->quiz = new ArrayCollection();
@@ -52,6 +68,30 @@ class Category
         return $this;
     }
 
+    public function getIcone(): ?string
+    {
+        return $this->icone;
+    }
+
+    public function setIcone(string $icone): self
+    {
+        $this->icone = $icone;
+
+        return $this;
+    }
+
+    public function getResume(): ?string
+    {
+        return $this->resume;
+    }
+
+    public function setResume(?string $resume): self
+    {
+        $this->resume = $resume;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Quiz[]
      */
@@ -64,7 +104,7 @@ class Category
     {
         if (!$this->quiz->contains($quiz)) {
             $this->quiz[] = $quiz;
-            $quiz->addCategory($this);
+            $quiz->setCategory($this);
         }
 
         return $this;
@@ -73,8 +113,23 @@ class Category
     public function removeQuiz(Quiz $quiz): self
     {
         if ($this->quiz->removeElement($quiz)) {
-            $quiz->removeCategory($this);
+            // set the owning side to null (unless already changed)
+            if ($quiz->getCategory() === $this) {
+                $quiz->setCategory(null);
+            }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
