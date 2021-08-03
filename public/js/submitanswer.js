@@ -30,6 +30,9 @@ const submitanswer = {
         //console.log(user);
 
 
+
+
+
         // select all info+
         const displayInfo = document.querySelectorAll('div.answer-content');
 
@@ -39,13 +42,41 @@ const submitanswer = {
         // select all div 'section.questions'
         const sectionQuestion = document.querySelectorAll('section.questions');
 
+        // get all input named by "type" and checked
+        //checked = property to check if it's true
+        let checkedRadio = document.querySelectorAll('input[name="type"]:checked');
 
 
 
 
+        var arrayAnswerId = [];
 
+        var arrayGetId = [];
 
+        // first step : put in array all input are selected
 
+        // browse input named 'type' and checked (array), put in array selected answer by user
+        for (var radio of checkedRadio) {
+
+            // get data-step of input
+            var radioStep = radio.dataset.step;
+
+            // gete data-id of answer
+            let answerId = radio.dataset.id;
+
+            var radioDatasetQuestion = radio.dataset.question;
+
+            // put in an array id of user answers he's selected
+            arrayAnswerId.push(parseInt(answerId));
+
+            cptInput++;
+
+        }
+
+        // second step : browse all sections and get their data step
+        // check if data step of section is matching with data step of form
+        // yes : get all info+ and warning message, get their data step and if input is selected check if it's same the stepf of form
+        // if no answer are selected display warning message, if not, hide him and display info+
 
         // browse section.questions array
         for (const section of sectionQuestion) {
@@ -55,11 +86,6 @@ const submitanswer = {
 
             // if display section is block and their data-step matches with data-step of form
             if (section.style.display == "block" && keyStep == stepValidate) {
-
-                // get all input named by "type" and checked
-                //checked = property to check if it's true
-                let checkedRadio = document.querySelectorAll('input[name="type"]:checked');
-
 
                 // browse info+ array
                 for (const info of displayInfo) {
@@ -73,228 +99,211 @@ const submitanswer = {
                         //get their data-step
                         let noInfoStep = noInfo.dataset.step;
 
-                        // if data-stepf of info+ matches with data-step of form and same thing with warning message data-step
+                        // if step of info+ and noInfo matche with step of form
                         if (infoStep == stepValidate && noInfoStep == stepValidate) {
 
                             // remove class 'none'  on warning message
                             noInfo.classList.remove('none');
 
-                            // browse input named 'type' and checked (array) ***
-                            for (const radio of checkedRadio) {
+                        }
+                        // radio is selectd and step of radio is matching with step of form , display or not blocks
+                        if (radio != null && radioStep == stepValidate) {
 
-                                // get data-step of input
-                                let radioStep = radio.dataset.step;
+                            if (infoStep == stepValidate && noInfoStep == stepValidate) {
 
-                                // get data-questions (id of question)
-                                let radioDatasetQuestion = radio.dataset.question;
+                                noInfo.classList.add('none');
+                                info.classList.remove('none');
 
-                                // gete data-id of answer
-                                let answerId = radio.dataset.id;
+                            }
 
 
-                                //console.log(arrayAnswerId);
+                            else {
 
-                                //  if input is not null and input data-step matches with data-step of form 
-                                if (radio != null && radioStep == stepValidate) {
+                                if (infoStep == stepValidate && noInfoStep == stepValidate) {
 
-                                    // put in an array id of user answers he's selected
-                                    let arrayAnswerId = [
-                                        parseInt(answerId),
-                                    ];
-
-
-                                    for (let test of arrayAnswerId) {
-                                        cptInput++;
-                                    }
-
-                                    //just get informations on this link
-                                    const url = "http://localhost:8000/info/questions/" + radioDatasetQuestion;
-
-
-                                    var request = new Request(url, {
-                                        method: 'POST',
-                                        mode: 'cors',
-                                        cache: 'no-cache'
-                                    })
-
-                                    // get request
-                                    fetch(request)
-                                        .then(function (response) {
-
-                                            // get json object
-                                            return response.json();
-
-                                        })
-                                        .then(function (jsonResponse) {
-
-                                            //display in console json object
-                                            console.log(jsonResponse);
-
-                                            // put in variable json object
-                                            const quest = jsonResponse;
-
-                                            // get answerId array
-                                            const answerArray = quest.answerId;
-
-
-
-                                            // browse answerId array (json object)
-                                            for (const answer in answerArray) {
-
-                                                // get id of answer in this array (ex : 712, 713)
-                                                var getId = answerArray[answer].id;
-
-                                                // get value of is_correct in json object ( false, true...)
-                                                var isCorrect = answerArray[answer].is_correct;
-
-                                                scoreDom = document.querySelectorAll('.score');
-
-                                                // count number of answer are true 
-                                                if (isCorrect === true) {
-
-                                                    cptTrue++;
-                                                    //console.log('id des bonnes réponses ' + getId);
-
-
-                                                    let arrayGetId = [
-                                                        getId,
-                                                    ];
-
-                                                    for (var testId of arrayGetId) {
-                                                        console.log('je suis testId ' + testId);
-                                                        console.log(arrayAnswerId.includes(testId));
-
-                                                        if (testId == arrayAnswerId) {
-
-                                                            console.log('je suis testId : ' + testId + ' et je suis arrayAnswerId : ' + arrayAnswerId);
-                                                            confirm = true;
-
-
-
-                                                        } else {
-                                                            console.log('Attention, ça ne correspond pas');
-                                                            confirm = false;
-                                                        }
-                                                    }
-
-                                                }
-
-                                            }
-
-
-                                            if (cptTrue == cptInput && confirm == true) {
-
-                                                console.log('ça fonctionne !!');
-
-                                                score++;
-
-
-                                                if (!submitTarget.dataset.clicked) {
-
-                                                    submitTarget.dataset.clicked = true;
-
-                                                    console.log('1er click');
-
-
-                                                } else  {
-                                                    
-                                                    score--;
-                                                    console.log('deja clické !');
-
-                                                }
-
-                                                scoreDom.innerHTML = score;
-
-                                                for (const displayScore of scoreDom) {
-                                                    displayScore.innerText = "Score: " + score;
-                                                }
-
-                                                for (const displayAnswer of resultDom) {
-                                                    displayAnswer.innerText = "Bien, bonne réponse";
-                                                    displayAnswer.style.color = "green";
-                                                }
-
-
-                                                // using in fetch
-
-                                                fetch('http://localhost:8000/info/' + user, {
-                                                    method: 'POST',
-                                                    headers: { 'Content-Type': 'application/json' },
-                                                    body: JSON.stringify({ quiz: quizId, scoreGame: score })
-                                                })
-
-
-                                                    .then(response => console.log(response.text()))
-                                                    .catch(error => console.log(error));
-
-                                            } else {
-                                                console.log('Il y a une erreur');
-
-                                                score;
-                                                scoreDom.innerHTML = score;
-
-                                                for (const displayScore of scoreDom) {
-                                                    displayScore.innerText = "Score: " + score;
-                                                }
-
-                                                for (const displayAnswer of resultDom) {
-                                                    displayAnswer.innerText = "Dommage, mauvaise réponse";
-                                                    displayAnswer.style.color = "red";
-
-                                                }
-
-                                                // using in fetch
-
-                                                fetch('http://localhost:8000/info/' + user, {
-                                                    method: 'POST',
-                                                    headers: { 'Content-Type': 'application/json' },
-                                                    body: JSON.stringify({ quiz: quizId, scoreGame: score })
-                                                })
-
-
-                                                    .then(response => console.log(response.text()))
-                                                    .catch(error => console.log(error));
-
-                                            }
-
-
-
-                                            console.log(cptInput);
-                                            console.log(cptTrue);
-
-                                            cptTrue = 0;
-
-                                        })
-
-                                    if (infoStep == stepValidate && noInfoStep == stepValidate) {
-
-                                        noInfo.classList.add('none');
-                                        info.classList.remove('none');
-                                    }
-
-                                } else {
-
-                                    if (infoStep == stepValidate && noInfoStep == stepValidate) {
-
-                                        info.classList.add('none');
-                                        noInfo.classList.remove('none');
-
-                                    }
-
+                                    info.classList.add('none');
+                                    noInfo.classList.remove('none');
                                 }
+
 
                             }
 
                         }
 
                     }
-
                 }
+
 
             }
 
-
         }
+        
+        // last step : get infos with ajax and check answers with answers of user
+
+        //just get informations on this link
+        const url = "http://localhost:8000/info/questions/" + radioDatasetQuestion;
+
+
+        var request = new Request(url, {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache'
+        })
+
+        // get request
+        fetch(request)
+            .then(function (response) {
+
+                // get json object
+                return response.json();
+
+            })
+            .then(function (jsonResponse) {
+
+                //display in console json object
+                console.log(jsonResponse);
+
+                // put in variable json object
+                const quest = jsonResponse;
+
+                // get answerId array
+                const answerArray = quest.answerId;
+
+
+                // browse answerId array (json object)
+                for (const answer in answerArray) {
+
+                    // get id of answer in this array (ex : 712, 713)
+                    var getId = answerArray[answer].id;
+
+                    // get value of is_correct in json object ( false, true...)
+                    var isCorrect = answerArray[answer].is_correct;
+
+                    scoreDom = document.querySelectorAll('.score');
+
+                    // count number of answer are true 
+                    if (isCorrect === true) {
+
+                        cptTrue++;
+                        //console.log('id des bonnes réponses ' + getId);
+
+                        arrayGetId.push(parseInt(getId));
+
+                    }
+
+                }
+
+
+                // compare arrays
+                const result = JSON.stringify(arrayGetId) == JSON.stringify(arrayAnswerId);
+
+                // if result is true
+                if (result) {
+                    console.log('The arrays have the same elements.');
+                    confirm = true;
+                }
+                else {
+                    console.log('The arrays have different elements.');
+                    confirm = false;
+                }
+
+
+
+
+                console.log('bonnes réponses ' + arrayGetId);
+                console.log('réponses du user ' + arrayAnswerId);
+
+                console.log('nb input ' + cptInput);
+                console.log('nb vraies réponses ' + cptTrue);
+
+
+                if (cptTrue == cptInput && confirm == true) {
+
+                    console.log('ça fonctionne !!');
+
+                    score++;
+
+                    if (!submitTarget.dataset.clicked) {
+
+                        submitTarget.dataset.clicked = true;
+
+                        console.log('1er click');
+
+
+                    } else {
+
+                        score--;
+                        console.log('deja clické !');
+
+                    }
+
+                    scoreDom.innerHTML = score;
+
+                    for (const displayScore of scoreDom) {
+                        displayScore.innerText = "Score: " + score;
+                    }
+
+                    for (const displayAnswer of resultDom) {
+                        displayAnswer.innerText = "Bien, bonne réponse";
+                        displayAnswer.style.color = "green";
+                    }
+
+                    // using fetch
+
+                    fetch('http://localhost:8000/info/' + user, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ quiz: quizId, scoreGame: score })
+                    })
+
+
+                        .then(response => console.log(response.text()))
+                        .catch(error => console.log(error));
+
+                } else {
+                    console.log('Il y a une erreur');
+
+                    score;
+                    scoreDom.innerHTML = score;
+
+                    for (const displayScore of scoreDom) {
+                        displayScore.innerText = "Score: " + score;
+                    }
+
+                    for (const displayAnswer of resultDom) {
+                        displayAnswer.innerText = "Dommage, mauvaise réponse";
+                        displayAnswer.style.color = "red";
+
+                    }
+
+                    // using fetch
+
+                    fetch('http://localhost:8000/info/' + user, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ quiz: quizId, scoreGame: score })
+                    })
+
+
+                        .then(response => console.log(response.text()))
+                        .catch(error => console.log(error));
+
+                }
+
+                cptTrue = 0;
+
+            })
+
+        //arrayAnswerId = [];
+
+
+
+
 
     },
+
+
 }
+
+
+
