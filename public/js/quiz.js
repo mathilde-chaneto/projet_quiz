@@ -10,8 +10,6 @@ const quiz = {
        - browse array of buttons questions and add an event listener when we click on them, call the method : buttonFunction
      */
      
-
-
     const buttonQuestion = document.querySelectorAll('button.button-orange-questions');
 
     score = 0;
@@ -24,18 +22,11 @@ const quiz = {
 
     resultDom = document.querySelectorAll('.result-answer');
    
-
     for (const buttons of buttonQuestion) {
       buttons.addEventListener('click', quiz.buttonFunction);
 
-    }
+    } 
 
-    //TODO : feature to can click on next button see the next questions..
-    /*  const nextButton = document.querySelectorAll('button.button-orange-next');
-        for(const nbuttons of nextButton){
-        nbuttons.addEventListener('click', app.buttonNextFunction);
-        }
-    */ 
   },
   buttonFunction: function (event) {
 
@@ -49,19 +40,23 @@ const quiz = {
           - browse the form array, add an event listener when we click on them and call the file submitanswer.js and the method : checkAnswer
           -
       */
+     
       let clickedButton = event.target;
 
       let test = clickedButton.dataset.id;
 
       const sectionQuestion = document.querySelectorAll('section.questions');
 
+      arrayAnswerId = [];
+      console.log('je suis vidé : arrayAnswerId' + arrayAnswerId);
+      cptInput = 0;
+
 
       for (const sections of sectionQuestion) {
         let testSection = sections.dataset.id;
 
-
           if (test == testSection) {
-
+         
             sections.style.display = "block";
 
           } else {
@@ -75,12 +70,11 @@ const quiz = {
       const formQuiz = document.querySelectorAll('.form');
 
       for(const quiz of formQuiz){
-
+      
       
       quiz.addEventListener('submit', submitanswer.checkAnswer);
 
       }
-
 
   },
 

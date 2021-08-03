@@ -5,10 +5,7 @@ const submitanswer = {
 
         // avoid the reload of page
 
-
         event.preventDefault();
-
-        cptInput = 0;
 
         // get the click in the submit
         let submitTarget = event.target;
@@ -30,9 +27,6 @@ const submitanswer = {
         //console.log(user);
 
 
-
-
-
         // select all info+
         const displayInfo = document.querySelectorAll('div.answer-content');
 
@@ -47,11 +41,10 @@ const submitanswer = {
         let checkedRadio = document.querySelectorAll('input[name="type"]:checked');
 
 
-
-
-        var arrayAnswerId = [];
-
         var arrayGetId = [];
+       
+
+        console.log('je suis réponse user' + arrayAnswerId);
 
         // first step : put in array all input are selected
 
@@ -137,6 +130,7 @@ const submitanswer = {
             }
 
         }
+
         
         // last step : get infos with ajax and check answers with answers of user
 
@@ -193,9 +187,14 @@ const submitanswer = {
 
                 }
 
-
+                console.log('bonnes réponses ' + arrayGetId);
+                console.log('réponses du user ' + arrayAnswerId);
+               
                 // compare arrays
                 const result = JSON.stringify(arrayGetId) == JSON.stringify(arrayAnswerId);
+                arrayAnswerId = [];
+                console.log('je suis dans le fetch et je suis vidé ' + arrayAnswerId);
+               
 
                 // if result is true
                 if (result) {
@@ -208,14 +207,10 @@ const submitanswer = {
                 }
 
 
-
-
-                console.log('bonnes réponses ' + arrayGetId);
-                console.log('réponses du user ' + arrayAnswerId);
-
                 console.log('nb input ' + cptInput);
                 console.log('nb vraies réponses ' + cptTrue);
 
+               
 
                 if (cptTrue == cptInput && confirm == true) {
 
@@ -248,6 +243,8 @@ const submitanswer = {
                         displayAnswer.style.color = "green";
                     }
 
+                    //arrayAnswerId = [];
+                    //console.log('on vide arrayAnswerId' + arrayAnswerId);
                     // using fetch
 
                     fetch('http://localhost:8000/info/' + user, {
@@ -276,6 +273,9 @@ const submitanswer = {
 
                     }
 
+                    //arrayAnswerId = [];
+                    ///console.log('on vide arrayAnswerId' + arrayAnswerId);
+                    
                     // using fetch
 
                     fetch('http://localhost:8000/info/' + user, {
@@ -291,14 +291,16 @@ const submitanswer = {
                 }
 
                 cptTrue = 0;
+               
+
+              
 
             })
 
-        //arrayAnswerId = [];
+          
 
-
-
-
+            
+           
 
     },
 
