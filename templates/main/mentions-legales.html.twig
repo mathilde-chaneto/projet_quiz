@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} {% endblock %}
+
+{% block body %} {{ parent() }}
+
+
+                <section class="color">
+                    <div class="container">
+                        <article class="article-left columns is-multiline is-mobile is-two-thirds-tablet is-desktop">
+                                <figure class="media-right column">
+                                    <img src="/image/dev.jpg"/ alt="">
+                                </figure>
+                                    <div class="content column">
+                                            <h3 class="title is-size-3">
+                                                A propos :
+                                            </h3>
+                                          
+                                               <p>Ce site est spécialement fait à l'attention des développeurs déjà en activité ou en devenir :</p>
+                                               <p>Le but est de vous améliorez en tant que développeur à travers des quiz <p>
+                                           
+                                             <ul>
+                                                <li>L'occasion pour vous de vous tester, et de continuer d'apprendre !</li>
+                                            
+                                            
+                                                <li>La pratique est la clé de la réussite !</li>
+                                            </ul>
+
+                                    </div>
+
+
+                        </article>
+                    </div>
+                </section>
+         
+
+
+                     <section class="color">
+                        <div class="container">
+                            <article class="article-right columns is-multiline is-mobile is-tablet is-desktop">
+                                  
+                                        <div class="content column">
+                                                <h3 class="title is-size-3">
+                                                    Quiz :
+                                                </h3>
+                                                <ul>
+                                                   <li>Une base de quiz accessible</li>
+                                               
+                                                    <li>Des quiz portant sur d'autres domaines que le développement web afin d'avoir une bonne compréhension global de son 
+                                                    environnnement</li>
+                                              
+                                                  <li>Votre score par quiz </li>
+                                                </ul>
+              
+                                        </div>
+
+                                    <figure class="media-right column">
+                                        <img src="/image/27869.jpg"/ alt="">
+                                        <a href='https://fr.freepik.com/photos-vecteurs-libre/nombre'>Nombre vecteur créé par starline - fr.freepik.com</a>
+                                    </figure>
+                            </article>
+                        </div>
+                </section>
+
+            </div>
+            {{ include('main/footer.html.twig') }}
+
+        
+    </section>
+
+
+
+{% endblock %}
