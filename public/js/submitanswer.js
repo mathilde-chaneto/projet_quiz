@@ -27,6 +27,13 @@ const submitanswer = {
         //console.log(user);
 
 
+
+        // select all div .score
+        var scoreDom = document.querySelectorAll('.score');
+
+        // select all div .result-answer
+        var resultDom = document.querySelectorAll('.result-answer');
+
         // select all info+
         const displayInfo = document.querySelectorAll('div.answer-content');
 
@@ -42,31 +49,10 @@ const submitanswer = {
 
 
         var arrayGetId = [];
-       
 
-        console.log('je suis réponse user' + arrayAnswerId);
+        var arrayAnswerId = [];
 
-        // first step : put in array all input are selected
-
-        // browse input named 'type' and checked (array), put in array selected answer by user
-        for (var radio of checkedRadio) {
-
-            // get data-step of input
-            var radioStep = radio.dataset.step;
-
-            // gete data-id of answer
-            let answerId = radio.dataset.id;
-
-            var radioDatasetQuestion = radio.dataset.question;
-
-            // put in an array id of user answers he's selected
-            arrayAnswerId.push(parseInt(answerId));
-
-            cptInput++;
-
-        }
-
-        // second step : browse all sections and get their data step
+        //  browse all sections and get their data step
         // check if data step of section is matching with data step of form
         // yes : get all info+ and warning message, get their data step and if input is selected check if it's same the stepf of form
         // if no answer are selected display warning message, if not, hide him and display info+
@@ -76,6 +62,30 @@ const submitanswer = {
 
             // get their data-step
             const keyStep = section.dataset.step;
+
+            // put in array all input are selected
+            // browse input named 'type' and checked (array), put in array selected answer by user
+            for (var radio of checkedRadio) {
+
+                // get data-step of input
+                var radioStep = radio.dataset.step;
+
+                // gete data-id of answer
+                let answerId = radio.dataset.id;
+
+                // get dataset question (question id)
+                var radioDatasetQuestion = radio.dataset.question;
+
+                // compare if dataset step of section and input are the same and the form && input is selected
+                if (keyStep == radioStep && keyStep == stepValidate && radio !== null) {
+
+                    // console.log('test');
+                    // put in an array id of user answers he's selected
+                    arrayAnswerId.push(parseInt(answerId));
+
+                    cptInput++;
+                }
+            }
 
             // if display section is block and their data-step matches with data-step of form
             if (section.style.display == "block" && keyStep == stepValidate) {
@@ -129,9 +139,19 @@ const submitanswer = {
 
             }
 
+
+
         }
 
-        
+
+
+        //console.log('test ' + arrayAnswerId);
+        //console.log('confirm ' + confirm);
+
+
+        console.log('test2 ' + arrayAnswerId);
+
+
         // last step : get infos with ajax and check answers with answers of user
 
         //just get informations on this link
@@ -173,7 +193,7 @@ const submitanswer = {
                     // get value of is_correct in json object ( false, true...)
                     var isCorrect = answerArray[answer].is_correct;
 
-                    scoreDom = document.querySelectorAll('.score');
+                    //scoreDom;
 
                     // count number of answer are true 
                     if (isCorrect === true) {
@@ -189,12 +209,13 @@ const submitanswer = {
 
                 console.log('bonnes réponses ' + arrayGetId);
                 console.log('réponses du user ' + arrayAnswerId);
-               
+
                 // compare arrays
                 const result = JSON.stringify(arrayGetId) == JSON.stringify(arrayAnswerId);
-                arrayAnswerId = [];
-                console.log('je suis dans le fetch et je suis vidé ' + arrayAnswerId);
-               
+                // arrayAnswerId = [];
+
+                //console.log('je suis dans le fetch et je suis vidé ' + arrayAnswerId);
+
 
                 // if result is true
                 if (result) {
@@ -206,11 +227,8 @@ const submitanswer = {
                     confirm = false;
                 }
 
-
                 console.log('nb input ' + cptInput);
                 console.log('nb vraies réponses ' + cptTrue);
-
-               
 
                 if (cptTrue == cptInput && confirm == true) {
 
@@ -228,7 +246,7 @@ const submitanswer = {
                     } else {
 
                         score--;
-                        console.log('deja clické !');
+                        console.log('déjà clické !');
 
                     }
 
@@ -261,6 +279,22 @@ const submitanswer = {
                     console.log('Il y a une erreur');
 
                     score;
+
+                    if (!submitTarget.dataset.clicked) {
+
+                        submitTarget.dataset.clicked = true;
+
+                        console.log('1er click');
+
+
+                    } else {
+
+                        score;
+                        console.log('déjà clické !');
+
+                    }
+
+
                     scoreDom.innerHTML = score;
 
                     for (const displayScore of scoreDom) {
@@ -275,7 +309,7 @@ const submitanswer = {
 
                     //arrayAnswerId = [];
                     ///console.log('on vide arrayAnswerId' + arrayAnswerId);
-                    
+
                     // using fetch
 
                     fetch('http://localhost:8000/info/' + user, {
@@ -291,16 +325,16 @@ const submitanswer = {
                 }
 
                 cptTrue = 0;
-               
+                cptInput = 0;
 
-              
+
 
             })
 
-          
 
-            
-           
+
+
+
 
     },
 

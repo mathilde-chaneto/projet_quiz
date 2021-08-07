@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Form\AccountDisplayType;
 use App\Form\AccountType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -26,10 +27,12 @@ class AccountController extends AbstractController
      /**
      * @Route("/account/{id}", name="account", requirements={"id": "\d+"})
      */
-    public function account(UserRepository $userRepo, $id): Response
+    public function account(UserRepository $userRepo, $id, User $user): Response
     {
-        
+        $form = $this->createForm(AccountDisplayType::class, $user);
+
         return $this->render('main/account.html.twig', [
+            'form' => $form->createView(),
             'userRepo' => $userRepo->find($id),
         ]);
     }
@@ -77,7 +80,8 @@ class AccountController extends AbstractController
                 //dd($user->setImage('icons8-utilisateur-48.png')) if the field is null, put a default image;
                 //next feature : get the previous image of user
                 
-                $user->setImage('icons8-utilisateur-48.png');
+               $user->setImage('icons8-utilisateur-48.png');
+             
 
             }
 

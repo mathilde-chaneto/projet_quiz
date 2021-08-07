@@ -1,7 +1,7 @@
 const quiz = {
-  init: function() {
-      // start part of quiz page feature
-    
+  init: function () {
+    // start part of quiz page feature
+
     /*
        - select all button with class : button-orange-questions
        - define a global variable to access in another file to change score in submit.checkAnswer
@@ -9,8 +9,14 @@ const quiz = {
        - select all p with class : result-answer ( display if godd or bad answer) use in submit.checkAnswer
        - browse array of buttons questions and add an event listener when we click on them, call the method : buttonFunction
      */
-     
-    const buttonQuestion = document.querySelectorAll('button.button-orange-questions');
+
+
+    // do something better than that
+    // try with export import but the page reload and I don't why, stay on the same page
+    // so I'm looking for to improve theses few variables
+    // try with var : not works
+
+    cptInput = 0;
 
     score = 0;
 
@@ -18,63 +24,59 @@ const quiz = {
 
     confirm = null;
 
-    scoreDom = document.querySelectorAll('.score');
+    const buttonQuestion = document.querySelectorAll('button.button-orange-questions');
 
-    resultDom = document.querySelectorAll('.result-answer');
-   
     for (const buttons of buttonQuestion) {
+
       buttons.addEventListener('click', quiz.buttonFunction);
 
-    } 
+    }
 
   },
   buttonFunction: function (event) {
 
-      /*  - get button which is being clicked
-          - put in variable the data-id of clickedButton
-          - select sections with class : 'questions' 
-          - browse the section array, and add condition : 
-            compare the dataset id of section and button :
-            If they match, show this section, if it 's not , hide her.
-          - select all form with class : 'form'
-          - browse the form array, add an event listener when we click on them and call the file submitanswer.js and the method : checkAnswer
-          -
-      */
-     
-      let clickedButton = event.target;
+    /*  - get button which is being clicked
+        - put in variable the data-id of clickedButton
+        - select sections with class : 'questions' 
+        - browse the section array, and add condition : 
+          compare the dataset id of section and button :
+          If they match, show this section, if it 's not , hide her.
+        - select all form with class : 'form'
+        - browse the form array, add an event listener when we click on them and call the file submitanswer.js and the method : checkAnswer
+        -
+    */
 
-      let test = clickedButton.dataset.id;
+    let clickedButton = event.target;
 
-      const sectionQuestion = document.querySelectorAll('section.questions');
+    let test = clickedButton.dataset.id;
 
-      arrayAnswerId = [];
-      console.log('je suis vidé : arrayAnswerId' + arrayAnswerId);
-      cptInput = 0;
+    const sectionQuestion = document.querySelectorAll('section.questions');
 
 
-      for (const sections of sectionQuestion) {
-        let testSection = sections.dataset.id;
 
-          if (test == testSection) {
-         
-            sections.style.display = "block";
+    for (const sections of sectionQuestion) {
+      let testSection = sections.dataset.id;
 
-          } else {
+      if (test == testSection) {
 
-            sections.style.display = "none";
+        sections.style.display = "block";
 
-          }
+      } else {
+
+        sections.style.display = "none";
 
       }
 
-      const formQuiz = document.querySelectorAll('.form');
+    }
 
-      for(const quiz of formQuiz){
-      
-      
+    const formQuiz = document.querySelectorAll('.form');
+
+    for (const quiz of formQuiz) {
+
+
       quiz.addEventListener('submit', submitanswer.checkAnswer);
 
-      }
+    }
 
   },
 

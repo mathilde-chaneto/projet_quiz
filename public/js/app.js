@@ -1,4 +1,4 @@
-// originel code bulma js, don't touch
+// origine code bulma js, don't touch
 
 document.addEventListener('DOMContentLoaded', () => {
 
