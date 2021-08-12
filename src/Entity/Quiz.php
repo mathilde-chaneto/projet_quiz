@@ -50,6 +50,11 @@ class Quiz
      */
     private $category;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $icones;
+
 
 
     public function __construct()
@@ -157,6 +162,18 @@ class Quiz
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getIcones(): ?string
+    {
+        return $this->icones;
+    }
+
+    public function setIcones(?string $icones): self
+    {
+        $this->icones = $icones;
 
         return $this;
     }
