@@ -155,7 +155,7 @@ const submitanswer = {
         // last step : get infos with ajax and check answers with answers of user
 
         //just get informations on this link
-        const url = "http://localhost:8000/info/questions/" + radioDatasetQuestion;
+        const url = "http://localhost/info/questions/" + radioDatasetQuestion;
 
 
         var request = new Request(url, {
@@ -265,7 +265,7 @@ const submitanswer = {
                     //console.log('on vide arrayAnswerId' + arrayAnswerId);
                     // using fetch
 
-                    fetch('http://localhost:8000/info/' + user, {
+                    fetch('http://localhost/info/' + user, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ quiz: quizId, scoreGame: score })
@@ -312,7 +312,7 @@ const submitanswer = {
 
                     // using fetch
 
-                    fetch('http://localhost:8000/info/' + user, {
+                    fetch('http://localhost/info/' + user, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ quiz: quizId, scoreGame: score })
