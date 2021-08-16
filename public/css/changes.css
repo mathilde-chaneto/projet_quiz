@@ -134,6 +134,39 @@ a.button.is-info {
     color: wheat;
 }
 
+.content.column-plus {
+    margin-bottom: 5rem;
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.content.column-plus h3 {
+    color: white;
+}
+
+.content.column-plus h4 {
+    color: darkorange
+}
+
+.content.column-plus .link-img li a {
+    color: white
+}
+
+.content.column-plus .mention-legale, .content.column-plus .link-img {
+    list-style-type: none;
+}
+
+.content.column h3.title {
+    color: white;
+}
+
+
+
+
 
 /*end global css*/
 
@@ -378,13 +411,13 @@ footer
     justify-content: center;
     align-items: center;
     height: auto;
-    color: wheat;
+    color: darkgrey;
     font-size: 1.7rem;
     
 }
 
 .hero-footer p a {
-    color: wheat;
+    color: white;
 }
 
 .hero-footer p {
