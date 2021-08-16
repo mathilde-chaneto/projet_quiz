@@ -1,73 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ parent() }} {% endblock %}
-
-{% block body %} {{ parent() }}
-
-
-                <section class="color">
-                    <div class="container">
-                        <article class="article-left columns is-multiline is-mobile is-two-thirds-tablet is-desktop">
-                                <figure class="media-right column">
-                                    <img src="/image/dev.jpg"/ alt="">
-                                </figure>
-                                    <div class="content column">
-                                            <h3 class="title is-size-3">
-                                                A propos :
-                                            </h3>
-                                          
-                                               <p>Ce site est spécialement fait à l'attention des développeurs déjà en activité ou en devenir :</p>
-                                               <p>Le but est de vous améliorez en tant que développeur à travers des quiz <p>
-                                           
-                                             <ul>
-                                                <li>L'occasion pour vous de vous tester, et de continuer d'apprendre !</li>
-                                            
-                                            
-                                                <li>La pratique est la clé de la réussite !</li>
-                                            </ul>
-
-                                    </div>
-
-
-                        </article>
-                    </div>
-                </section>
-         
-
-
-                     <section class="color">
-                        <div class="container">
-                            <article class="article-right columns is-multiline is-mobile is-tablet is-desktop">
-                                  
-                                        <div class="content column">
-                                                <h3 class="title is-size-3">
-                                                    Quiz :
-                                                </h3>
-                                                <ul>
-                                                   <li>Une base de quiz accessible</li>
-                                               
-                                                    <li>Des quiz portant sur d'autres domaines que le développement web afin d'avoir une bonne compréhension global de son 
-                                                    environnnement</li>
-                                              
-                                                  <li>Votre score par quiz </li>
-                                                </ul>
-              
-                                        </div>
-
-                                    <figure class="media-right column">
-                                        <img src="/image/27869.jpg"/ alt="">
-                                        <a href='https://fr.freepik.com/photos-vecteurs-libre/nombre'>Nombre vecteur créé par starline - fr.freepik.com</a>
-                                    </figure>
-                            </article>
-                        </div>
-                </section>
-
-            </div>
-            {{ include('main/footer.html.twig') }}
-
-        
-    </section>
-
-
-
+{% block title %}
+    {{ parent() }}
 {% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <section class="color">
+        <div class="container">
+            <article class="article-left columns is-multiline is-mobile is-two-thirds-tablet is-desktop">
+                <figure class="media-right column">
+                    <img src="/image/dev.jpg" / alt=""></figure>
+                    <div class="content column">
+                        <h3 class="title is-size-3">
+                            Mentions légales :
+                                                                        
+                        </h3>
+
+                        <h4 class="title is-size-4">
+                            Editeur :                                          
+                        </h4>
+
+                        <ul>
+                            <li>
+                              Le site  https://dev-quiz.geek-taku.fr est édité par Mathilde CHANE-TO
+                            </li>
+
+                            <li>
+                               Adresse : 24 Avenue de Paris, 92320 Châtillon
+                            </li>
+
+                            <li>
+                               Tél : + 33 (0) 7 69 49 20 18
+                             </li>
+                        </ul>
+
+                        <h4 class="title is-size-4">
+                            Hébergeur :                                     
+                        </h4>
+
+                        <li>
+                            Ce site est hébergé par Hécate REGNIER
+                        </li>
+
+                        <li>
+                            Adresse : 24 Avenue de Paris, 92320 Châtillon
+                         </li>
+
+                         <li>
+                            Tél : + 33 (0) 6 52 49 52 94
+                          </li>
+
+                    </div>
+
+                </article>
+            </div>
+        </section>
+
+    </div>
+    {{ include('main/footer.html.twig') }}
+
+</section>{% endblock %}
