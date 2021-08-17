@@ -4,7 +4,7 @@
 /.env.*.local
 /github_id_rsa
 /github_id_rsa.public
-/.config-github
+/config-github
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
