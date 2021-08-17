@@ -3,7 +3,7 @@
 /.env.local.php
 /.env.*.local
 /github_id_rsa
-/github_id_rsa.public
+/github_id_rsa.pub
 /config-github
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
