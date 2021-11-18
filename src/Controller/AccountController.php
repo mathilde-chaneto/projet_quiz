@@ -17,6 +17,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 /**
@@ -25,20 +26,19 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AccountController extends AbstractController
 {
      /**
-     * @Route("/account/{id}", name="account", requirements={"id": "\d+"})
+     * @Route("account/{id}", name="account", requirements={"id": "\d+"})
      */
-    public function account(UserRepository $userRepo, $id, User $user): Response
+    public function account(User $user, SessionInterface $session): Response
     {
         $form = $this->createForm(AccountDisplayType::class, $user);
 
-        return $this->render('main/account.html.twig', [
+        return $this->render('account-folder/account.html.twig', [
             'form' => $form->createView(),
-            'userRepo' => $userRepo->find($id),
         ]);
     }
 
     /**
-     * @Route("/account/edit/{id}", name="account-edit", requirements={"id": "\d+"})
+     * @Route("account/edit/{id}", name="account-edit", requirements={"id": "\d+"})
      */
     public function edit(User $user, Request $request, UserPasswordEncoderInterface $encoder, MailerInterface $mailer): Response
     {
@@ -63,7 +63,7 @@ class AccountController extends AbstractController
         
             
             if ($imageFile != null) {
-                
+ 
                 $newFileName = uniqid() . '.' . $imageFile->guessClientExtension();
 
           
@@ -120,18 +120,18 @@ class AccountController extends AbstractController
 
             $mailer->send($email);
 
-            $this->addFlash('success', 'Un mail vous a été envoyer contenant vos identifiants.');
+            $this->addFlash('account-success', 'Un mail vous a été envoyer contenant vos identifiants.');
 
             return $this->redirectToRoute('dev-quiz_account', ['id' => $user->getId()]);
         }
 
-        return $this->render('main/account-edit.html.twig', [
+        return $this->render('account-folder/account-edit.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
      /**
-     * @Route("/account/delete/{id}", name="account-delete", requirements={"id"="\d+"})
+     * @Route("account/delete/{id}", name="account-delete", requirements={"id"="\d+"})
      */
     public function delete(User $user, Request $request)
     {
@@ -144,6 +144,8 @@ class AccountController extends AbstractController
             return $this->redirectToRoute('app_login');
         
     }
+
+    
      
 
 }

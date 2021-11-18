@@ -27,10 +27,6 @@ class AccountDisplayType extends AbstractType
             ->add('email', EmailType::class, [
             ])
 
-            ->add('password', PasswordType::class, [
-                'label' => 'Mot de passe',
-            ])
-
             ->add('username', TextType::class, [
                 'label' => 'Pseudo',
             ])

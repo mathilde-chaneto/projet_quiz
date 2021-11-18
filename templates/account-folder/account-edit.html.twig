@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="/js/pass.js"></script>
+{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+
+	<section class="color-connect">
+		<div class="container-account">
+			<div class="avatar is-flex is-justify-content-center">
+				<div class="file has-name is-left is-normal">
+					<figure class="image is-128x128">
+						{% if app.user %}<img src="/avatar/{{ app.user.image}}" class="is-rounded image is-128x128"/>
+						{% endif %}
+					</figure>
+
+				</div>
+
+			</div>
+
+			{{form_start(form)}}
+
+			{{form_row(form.email)}}
+
+			{{form_row(form.password)}}
+
+			{{form_row(form.image)}}
+
+			{{form_row(form.username)}}
+
+
+			<div class="control">
+				<button>Envoyer</button>
+			</div>
+			{{form_end(form)}}
+
+		</div>
+	</section>
+
+</div>
+{{ include('main/footer.html.twig') }}{% endblock %}

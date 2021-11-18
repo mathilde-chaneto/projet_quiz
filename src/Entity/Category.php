@@ -22,10 +22,10 @@ class Category
     /**
      * @ORM\Column(type="string", length=100)
      */
-    private $name;
+    private $nameCategory;
 
     /**
-     * @ORM\Column(type="string", length=150)
+     * @ORM\Column(type="string", length=150, nullable=true)
      */
     private $icone;
 
@@ -56,14 +56,14 @@ class Category
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getNameCategory(): ?string
     {
-        return $this->name;
+        return $this->nameCategory;
     }
 
-    public function setName(string $name): self
+    public function setNameCategory(string $nameCategory): self
     {
-        $this->name = $name;
+        $this->nameCategory = $nameCategory;
 
         return $this;
     }

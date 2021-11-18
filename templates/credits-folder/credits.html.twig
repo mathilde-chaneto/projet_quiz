@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <section class="color">
+        <div class="container">
+            <article class="article-left columns is-multiline is-mobile is-two-thirds-tablet is-desktop">
+                    <div class="content column-plus">
+                        <h3 class="title is-size-3">
+                            Credits  :
+                                                                        
+                        </h3>
+
+                        <h4 class="title is-size-4">
+                            Images :                                                                                  
+                        </h4>
+
+                        <ul class="link-img">
+                            <li><a href="https://fr.freepik.com/vecteurs-libre/banniere-developpement-site-web_5467393.htm#page=1&amp;query=web%20development&amp;position=2" >Web dev - freepik</a></li>
+
+                            <li><a href='https://fr.freepik.com/photos-vecteurs-libre/nombre'>Nombre vecteur créé par starline - fr.freepik.com</a></li>
+
+                            <li><a href='https://unsplash.com/photos/DuHKoV44prg?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditShareLink'> Fotis Fotopoulos - unsplash</a></li>
+                        </ul>
+
+                    </div>
+
+                </article>
+            </div>
+        </section>
+
+    </div>
+    {{ include('main/footer.html.twig') }}
+
+{% endblock %}

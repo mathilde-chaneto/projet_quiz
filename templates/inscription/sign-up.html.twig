@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="/js/pass.js"></script>
+{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	<main>
+		<section class="sign-up-container">
+            <h1>Inscription</h1>
+					<article id="sign-up">
+						<h2>Formulaire d'inscription</h2>
+						{{form_start(form)}}
+
+						{{form_row(form.email)}}
+
+
+						{{form_row(form.password)}}
+
+
+						{{form_row(form.image)}}
+
+
+						{{form_row(form.username)}}
+
+
+						<div class="control">
+							<button>Envoyer</button>
+						</div>
+						{{form_end(form)}}
+					</article>
+		</section>
+</main>
+			{{ include('main/footer.html.twig') }}
+
+		{% endblock %}

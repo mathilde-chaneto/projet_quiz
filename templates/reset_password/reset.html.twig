@@ -1,19 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ parent() }} {% endblock %}
+{% block title %}
+	{{ parent() }}
+{% endblock %}
 
-{% block body %} {{ parent() }}
-<section class="color-connect">
-<div class="container">
-    <h1 class="title color">Reset your password</h1>
+{% block body %}
+	{{ parent() }}
+	<main>
+		<section id="reset-container">
+			<h1>Reset your password</h1>
 
-    {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
-        <button class="btn btn-primary">Reset password</button>
-    {{ form_end(resetForm) }}
-</div>
-</section>
-</div>
-{{ include('main/footer.html.twig') }}
-</section>
+			<article id="reset">
+				<h2>Renseignez votre mot de passe</h2>
+				{{ form_start(resetForm) }}
+				{{ form_row(resetForm.plainPassword) }}
+				<div class="control">
+					<button>Envoyer</button>
+				</div>
+				{{ form_end(resetForm) }}
+			</article>
+		</section>
+	</main>
+
+	{{ include('main/footer.html.twig') }}
+
 {% endblock %}

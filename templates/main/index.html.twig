@@ -1,72 +1,105 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ parent() }} {% endblock %}
-
-{% block body %} {{ parent() }}
-
-
-                <section class="color">
-                    <div class="container">
-                        <article class="article-left columns is-multiline is-mobile is-two-thirds-tablet is-desktop">
-                                <figure class="media-right column">
-                                    <img src="/image/dev.jpg"/ alt="">
-                                </figure>
-                                    <div class="content column">
-                                            <h3 class="title is-size-3">
-                                                A propos :
-                                            </h3>
-                                          
-                                               <p>Ce site est spécialement fait à l'attention des développeurs déjà en activité ou en devenir :</p>
-                                               <p>Le but est de vous améliorez en tant que développeur à travers des quiz <p>
-                                           
-                                             <ul>
-                                                <li>L'occasion pour vous de vous tester, et de continuer d'apprendre !</li>
-                                            
-                                            
-                                                <li>La pratique est la clé de la réussite !</li>
-                                            </ul>
-
-                                    </div>
-
-
-                        </article>
-                    </div>
-                </section>
-         
-
-
-                     <section class="color">
-                        <div class="container">
-                            <article class="article-right columns is-multiline is-mobile is-tablet is-desktop">
-                                  
-                                        <div class="content column">
-                                                <h3 class="title is-size-3">
-                                                    Quiz :
-                                                </h3>
-                                                <ul>
-                                                   <li>Une base de quiz accessible</li>
-                                               
-                                                    <li>Des quiz portant sur d'autres domaines que le développement web afin d'avoir une bonne compréhension global de son 
-                                                    environnnement</li>
-                                              
-                                                  <li>Votre score par quiz </li>
-                                                </ul>
-              
-                                        </div>
-
-                                    <figure class="media-right column">
-                                        <img src="/image/27869.jpg"/ alt="">
-                                    </figure>
-                            </article>
-                        </div>
-                </section>
-
-            </div>
-            {{ include('main/footer.html.twig') }}
-
-        
-    </section>
-
-
-
+{% block title %}
+    {{ parent() }}
 {% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+<main>
+    <section id="welcome-container">
+        <h1>Accueil</h1>
+         
+        <article class="about">
+            <h2>A propos :</h2>
+            <div class="content">
+                        <p>Ce site est spécialement fait à l'attention des développeurs déjà en activité ou en devenir.</p>
+                        <p>Le but est de vous améliorez en tant que développeur à travers des quiz.</p>         
+            </div>
+            <div class="img-container">
+                <figure>
+                    <div class="icone">
+                        <img src="/medias/terminal-48.png" alt="" >
+                    </div>
+                    <figcaption>
+                        <span>Pratiquer</span>
+                    </figcaption>
+                </figure>
+                <figure>
+                        <div class="icone">
+                            <img src="/medias/terminal-48.png" alt="" >
+                        </div>
+                        <figcaption>
+                            <span>Apprendre</span>
+                        </figcaption>
+                </figure>
+                <figure>
+                        <div class="icone">
+                            <img src="/medias/terminal-48.png" alt="" >
+                        </div>
+                        <figcaption>
+                            <span>Progresser</span>
+                        </figcaption>
+                </figure>    
+            </div>
+            </article>
+
+            <article class="about">
+                <h2>Quiz :</h2>
+                <div class="img-container">
+                    <figure>
+                        <div class="icone">
+                            <img src="/medias/terminal-48.png" alt="" >
+                        </div>
+                        <figcaption>
+                            <span>Quizz disponibles</span>
+                                <p>Testez-vous rapidement</p>
+                        </figcaption>
+                    </figure>  
+                    <figure>
+                        <div class="icone">
+                            <img src="/medias/terminal-48.png" alt="" >
+                        </div>
+                        <figcaption>
+                            <span>Domaines divers</span>
+                                <p>Comprenez votre environne-ment</p>
+                        </figcaption>
+                    </figure>  
+                    <figure>
+                        <div class="icone">
+                            <img src="/medias/terminal-48.png" alt="" >
+                        </div>
+                        <figcaption>
+                            <span>Score</span>
+                                <p>Votre score par quiz</p>
+                        </figcaption>
+                    </figure>  
+                    <figure>
+                        <div class="icone">
+                            <img src="/medias/code-48.png" alt="" >
+                        </div>
+                        <figcaption>
+                            <span>Quiz personnalisé</span>
+                                <p>Créez votre propre quiz</p>
+                        </figcaption>
+                    </figure>  
+                </div>
+            </article>
+
+            <article id="demo">
+                <video controls width="450">
+                <source src="medias/videos/demo.mp4" type="video/mp4">
+                </video>
+                <h2>Demo :</h2>
+            </article>
+    </section>
+</main>
+                    {{ include('main/footer.html.twig') }}
+
+                {% endblock %}
+                

@@ -34,6 +34,21 @@ class QuizRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findAllQuizBase(): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT * FROM quiz q
+            WHERE q.user_id = 50
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAllAssociative();
+    }
+
     /*
     public function findOneBySomeField($value): ?Quiz
     {

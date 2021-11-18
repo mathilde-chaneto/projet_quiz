@@ -41,7 +41,7 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    /**this method to handle the traitment of data in login page : if LOGIN_ROUTE mlatch with '_route' 
+    /**this method to handle the traitment of data in login page : if LOGIN_ROUTE match with '_route' 
      * and the method used is POST, retrurn boolean
      */
 
@@ -70,15 +70,16 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
     {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
-            throw new InvalidCsrfTokenException();
+            throw new InvalidCsrfTokenException("Mot de passe invalide.");
         }
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
 
         if (!$user) {
-            throw new UsernameNotFoundException('Email could not be found.');
+            throw new UsernameNotFoundException("Email invalide.");
         }
 
+       
         return $user;
     }
 
@@ -110,6 +111,8 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
     }
+
+   
 
    
 }

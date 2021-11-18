@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript" src="/js/quiz.js"></script>
+<script type="text/javascript" src="/js/submitanswer.js"></script>
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+<main>
+    <section id="quiz-reader-container">
+        <h1>QUIZZ</h1>
+
+        <article id="info-quiz">
+            <h2>Catégorie : <span><a href="{{ path('dev-quiz_categories', {'id': app.user.id}) }}">{{ quiz.category.name }}</a></span></h2>
+            <div class="content">
+                <p>{{ quiz.category.resume }}</p>
+                <span id="user" class="hidden">{{ user.id }}</span>
+            </div>   
+        </article>
+
+        <article id="score">
+            <h2>
+            Le score :
+            </h2>
+            {% if player[0].quiz.id == quiz.id %}
+            <span>{{ player[0].score }}/{{ count }}</span>
+            
+            <progress value="{{ player[0].score }}" max="{{ count }}"></progress>
+            {% else %}
+            <span>0/{{ count }}</span>
+            <progress value="0" max="{{ count }}"></progress>
+            {% endif %}
+
+     
+        </article>
+
+
+        <article id="questions">
+                <h2>Questions :</h2>
+                    <div class="content">
+                        <div id="questions-list">
+                            {% for key, question in arrayQuestionsAnswer %}
+                            <button class="button button-orange-questions" data-id="{{ question.questionId }}">Question {{ key + 1 }}</button>
+                            {% endfor %}
+                        </div>
+                     <!--don't display this section by default-->
+                    {% for key, question in arrayQuestionsAnswer %}
+                    <section class="quiz-questions none" data-id="{{ question.questionId }}" data-step="{{ key + 1 }}">
+                        <article class="playing">
+                            <h2>Question n° {{ key + 1 }}</h2>
+                            <div class="content">
+                                <form method="POST" action="" class="form" data-step="{{ key + 1 }}">
+                                        <p>{{ question.questionTitle }}</p>
+                                            {% for answer in question.answers %}
+                                        
+                                                {% if question.countAnswer > 1  %}
+                                                {% set typeInput = 'checkbox' %}
+                                                {% else %}
+                                                {% set typeInput = 'radio' %}
+
+                                                {% endif %}
+                                            <div class="group">
+                                            <label class="{{typeInput}} column-list">
+                                            <input type="{{typeInput}}" name="type" value=" {{ answer.answerName }}" data-id="{{ answer.answerId }}" data-step="{{ key + 1 }}" data-question ="{{ question.questionId }}">
+                                                {{ answer.answerName }}
+                                            </label>
+                                            </div>
+                                            {% endfor %}
+                                            <div class="field-button">
+                                                <button class="button button-green" name="send" type="submit" data-step="{{ key + 1 }}" data-clicked= >Validate</button>
+                                                <button class="button button-orange-next hidden">Next</button>
+                                            </div>
+                                </form>                                            
+                            </div>
+
+                            <div class="content answer-content none" data-step="{{ key + 1 }}">
+                            <span class="result-answer"></span>
+                            <span class="score">Score: </span>
+                                <h4>INFO +</h4>                                                
+                                <p>{{question.questionInfoplus}}</p>
+                            </div>
+
+                            <div class="warning content none" data-step="{{ key + 1 }}">
+                                <p class="no-answer"> No answer is selected </p>
+                            </div>
+                        </article>
+                    </section>
+                {% endfor %}
+            </div>             
+        </article>     
+    </section>
+
+</main>
+{{ include('main/footer.html.twig') }}
+{% endblock %}

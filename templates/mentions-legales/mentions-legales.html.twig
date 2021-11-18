@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+<main>
+    <section id="mentions-legales-container">
+        <h1>
+            Mentions légales :
+        </h1>
+
+
+        <h2>
+            Editeur :
+        </h2>
+
+        <ul class="mentions-legales">
+            <li>
+                Le site  https://geek-taku.fr est édité par Mathilde CHANE-TO
+            </li>
+
+            <li>
+                Adresse : 26 Avenue de Paris, 92320 Châtillon
+            </li>
+
+            <li>
+                Tél : + 33 (0) 7 69 49 20 18
+            </li>
+        </ul>
+
+        <h2>
+            Hébergeur :
+        </h2>
+
+        <ul class="mentions-legales">
+
+            <li>
+                Ce site est hébergé par Hécate REGNIER
+            </li>
+
+            <li>
+                Adresse : 26 Avenue de Paris, 92320 Châtillon
+            </li>
+
+            <li>
+                Tél : + 33 (0) 6 52 49 52 94
+            </li>
+
+        </ul>
+
+        <h2>Données personnelles :</h2>
+        <p>Les données personnelles envoyées par le formulaire de contact sont demandées uniquement pour pouvoir vous répondre.</p>
+        <br>
+        <p>Elles ne sont pas utilisées autrement. Nous ne conservons pas vos messages après les avoir traités.</p>
+        <br>
+        <p>Vous pouvez à tout moment modifier vos informations personnelles dans votre compte et le supprimer si vous le souhaitez</p>
+    </section>
+</main>
+    {{ include('main/footer.html.twig') }}
+
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <main>
+        <section id="quizz-container">
+            <h1>
+                Quizz		     
+            </h1>
+            <article id="intro-quiz">
+                <div class="content">
+                    <h2>
+                        Liste des quizz			                
+                    </h2>
+                    <p>Retrouvez ici tous les quizz disponibles</p>
+                </div>
+            </article>
+
+            <article id="list-quiz">
+                <div class="content">
+                    <h2>
+                        Choisissez un quiz :                
+                    </h2>
+                    <div id="quizz">
+                        {% for listQuiz in quiz %}
+                           
+                                <div class="list">
+                                    <a href="{{ path('dev-quiz_quiz-read', {'id' : listQuiz.id}) }}">
+                                       {{ listQuiz.name }}
+                                    </a>
+                                </div>
+  
+                        {% endfor %}
+                    </div>
+                </div>
+            </article>
+            <article id="personnal-quiz">
+                <h2>Vos quizz</h2>
+                    <div id="quizz-user">
+                        <div class="list">
+                            <a href="">
+                                     
+                            </a>
+                         </div>
+                    </div>
+                
+    <!--<button class="add-element">Ajouter</button>-->
+
+    <h2>Formulaire d'ajout de quizz</h2>
+
+        {{form_start(form)}}
+                    
+        {{form_row(form.name, {'label': 'Nom :'})}}
+
+        {{form_row(form.category.nameCategory, {'label': 'Catégorie :'})}}	
+      
+        
+        <div class="control">
+            <button id="submit">Envoyer</button>
+            <button id="back"><a href="{{ path('dev-quiz_categories') }}">Retour</a></button>
+        </div>
+
+        {{form_end(form)}}
+
+
+    </article>
+    </article>
+    </section>
+</main>
+{{ include('main/footer.html.twig') }}
+{% endblock %}

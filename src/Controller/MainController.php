@@ -17,6 +17,7 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 
@@ -31,14 +32,6 @@ class MainController extends AbstractController
     public function index(): Response
     {
         return $this->render('main/index.html.twig');
-    }
-
-    /**
-     * @Route("/contact", name="contact")
-     */
-    public function contact(): Response
-    {
-        return $this->render('main/contact.html.twig');
     }
 
        /**
@@ -60,13 +53,15 @@ class MainController extends AbstractController
     /**
      * @Route("/signup", name="sign-up")
      */
-    public function sign_up(Request $request, UserPasswordEncoderInterface $encoder, MailerInterface $mailer, UserRepository $userRepo): Response
+    public function sign_up(Request $request, UserPasswordEncoderInterface $encoder, MailerInterface $mailer, UserRepository $userRepo, SessionInterface $session): Response
     {
         $user = new User();
        
         $form = $this->createForm(SignUpType::class, $user);
 
         $form->handleRequest($request);
+
+       
 
         if ($form->isSubmitted() && $form->isValid()) {
             //upload file $imageFile which match with the 'image' field
@@ -91,13 +86,11 @@ class MainController extends AbstractController
             $user->setImage($newFileName);
 
             }
-
+          
             // Encodage du mot de passe
             $user->setPassword($encoder->encodePassword($user, $user->getPassword()));
             // Assignation du rôle par défaut VIA le nom du rôle et non l'ID
             $user->setRoles(["ROLE_USER"]);
-
-        
     
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -116,9 +109,9 @@ class MainController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        return $this->render('main/sign-up.html.twig', [
+        return $this->render('inscription/sign-up.html.twig', [
             'form' => $form->createView(),
-            'email' => $userRepo->findByEmail($form->get('email')->getData()),
+            //'email' => $userRepo->findByEmail($form->get('email')->getData()),
         ]);
     }
 

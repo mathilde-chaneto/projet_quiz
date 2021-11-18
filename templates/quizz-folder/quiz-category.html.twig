@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript" src="/js/quiz.js"></script>
+<script type="text/javascript" src="/js/submitanswer.js"></script>
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+<main>
+    <section id="quiz-reader-container">
+        <h1>QUIZZ</h1>
+
+        <article id="kind-quiz">
+        <h2>Choisi ton quiz</h2>
+            <figure>
+                <div class="icone">
+                    <a href="{{ path('dev-quiz_categories', {'id' : app.user.id}) }}">
+                        <img src="/medias/{{ category.icone }}" alt="" />
+                    </a>
+                </div>
+                <figcaption>
+                    <span>
+                        <a href="{{ path('dev-quiz_categories', {'id' : app.user.id}) }}">
+                            {{ category.name }}
+                        </a>
+                    </span>
+                </figcaption>
+            </figure>
+            <div id="button-container">
+                {% for kindQuiz in catgQuiz %}
+    
+                        <button class="button-quiz" data-quizId="{{kindQuiz.id}}"><a href="{{ path('dev-quiz_quiz-read', {'id' : kindQuiz.id}) }}">{{kindQuiz.name}}</a></button>
+             
+                {% endfor %}
+            </div>
+        </article>  
+        
+        
+    </section>
+
+</main>
+{{ include('main/footer.html.twig') }}
+{% endblock %}

@@ -1,6 +1,6 @@
 const submitanswer = {
 
-    checkAnswer: function (event) {
+    checkAnswer: function(event) {
         // start traitment of form
 
         // avoid the reload of page
@@ -41,7 +41,7 @@ const submitanswer = {
         const noAnswerInfo = document.querySelectorAll('div.warning');
 
         // select all div 'section.questions'
-        const sectionQuestion = document.querySelectorAll('section.questions');
+        const sectionQuestion = document.querySelectorAll('section.quiz-questions');
 
         // get all input named by "type" and checked
         //checked = property to check if it's true
@@ -117,10 +117,7 @@ const submitanswer = {
                                 noInfo.classList.add('none');
                                 info.classList.remove('none');
 
-                            }
-
-
-                            else {
+                            } else {
 
                                 if (infoStep == stepValidate && noInfoStep == stepValidate) {
 
@@ -155,7 +152,7 @@ const submitanswer = {
         // last step : get infos with ajax and check answers with answers of user
 
         //just get informations on this link
-        const url = "http://localhost:8000/info/questions/" + radioDatasetQuestion;
+        const url = "http://dev-quiz.local/info/questions/" + radioDatasetQuestion;
 
 
         var request = new Request(url, {
@@ -166,13 +163,13 @@ const submitanswer = {
 
         // get request
         fetch(request)
-            .then(function (response) {
+            .then(function(response) {
 
                 // get json object
                 return response.json();
 
             })
-            .then(function (jsonResponse) {
+            .then(function(jsonResponse) {
 
                 //display in console json object
                 console.log(jsonResponse);
@@ -221,8 +218,7 @@ const submitanswer = {
                 if (result) {
                     console.log('The arrays have the same elements.');
                     confirm = true;
-                }
-                else {
+                } else {
                     console.log('The arrays have different elements.');
                     confirm = false;
                 }
@@ -257,7 +253,7 @@ const submitanswer = {
                     }
 
                     for (const displayAnswer of resultDom) {
-                        displayAnswer.innerText = "Bien, bonne réponse";
+                        displayAnswer.innerText = "Bien, bonne réponse !";
                         displayAnswer.style.color = "green";
                     }
 
@@ -265,14 +261,14 @@ const submitanswer = {
                     //console.log('on vide arrayAnswerId' + arrayAnswerId);
                     // using fetch
 
-                    fetch('http://localhost:8000/info/' + user, {
+                    fetch('http://dev-quiz.local/info/' + user, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ quiz: quizId, scoreGame: score })
                     })
 
 
-                        .then(response => console.log(response.text()))
+                    .then(response => console.log(response.text()))
                         .catch(error => console.log(error));
 
                 } else {
@@ -302,7 +298,7 @@ const submitanswer = {
                     }
 
                     for (const displayAnswer of resultDom) {
-                        displayAnswer.innerText = "Dommage, mauvaise réponse";
+                        displayAnswer.innerText = "Dommage, mauvaise réponse !";
                         displayAnswer.style.color = "red";
 
                     }
@@ -312,14 +308,14 @@ const submitanswer = {
 
                     // using fetch
 
-                    fetch('http://localhost:8000/info/' + user, {
+                    fetch('http://dev-quiz.local/info/' + user, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ quiz: quizId, scoreGame: score })
                     })
 
 
-                        .then(response => console.log(response.text()))
+                    .then(response => console.log(response.text()))
                         .catch(error => console.log(error));
 
                 }
@@ -340,6 +336,3 @@ const submitanswer = {
 
 
 }
-
-
-

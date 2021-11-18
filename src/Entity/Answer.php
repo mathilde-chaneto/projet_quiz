@@ -26,7 +26,7 @@ class Answer
      * 
      * 
      */
-    private $name;
+    private $nameAnswer;
 
     /**
      * @ORM\Column(type="boolean")
@@ -41,9 +41,6 @@ class Answer
      */
     private $questions;
 
-    public function __construct($SuperName) {
-        $this->name = $SuperName;
-    }
 
     public function getId(): ?int
     {
@@ -55,14 +52,14 @@ class Answer
     *@Groups({"detail_info"})
     *
     */
-    public function getSuperName(): ?string
+    public function getNameAnswer(): ?string
     {
-        return $this->name;
+        return $this->nameAnswer;
     }
 
-    public function setSuperName(string $SuperName): self
+    public function setNameAnswer(string $NameAnswer): self
     {
-        $this->name = $SuperName;
+        $this->name = $nameAnswer;
 
         return $this;
     }

@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <main>
+        <section id="category-container">
+            <h1>
+                CATEGORIES		     
+            </h1>
+            <article id="intro-category">
+                <div class="content">
+                    <h2>
+                        Présentation :			                
+                    </h2>
+                    <p>Choisissez une catégorie de quiz et commencez à vous tester !</p>
+                    <p>Chaque quiz traite d'un sujet en particulier, et ne traite pas que du développement web</br>
+                    mais aussi de l'environnement informatique ! Un développeur web est meilleur quand il possède</br>
+                    une bonne compréhension de l'environnement global, donc attendez-vous à des questions de 'sys admin'</br>
+                    Et ne vous inquiétez pas, c'est à force de pratiquer qu'on progresse<br>C'est à vous ! &#x1F642;</p>
+                </div>
+            </article>
+
+            <article id="category-quiz">
+                <div class="content">
+                    <h2>
+                        Choisissez une catégorie :                
+                    </h2>
+                    <div id="category">
+                        {% for listQuiz in quiz %}
+                            <figure>
+                                <div class="icone">
+                                    <a href="{{ path('dev-quiz_category-quizz', {'id' : listQuiz.category.id}) }}">
+                                        <img src="/medias/{{ listQuiz.category.icone }}" alt="" />
+                                    </a>
+                                </div>
+                                <figcaption>
+                                    <span>
+                                        <a href="{{ path('dev-quiz_category-quizz', {'id' : listQuiz.category.id}) }}">
+                                            {{ listQuiz.category.name }}
+                                        </a>
+                                    </span>
+                                </figcaption>
+                            </figure>
+                        {% endfor %}
+                    </div>
+                </div>
+            </article>
+            <article id="personnal-categories">
+                <h2>Vos catégories</h2>
+                <div id="category-user">
+                {% for categoryByUserId in categoryUserId %}
+                <figure>
+                    <div class="icone">
+                        <a href="{{ path('dev-quiz_category-quizz', {'id' : categoryByUserId.id}) }}">
+                            <img src="/medias/{{ categoryByUserId.icone }}" alt="" />
+                        </a>
+                    </div>
+                    <figcaption>
+                        <span>
+                            <a href="{{ path('dev-quiz_category-quizz', {'id' : categoryByUserId.id}) }}">
+                                {{ categoryByUserId.name }}
+                            </a>
+                        </span>
+                    </figcaption>
+                    <div class="button-category-user">
+                        <button><a href="{{ path('dev-quiz_edit-category', {'id' : categoryByUserId.id}) }}">Modifier</a></button>
+                        <button><a href="{{ path('dev-quiz_delete-category', {'id' : categoryByUserId.id}) }}">Supprimer</a></button>
+                    </div>
+                </figure>
+            {% endfor %}
+            </div>
+            <!--<button class="add-element">Ajouter</button>-->
+
+            <h2>Formulaire d'ajout de catégories</h2>
+
+                {{form_start(form)}}
+                            
+                {{form_row(form.nameCategory, {'label': 'Nom :'})}}
+                
+                {{form_row(form.icone, {'label': 'Icone :'})}}
+    
+                {{form_row(form.resume, {'label': 'Résumé:'})}}	
+              
+                
+                <div class="control">
+                    <button id="submit">Envoyer</button>
+                </div>
+    
+                {{form_end(form)}}
+
+
+            </article>
+    </section>
+</main>
+{{ include('main/footer.html.twig') }}
+{% endblock %}
