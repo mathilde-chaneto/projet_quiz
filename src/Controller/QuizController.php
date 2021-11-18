@@ -19,6 +19,7 @@ use App\Repository\UserRepository;
 use App\Repository\PlayRepository;
 use App\Repository\QuizRepository;
 
+
 use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,25 +40,17 @@ class QuizController extends AbstractController
     /**
      * @Route("/liste/quizz", name="quizz")
      */
-    public function quiz(QuizRepository $quizRepo, Request $request, UserInterface $user): Response
+    public function quiz(QuizRepository $quizRepo, Categoryrepository $categeoryRepo,Request $request, UserInterface $user): Response
     {
-
         $quiz = new Quiz();
 
-        $em = $this->getDoctrine()->getManager();
-        $test1 = $em->getRepository(Category::class)->findby(["user" => $user]);
-     
-
         $form = $this->createForm(QuizType::class, $quiz);
-
         $form->handleRequest($request);
 
         $name =  $form->get('name')->getData();
-       
         $category =  $form->get('category')->getData();  
        
         dump($name);
-       
         dump($category);
 
         /*$er = $this->getDoctrine()

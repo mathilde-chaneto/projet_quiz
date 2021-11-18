@@ -25,8 +25,7 @@ class QuizType extends AbstractType
                     new NotBlank
                 ]
            ])
-            ->add('category', SelectCategoryType::class, [
-            ])
+            ->add('category', SelectCategoryType::class)
         ;
     }
 
@@ -34,6 +33,7 @@ class QuizType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Quiz::class,
+            
         ]);
     }
 }
