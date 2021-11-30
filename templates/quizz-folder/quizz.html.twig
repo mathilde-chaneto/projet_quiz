@@ -6,6 +6,7 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <!--<script src="/js/form.js"></script>-->
 {% endblock %}
 
 {% block body %}
@@ -36,7 +37,12 @@
                                     <a href="{{ path('dev-quiz_quiz-read', {'id' : listQuiz.id}) }}">
                                        {{ listQuiz.name }}
                                     </a>
+                                    <div class="category">
+                                        <span>  Catégorie : {{ listQuiz.category.nameCategory }}</span>
+                                    </div>
                                 </div>
+                                
+                       
   
                         {% endfor %}
                     </div>
@@ -45,30 +51,48 @@
             <article id="personnal-quiz">
                 <h2>Vos quizz</h2>
                     <div id="quizz-user">
+                    {% for listQuizUser in quizzUser %}
+                           
                         <div class="list">
-                            <a href="">
-                                     
+                            <a href="{{ path('dev-quiz_quiz-read', {'id' : listQuizUser.id}) }}">
+                            {{ listQuizUser.name }}
                             </a>
+
+                            <div class="category">
+                                <span>  Catégorie : {{ listQuizUser.category.nameCategory }}</span>
+                            </div>
+                            
+                            <div class="button-quiz-user">
+                                <button><a href="{{ path('dev-quiz_edit-quiz', {'id' : listQuizUser.id}) }}">Modifier</a></button>
+                                <button><a href="{{ path('dev-quiz_delete-quiz', {'id' : listQuizUser.id}) }}">Supprimer</a></button>
+                                <button><a href="">Ajouter des questions</a></button>
+                                <button><a href="{{ path('dev-quiz_add-quiz-answers', {'id' : listQuizUser.id}) }}">Ajouter des réponses</a></button>
+                            </div>
+                        </div>
+
+                    {% endfor %}
                          </div>
                     </div>
                 
-    <!--<button class="add-element">Ajouter</button>-->
 
     <h2>Formulaire d'ajout de quizz</h2>
 
         {{form_start(form)}}
-                    
-        {{form_row(form.name, {'label': 'Nom :'})}}
-
-        {{form_row(form.category.nameCategory, {'label': 'Catégorie :'})}}	
-      
+               
+        {{form_row(form.title)}}
         
+        {{form_row(form.infoplus)}}
+
+        {{form_row(form.quiz)}}	
+
         <div class="control">
             <button id="submit">Envoyer</button>
-            <button id="back"><a href="{{ path('dev-quiz_categories') }}">Retour</a></button>
         </div>
 
         {{form_end(form)}}
+
+   
+
 
 
     </article>

@@ -11,8 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Validator\Constraints\NotBlank;
+
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
@@ -31,15 +30,30 @@ class SelectCategoryType extends AbstractType
         
         $user = $this->security->getUser();
         dump($user);
+        dump($user->getId());
+        $userId = $user->getId();
       
         $builder
             ->add("nameCategory", EntityType::class, [
+                "label" => "Nom de la catégorie :",
                 "class" => Category::class,
+                "expanded" => true,
+                "multiple" => false,
+          
+               
             
-               "query_builder" => function (CategoryRepository $categoryRepo) use ($user) {
-                    return $categoryRepo->findBy(["user" => $user]);
+               "query_builder" => function (CategoryRepository $categoryRepo) use ($userId) {
+                    return $categoryRepo
+                    ->createQueryBuilder('c')
+                    ->where('c.user = :userId')
+                    ->setParameter('userId', $userId)
+                    //->getQuery()
+                    //->getResult()
+                    ;
                 },
-                "choice_label" => 'nameCategory'
+                "choice_label" => 'nameCategory',
+                "choice_value" => 'id'
+              
               ])
         ;
     }

@@ -32,7 +32,7 @@
                                 <figcaption>
                                     <span>
                                         <a href="{{ path('dev-quiz_categories') }}">
-                                            {{ category.name }}
+                                            {{ category.nameCategory }}
                                         </a>
                                     </span>
                                 </figcaption>
@@ -45,7 +45,7 @@
                                 <figcaption>
                                     <span>
                                         <a href="{{ path('dev-quiz_category-quizz', {'id' : quiz.category.id}) }}">
-                                            {{ quiz.category.name }}
+                                            {{ quiz.category.nameCategory }}
                                         </a>
                                     </span>
                                 </figcaption>
@@ -63,7 +63,7 @@
 
                 {{form_start(form)}}
                             
-                {{form_row(form.name, {'label': 'Nom :'})}}
+                {{form_row(form.nameCategory, {'label': 'Nom :'})}}
                 
                 {{form_row(form.icone, {'label': 'Icone :'})}}
     

@@ -2,24 +2,24 @@
 
 namespace App\Form;
 
-use App\Entity\Questions;
+
 use App\Entity\Quiz;
 
-use App\Form\QuizSelectedType;
+use App\Repository\QuizRepository;
 
-use App\Repository\QuestionsRepository;
-
+use App\Form\SelectCategoryType;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Security\Core\Security;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class QuestionsType extends AbstractType
+
+class QuizSelectedType extends AbstractType
 {
 
     private $security;
@@ -31,28 +31,23 @@ class QuestionsType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-
         $user = $this->security->getUser();
         $userId = $user->getId();
 
         $builder
-        
-            ->add('title', EntityType::class, [
-                "label" => "Titre : ",
-                "class" => Questions::class,
+            ->add('name', EntityType::class, [
+                "label" => " Nom du quiz : ",
+                "class" => Quiz::class,
                 "expanded" => true,
                 "multiple" => false,
                 "constraints" => [
                     new NotBlank
                 ],
 
-                "query_builder" => function (QuestionsRepository $questionsRepo) use ($userId) {
-                    return $questionsRepo
+                "query_builder" => function (QuizRepository $quizRepo) use ($userId) {
+                    return $quizRepo
                     ->createQueryBuilder('q')
-                    ->join('q.quiz', 'quiz')
-                    ->addSelect('quiz')
-                    ->where('quiz.user = :userId')
+                    ->where('q.user = :userId')
                     ->setParameter('userId', $userId)
                     //->getQuery()
                     //->getResult()
@@ -60,13 +55,16 @@ class QuestionsType extends AbstractType
                 },
                 "choice_value" => 'id'
                 ])
+
+          
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Questions::class,
+            'data_class' => Quiz::class,
+            
         ]);
     }
 }

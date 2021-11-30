@@ -36,7 +36,7 @@ class Answer
     private $is_correct;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Questions::class, inversedBy="answers")
+     * @ORM\ManyToOne(targetEntity=Questions::class, inversedBy="answers", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $questions;
@@ -57,9 +57,9 @@ class Answer
         return $this->nameAnswer;
     }
 
-    public function setNameAnswer(string $NameAnswer): self
+    public function setNameAnswer(string $nameAnswer): self
     {
-        $this->name = $nameAnswer;
+        $this->nameAnswer = $nameAnswer;
 
         return $this;
     }

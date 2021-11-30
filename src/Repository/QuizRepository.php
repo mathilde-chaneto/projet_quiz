@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Quiz;
+use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -36,17 +38,24 @@ class QuizRepository extends ServiceEntityRepository
 
     public function findAllQuizBase(): array
     {
-        $conn = $this->getEntityManager()->getConnection();
+       /* $conn = $this->getEntityManager()->getConnection();
 
         $sql = '
-            SELECT * FROM quiz q
+            SELECT * FROM quiz q INNER JOIN category c ON q.category_id = c.id
             WHERE q.user_id = 50
             ';
         $stmt = $conn->prepare($sql);
         $stmt->execute();
 
         // returns an array of arrays (i.e. a raw data set)
-        return $stmt->fetchAllAssociative();
+        return $stmt->fetchAllAssociative();*/
+        return $this->createQueryBuilder('q')
+        ->innerJoin(Category::class, 'c', Join::WITH, 'q.category = c.id')
+        ->where('q.user = :base')
+        ->setParameter('base', 50)
+        ->getQuery()
+        ->getResult()
+    ;
     }
 
     /*

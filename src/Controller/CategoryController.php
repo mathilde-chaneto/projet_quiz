@@ -48,7 +48,7 @@ class CategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $icone = $form->get('icone')->getData(); 
-            $name =  $form->get('name')->getData();
+            $name =  $form->get('nameCategory')->getData();
             $resume =  $form->get('resume')->getData();  
            
 
@@ -82,7 +82,7 @@ class CategoryController extends AbstractController
 
             if ($name != null){
 
-                $category->setName($name);
+                $category->setNameCategory($name);
 
             }
             
@@ -105,7 +105,7 @@ class CategoryController extends AbstractController
         dump($categoryRepo->findBy(["user" => $user->getId() ]));
         
         return $this->render('categories-folder/categories.html.twig', [
-            "quiz" => $quizRepo->findAll(), 
+            "quiz" => $quizRepo->findAllQuizBase(), 
             "categoryUserId" => $categoryRepo->findBy(["user" => $user->getId() ]),
             "form" => $form->createView()
                        
@@ -121,24 +121,24 @@ class CategoryController extends AbstractController
 
         $form->handleRequest($request);
 
-        $icone = $form->get('icone')->getData(); 
-            $name =  $form->get('name')->getData();
+            $icone = $form->get('icone')->getData(); 
+            $name =  $form->get('nameCategory')->getData();
             $resume =  $form->get('resume')->getData();  
 
             dump($icone);
             dump($name);
-            dump($resume);
+          
 
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $icone = $form->get('icone')->getData(); 
-            $name =  $form->get('name')->getData();
+            $name =  $form->get('nameCategory')->getData();
             $resume =  $form->get('resume')->getData();  
            
             dump($icone);
             dump($name);
-            dump($resume);
+          
             
             if ($icone != null) {
                 
@@ -156,12 +156,14 @@ class CategoryController extends AbstractController
                 $icone->move('medias', $newFileName);
  
                 $category->setIcone($newFileName);
+
+                dump($icone);
             }
 
 
             if ($name != null){
 
-                $category->setName($name);
+                $category->setNameCategory($name);
 
             }
             

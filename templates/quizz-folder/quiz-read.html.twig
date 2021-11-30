@@ -18,7 +18,7 @@
         <h1>QUIZZ</h1>
 
         <article id="info-quiz">
-            <h2>Catégorie : <span><a href="{{ path('dev-quiz_categories', {'id': app.user.id}) }}">{{ quiz.category.name }}</a></span></h2>
+            <h2>Catégorie : <span><a href="{{ path('dev-quiz_categories', {'id': app.user.id}) }}">{{ quiz.category.nameCategory }}</a></span></h2>
             <div class="content">
                 <p>{{ quiz.category.resume }}</p>
                 <span id="user" class="hidden">{{ user.id }}</span>

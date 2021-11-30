@@ -25,7 +25,9 @@ class QuizType extends AbstractType
                     new NotBlank
                 ]
            ])
-            ->add('category', SelectCategoryType::class)
+            ->add('category', SelectCategoryType::class, [
+               
+            ])
         ;
     }
 

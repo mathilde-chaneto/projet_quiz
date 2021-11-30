@@ -46,7 +46,8 @@ class Quiz
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="quiz")
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="quiz", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $category;
 
@@ -159,6 +160,11 @@ class Quiz
         $this->category = $category;
 
         return $this;
+    }
+
+    
+    public function __toString() {
+        return $this->name;
     }
 
 

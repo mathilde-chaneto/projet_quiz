@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <main>
+        <section id="quiz-edit-container">
+            <h1>
+                Quiz - Edition		     
+            </h1>
+            
+            <article id="quiz">
+                <div class="content">
+                    <h2>
+                        Quiz à éditer              
+                    </h2>
+                  
+                                <div class="list">
+                                    <a href="{{ path('dev-quiz_quiz-read', {'id' : quiz.id}) }}">
+                                       {{ quiz.name }}
+                                    </a>
+                                    <div class="category">
+                                        <span>  Catégorie : {{ quiz.category.nameCategory }}</span>
+                                    </div>
+                                </div>
+                   
+                </div>
+            </article>
+
+    <h2>Formulaire d'édition de quiz</h2>
+
+        {{form_start(form)}}
+                    
+        {{form_row(form.name, {'label': 'Nom :'})}}
+
+        {{form_row(form.category.nameCategory, {'label': 'Catégorie :'})}}	
+      
+        
+        <div class="control">
+            <button id="submit">Envoyer</button>
+        </div>
+
+        {{form_end(form)}}
+
+
+  
+    </section>
+</main>
+{{ include('main/footer.html.twig') }}
+{% endblock %}

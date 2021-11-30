@@ -47,6 +47,7 @@
     #welcome-container,
     #category-container,
     #quizz-container,
+    #quiz-edit-container,
     #quiz-reader-container,
     #account-container,
     #score-container #contact-container,
@@ -357,6 +358,15 @@
         justify-content: center;
         align-items: center;
     }
+    #quiz .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    #quiz .content .list {
+        margin: 2rem 0;
+    }
     #button-container {
         margin-top: 2rem;
     }
@@ -402,6 +412,10 @@
         transform: scale(1.05);
         box-shadow: 7px 5px 10px 2px rgba(0, 0, 0, 1);
         ;
+    }
+    .list .category {
+        background-color: gainsboro;
+        border-radius: 10px;
     }
     #category figure,
     #kind-quiz figure,
@@ -471,20 +485,27 @@
     button {
         border: none;
     }
-    .button-category-user button {
+    .button-category-user button,
+    .button-quiz-user button {
         border-radius: 5px;
         line-height: 2rem;
         font-size: 16px;
         border: none;
     }
-    .button-category-user button a {
+    .button-category-user button a,
+    .button-quiz-user button a {
         color: white!important;
     }
-    .button-category-user button:nth-child(1) {
+    .button-category-user button:nth-child(1),
+    .button-quiz-user button:nth-child(1) {
         background-color: #f57c00;
     }
-    .button-category-user button:nth-child(2) {
+    .button-category-user button:nth-child(2),
+    .button-quiz-user button:nth-child(2) {
         background-color: brown;
+    }
+    .button-quiz-user button:nth-child(3) {
+        background-color: darkgreen;
     }
     #personnal-categories,
     #personnal-quiz {
@@ -502,6 +523,38 @@
     .add-element:hover {
         box-shadow: 7px 5px 10px 2px rgba(0, 0, 0, 1);
         cursor: pointer;
+    }
+    #quiz_category_nameCategory {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+    #quiz_category_nameCategory .control:first-of-type {
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+    #quiz_category_nameCategory .control {
+        justify-content: flex-start;
+        width: auto;
+        margin: 1rem 1rem 1rem 0;
+    }
+    #quiz_category_nameCategory .radio {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: auto;
+    }
+    input[type="radio"] {
+        margin: .5rem;
+    }
+    #back {
+        background-color: brown;
+        color: white!important;
+        margin-left: 1rem;
+    }
+    #back a {
+        color: white!important;
     }
     /*-----------QUIZ READER PAGE------------------------*/
     h3 {
@@ -530,11 +583,13 @@
         align-items: center;
     }
     .playing form p {
-        color: white;
         font-size: 20px;
         text-align: center;
         width: 80%;
         margin: 1rem auto;
+    }
+    .playing form {
+        width: 60%;
     }
     .column-list {
         display: flex;
@@ -699,7 +754,7 @@
         font-weight: bold;
     }
     .field .label {
-        color: wheat;
+        color: black;
     }
     .control button {
         width: auto;
@@ -819,21 +874,31 @@
         justify-content: center;
         margin-top: 3rem;
         border-radius: 10px;
-        background-color: #a4a4a4;
+        background-color: #e0e0e0;
         width: 80%;
         margin: 2rem auto 4rem auto;
         box-shadow: 8px 8px 17px 5px rgb(0, 0, 0, .5);
+    }
+    form p {
+        color: black;
+    }
+    .label,
+    .checkbox,
+    .radio {
+        color: black;
+        font-weight: normal;
     }
     .field {
         margin-top: 1rem;
         width: 80%;
         margin: auto;
+        color: black;
+        font-weight: normal;
     }
     .field:first-of-type {
         margin-top: 3rem;
     }
     .field label {
-        color: wheat;
         width: 80%;
         margin: auto 0;
     }
@@ -844,6 +909,8 @@
         width: 80%;
         margin: 1rem auto;
         font-size: 18px;
+        color: black;
+        font-weight: normal;
     }
     #control-submit {
         display: flex;
@@ -864,6 +931,7 @@
         background-color: dodgerblue;
         color: white;
         font-size: 1.4rem;
+        line-height: 2.5rem;
     }
     .control button:hover,
     #control-submit button:hover {
@@ -873,6 +941,9 @@
     .control label {
         margin-bottom: .5rem;
         font-size: 16px;
+    }
+    .field-answers .control-input {
+        flex-direction: column;
     }
     /*---------MENTIONS LEGALES-----------*/
     #mentions-legales-container p {

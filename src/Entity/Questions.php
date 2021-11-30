@@ -32,7 +32,7 @@ class Questions
 
 
     /**
-     * @ORM\ManyToOne(targetEntity=Quiz::class, inversedBy="questions")
+     * @ORM\ManyToOne(targetEntity=Quiz::class, inversedBy="questions", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $quiz;
@@ -144,6 +144,10 @@ class Questions
         
         }
         return $answersArray;
+    }
+
+    public function __toString() {
+        return $this->title;
     }
 
 }
