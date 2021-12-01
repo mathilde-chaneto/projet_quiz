@@ -10,8 +10,12 @@ use App\Entity\Questions;
 use App\Entity\Quiz;
 
 use App\Form\QuizType;
-use App\Form\AnswersQuestionsType;
-use App\Form\QuestionsQuizType;
+use App\Form\AnswerType;
+use App\Form\QuestionsType;
+use App\Form\AnswerSelectedType;
+use App\Form\QuestionsQuizSelectedType;
+use App\Form\QuizSelectedType;
+use App\Form\CategorySelectedType;
 
 
 
@@ -43,51 +47,39 @@ class QuizController extends AbstractController
     /**
      * @Route("/liste/quizz", name="quizz")
      */
-    public function quiz(QuizRepository $quizRepo, CategoryRepository $categoryRepo,Request $request, QuestionsRepository $questionsRepo, UserInterface $user): Response
+    public function quiz(QuizRepository $quizRepo, CategoryRepository $categoryRepo, Request $request, UserInterface $user): Response
     {
     
         dump($quizRepo->findBy(["user" => $user->getId(50)]));
         
 
         $quiz = new Quiz();
-        $questions = new Questions();
+   
         
-        $form = $this->createForm(QuestionsQuizType::class, $questions);
+        $form = $this->createForm(QuizType::class, $quiz);
         $form->handleRequest($request);
 
-        $title =  $form->get('title')->getData();
-        $infoplus =  $form->get('infoplus')->getData(); 
-        $questionQuiz =  $form->get('quiz')->getData(); 
+        $nameQuiz =  $form->get('name')->getData();
+        $quizCategory =  $form->get('category')->getData(); 
+ 
 
         if ($form->isSubmitted() && $form->isValid()) {
   
-            $arrayQuestionsQuiz =  $request->request->get('questions_quiz');
-            $questionQuizName = $arrayQuestionsQuiz['quiz']['name'];
-            $questionQuizCategory = (int) $arrayQuestionsQuiz['quiz']['category']['nameCategory'];
+            $arrayQuestionsQuiz =  $request->request->get('quiz');
+            $quizCategory = (int) $arrayQuestionsQuiz['category']['nameCategory'];
+            dump($quizCategory);
 
-            dump($title);
-            dump($infoplus);
-            dump($questionQuiz);
-            dump($arrayQuestionsQuiz);
-            dump($questionQuizName);
-            dump($questionQuizCategory);
-
-           dump($categoryRepo->find($questionQuizCategory));
-           $catg = $categoryRepo->find($questionQuizCategory);     
+           dump($categoryRepo->find($quizCategory));
+           $catg = $categoryRepo->find($quizCategory);     
              
 
             $quiz->setCategory($catg);
             $quiz->setUser($user);
-            $quiz->setName($questionQuizName);
-
-
-            $questions->setQuiz($quiz);
-            $questions->setTitle($title);
-            $questions->setInfoplus($infoplus);
+            $quiz->setName($nameQuiz);
 
             $entityManager = $this->getDoctrine()->getManager();
+
             $entityManager->persist($quiz);
-            $entityManager->persist($questions);
             $entityManager->flush();
 
 
@@ -101,6 +93,49 @@ class QuizController extends AbstractController
         ]);
     }
 
+       /**
+     * @Route("/questions/quiz/{id}", name="add-quiz-questions", requirements={"id": "\d+"})
+     */
+    public function questions(Quiz $quiz, UserInterface $user, Request $request): Response
+    {
+        $questions = new Questions();
+
+        $form = $this->createForm(QuestionsType::class, $questions);
+        $form->handleRequest($request);
+
+        $title =  $form->get('title')->getData();
+        $infoplus =  $form->get('infoplus')->getData(); 
+        $questionQuiz =  $form->get('quiz')->getData();
+    
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $questionsQuiz =  $request->request->get('questions');
+            dump($questionsQuiz);
+
+            $questionsQuizId = $questionsQuiz['quiz']['name'];
+            dump($questionsQuizId);
+            
+            $questions->setQuiz($quiz);
+            $questions->setTitle($title);
+            $questions->setInfoplus($infoplus);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($questions);
+            $entityManager->flush();
+          
+           return $this->redirectToRoute('dev-quiz_quizz');
+        }
+
+
+        
+        return $this->render('quizz-folder/quiz-questions.html.twig', [
+            "quiz" => $quiz,
+            "form" => $form->createView()
+        ]);
+    }
+
+
       /**
      * @Route("/answers/quiz/{id}", name="add-quiz-answers", requirements={"id": "\d+"})
      */
@@ -108,7 +143,7 @@ class QuizController extends AbstractController
     {
         $answers = new Answer();
 
-        $formAnswer = $this->createForm(AnswersQuestionsType::class, $answers);
+        $formAnswer = $this->createForm(AnswerType::class, $answers);
         $formAnswer->handleRequest($request);
 
         $getData = $formAnswer->getData();
@@ -118,23 +153,20 @@ class QuizController extends AbstractController
         $isCorrect = $formAnswer->get('is_correct')->getData();
         $questions = $formAnswer->get('questions')->getData();
     
+      
 
         if ($formAnswer->isSubmitted() && $formAnswer->isValid()) {
 
-            dump($nameAnswer);
-            dump($isCorrect);
-            dump($questions);
+            $arrayQuestion =  $request->request->get('answer');
+            dump($arrayQuestion);
+            var_dump($request->request->all());
 
-            $arrayQuestionsQuiz =  $request->request->get('answers_questions');
-            dump($arrayQuestionsQuiz);
+            $questionId = (int) $arrayQuestion['questions']['title'];
+            dump($questionId);
 
-            $questionQuestionsId = $arrayQuestionsQuiz['questions']['title'];
-            dump($questionQuestionsId);
-
-            $qts = $questionsRepo->find($questionQuestionsId);  
+            $qts = $questionsRepo->find($questionId);  
             dump($questions);
             
-
             $answers->setNameAnswer($nameAnswer);
             $answers->setIsCorrect($isCorrect);
             $answers->setQuestions($qts);
@@ -154,6 +186,7 @@ class QuizController extends AbstractController
         return $this->render('quizz-folder/quiz-answers.html.twig', [
             "quiz" => $quiz,
             "formAnswer" => $formAnswer->createView()
+            
         ]);
     }
 
@@ -165,9 +198,7 @@ class QuizController extends AbstractController
     public function edit(Quiz $quiz, UserInterface $user, CategoryRepository $categoryRepo,Request $request): Response
     {
 
-        
-
-        $form = $this->createForm(QuizType::class, $quiz);
+        $form = $this->createForm(AnswerSelectedType::class, $quiz);
         $form->handleRequest($request);
 
         $name =  $form->get('name')->getData();
@@ -252,9 +283,6 @@ class QuizController extends AbstractController
      */
     public function read(Quiz $quiz, QuizRepository $quizRepo, PlayRepository $playRepo,QuestionsRepository $questionsRepo, AnswerRepository $answerRepo, UserInterface $user): Response
     {
-   
-        //dump($sessionGetId);
-
       
         //fetch all questions bound with id of quiz
         $questionAll = $questionsRepo->findByQuiz($quiz->getId());
@@ -281,11 +309,22 @@ class QuizController extends AbstractController
 
                     foreach($answers as $answer){
 
+                        $lines_arr = preg_split('/\n/', $answer->getNameAnswer());
                         $ans[] = [
                             'answerId' => $answer->getId(),
                             'answerName' => $answer->getNameAnswer(),
                             'answerIsCorrect' => $answer->getIsCorrect(),
+                            'number' => $lines_arr
                         ] ;
+
+                        
+
+                        if(preg_match('/[\^£$%&*()}{@#~?><>,|=_+¬-]/', $answer->getNameAnswer())) {
+
+                            $specialCharacter = true;
+                        }else {
+                            $specialCharacter = false;
+                        }
 
                             if($answer->getIsCorrect()){
             
@@ -295,6 +334,7 @@ class QuizController extends AbstractController
                         
                     }
                 
+                    dump($ans);
             
                     $arrayQuestionsAnswer[] = [
                         'questionId' => $question->getId(),
@@ -312,6 +352,9 @@ class QuizController extends AbstractController
         $test = $playRepo->findByUser($user->getId());
         
       dump($test);
+      dump($specialCharacter);
+   
+    
  
 
 
@@ -323,7 +366,9 @@ class QuizController extends AbstractController
             "player" => $playRepo->findByUser($user->getId()),
             "user"=> $user,
             "count"=>count($questionAll),
-            "questionByQuiz" => $questionAll
+            "questionByQuiz" => $questionAll,
+            "specialCharacter" =>  $specialCharacter,
+     
         
         
 

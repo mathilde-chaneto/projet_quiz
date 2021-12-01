@@ -13,7 +13,7 @@
     <main>
         <section id="quiz-edit-container">
             <h1>
-                Quiz - Edition de Réponses	     
+                Quiz - Questions	     
             </h1>
             
             <article id="quiz">
@@ -34,17 +34,16 @@
                 </div>
             </article>
 
-        <h2>Formulaire d'ajout de réponses</h2>
+        <h2>Formulaire d'ajout de questions</h2>
 
         
-            {{form_start(formAnswer)}}
+            {{form_start(form)}}
                    
-            {{form_row(formAnswer.nameAnswer)}}
-            {{form_help(formAnswer.nameAnswer)}}
+            {{form_row(form.title)}}
             
-            {{form_row(formAnswer.is_correct)}}
+            {{form_row(form.infoplus)}}
     
-            {{form_row(formAnswer.questions)}}	
+            {{form_row(form.quiz)}}	
     
         
           
@@ -53,7 +52,7 @@
                 <button id="submit">Envoyer</button>
             </div>
     
-            {{form_end(formAnswer)}}
+            {{form_end(form)}}
 
 
   

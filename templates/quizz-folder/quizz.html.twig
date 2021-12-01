@@ -65,8 +65,8 @@
                             <div class="button-quiz-user">
                                 <button><a href="{{ path('dev-quiz_edit-quiz', {'id' : listQuizUser.id}) }}">Modifier</a></button>
                                 <button><a href="{{ path('dev-quiz_delete-quiz', {'id' : listQuizUser.id}) }}">Supprimer</a></button>
-                                <button><a href="">Ajouter des questions</a></button>
-                                <button><a href="{{ path('dev-quiz_add-quiz-answers', {'id' : listQuizUser.id}) }}">Ajouter des réponses</a></button>
+                                <button><a href="{{ path('dev-quiz_add-quiz-questions', {'id' : listQuizUser.id}) }}">Questions</a></button>
+                                <button><a href="{{ path('dev-quiz_add-quiz-answers', {'id' : listQuizUser.id}) }}">Réponses</a></button>
                             </div>
                         </div>
 
@@ -79,11 +79,11 @@
 
         {{form_start(form)}}
                
-        {{form_row(form.title)}}
+        {{form_row(form.name)}}
         
-        {{form_row(form.infoplus)}}
+        {{form_row(form.category)}}
 
-        {{form_row(form.quiz)}}	
+    
 
         <div class="control">
             <button id="submit">Envoyer</button>

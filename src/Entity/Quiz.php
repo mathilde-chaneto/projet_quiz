@@ -46,7 +46,7 @@ class Quiz
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="quiz", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="quiz", fetch="EAGER", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $category;

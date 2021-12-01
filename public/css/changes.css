@@ -374,6 +374,11 @@
         width: 80%;
         margin: auto;
     }
+    .help-text {
+        display: block;
+        width: 80%;
+        margin-inline: auto;
+    }
     #category,
     #quizz {
         display: flex;
@@ -504,7 +509,8 @@
     .button-quiz-user button:nth-child(2) {
         background-color: brown;
     }
-    .button-quiz-user button:nth-child(3) {
+    .button-quiz-user button:nth-child(3),
+    .button-quiz-user button:nth-child(4) {
         background-color: darkgreen;
     }
     #personnal-categories,
@@ -589,6 +595,16 @@
         margin: 1rem auto;
     }
     .playing form {
+        width: 60%;
+    }
+    pre {
+        background-color: black;
+        color: dodgerblue;
+    }
+    pre.sf-dump {
+        width: max-content;
+    }
+    .pre-class {
         width: 60%;
     }
     .column-list {

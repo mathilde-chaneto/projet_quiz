@@ -5,7 +5,7 @@ namespace App\Form;
 
 use App\Entity\Quiz;
 
-use App\Form\SelectCategoryType;
+use App\Form\CategorySelectedType;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,7 +25,7 @@ class QuizType extends AbstractType
                     new NotBlank
                 ]
            ])
-            ->add('category', SelectCategoryType::class, [
+            ->add('category', CategorySelectedType::class, [
                
             ])
         ;

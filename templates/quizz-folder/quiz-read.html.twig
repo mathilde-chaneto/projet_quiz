@@ -69,8 +69,14 @@
                                             <div class="group">
                                             <label class="{{typeInput}} column-list">
                                             <input type="{{typeInput}}" name="type" value=" {{ answer.answerName }}" data-id="{{ answer.answerId }}" data-step="{{ key + 1 }}" data-question ="{{ question.questionId }}">
-                                                {{ answer.answerName }}
+                                            {% if specialCharacter == false  %}
+                                            {{ answer.answerName }}
+                                            {% else %}
+                                           
+                                            <pre class="pre-class"><code class="code">{{ answer.answerName }}</pre></code>
                                             </label>
+                                            {% endif %}
+                                           
                                             </div>
                                             {% endfor %}
                                             <div class="field-button">

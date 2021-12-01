@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
-class SelectCategoryType extends AbstractType
+class CategorySelectedType extends AbstractType
 {
 
     private $security;
@@ -29,8 +29,8 @@ class SelectCategoryType extends AbstractType
     {
         
         $user = $this->security->getUser();
-        dump($user);
-        dump($user->getId());
+       // dump($user);
+       // dump($user->getId());
         $userId = $user->getId();
       
         $builder

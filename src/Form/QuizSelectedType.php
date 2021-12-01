@@ -54,7 +54,9 @@ class QuizSelectedType extends AbstractType
                     ;
                 },
                 "choice_value" => 'id'
-                ])
+            ])
+
+            //->add('category', CategorySelectedType::class)
 
           
         ;
