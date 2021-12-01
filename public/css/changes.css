@@ -597,15 +597,27 @@
     .playing form {
         width: 60%;
     }
+    .pre-container {
+        width: auto;
+        display: flex;
+    }
+    .content pre:not(:last-child) {
+        margin-bottom: 0;
+    }
     pre {
         background-color: black;
         color: dodgerblue;
     }
-    pre.sf-dump {
+    .pre-class {
+        display: flex;
         width: max-content;
     }
-    .pre-class {
-        width: 60%;
+    .num {
+        display: flex;
+        flex-direction: column;
+        width: max-content;
+        margin-bottom: 0;
+        color: grey;
     }
     .column-list {
         display: flex;

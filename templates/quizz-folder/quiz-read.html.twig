@@ -72,8 +72,20 @@
                                             {% if specialCharacter == false  %}
                                             {{ answer.answerName }}
                                             {% else %}
-                                           
-                                            <pre class="pre-class"><code class="code">{{ answer.answerName }}</pre></code>
+
+                                            <div class="pre-container">
+                                            <pre class="num">
+                                            {% for key, nb in answer.number %}
+                                            <span>{{ key + 1}}</span>
+                                             {% endfor %}
+
+                                            </pre>
+                                            <pre class="pre-class">
+                                            <code class="code">{{ answer.answerName }}
+                                            </code>
+                                            </pre>
+
+                                            </div>
                                             </label>
                                             {% endif %}
                                            
