@@ -74,7 +74,7 @@ class ContactController extends AbstractController
             // $response = new RedirectResponse('');
 
         // ... render the form
-         return $this->render('maincontact-folder/contact.html.twig', [
+         return $this->render('contact-folder/contact.html.twig', [
             'form' => $form->createView(),
         ]);
 

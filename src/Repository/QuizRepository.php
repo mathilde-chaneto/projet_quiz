@@ -36,7 +36,7 @@ class QuizRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findAllQuizBase(): array
+    public function findAllQuizBase($id): array
     {
        /* $conn = $this->getEntityManager()->getConnection();
 
@@ -51,8 +51,8 @@ class QuizRepository extends ServiceEntityRepository
         return $stmt->fetchAllAssociative();*/
         return $this->createQueryBuilder('q')
         ->innerJoin(Category::class, 'c', Join::WITH, 'q.category = c.id')
-        ->where('q.user = :base')
-        ->setParameter('base', 50)
+        ->where('q.user = :id')
+        ->setParameter('id', $id)
         ->getQuery()
         ->getResult()
     ;

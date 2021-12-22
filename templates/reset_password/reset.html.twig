@@ -1,27 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{ parent() }}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="/js/pass.js"></script>
 {% endblock %}
 
 {% block body %}
-	{{ parent() }}
-	<main>
-		<section id="reset-container">
-			<h1>Reset your password</h1>
+    {{ parent() }}
 
-			<article id="reset">
-				<h2>Renseignez votre mot de passe</h2>
-				{{ form_start(resetForm) }}
-				{{ form_row(resetForm.plainPassword) }}
-				<div class="control">
-					<button>Envoyer</button>
-				</div>
-				{{ form_end(resetForm) }}
-			</article>
-		</section>
-	</main>
+{% block title %}{{ parent() }} Réinitialisation {% endblock %}
 
-	{{ include('main/footer.html.twig') }}
+{% block body %}
+    <h1>Réinitialiser le mot de passe</h1>
+
+    {{ form_start(resetForm) }}
+        {{ form_row(resetForm.plainPassword) }}
+        <button class="button is-info">Envoyer</button>
+    {{ form_end(resetForm) }}
+
+
+{{ include('main/footer.html.twig') }}
 
 {% endblock %}

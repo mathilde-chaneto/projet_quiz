@@ -1,0 +1,150 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <!--<script src="/js/form.js"></script>-->
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <main>
+        <section id="quizz-container">
+            <h1>
+                Questions     
+            </h1>
+            <article id="intro-quiz">
+                <div class="content">
+                    <h2>
+                        Liste des questions		                
+                    </h2>
+                    <p>Retrouvez ici toutes les questions disponibles</p>
+                </div>
+          
+                <div class="table__wrapper">
+
+                    <table class="table is-fullwidth">
+                            <thead>
+                                <tr>
+                                <th>Position</th>
+                                <th>Categorie</th>
+                                <th>Nom du quiz</th>
+                                <th>Nom de la question</th>
+                           
+                            </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                <th>Position</th>
+                                <th>Categorie</th>
+                                <th>Nom du quiz</th>
+                                <th>Nom de la question</th>
+                          
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                                {% for key, questions in creatorQuestions %}
+                                <tr>
+                                    <td>{{key + 1}}</td>
+                                    <td>   <a href="{{ path('dev-quiz_categories') }}">  {{ questions.quiz.category.nameCategory }} </a></td>
+                                    <td>
+                                        <a href="{{ path('dev-quiz_quiz-read', {'id' : questions.quiz.id}) }}">
+                                        {{ questions.quiz.name }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        
+                                        {{ questions.title }}
+                                        
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                      
+                    </div>
+                </div>
+            </article>
+            <article id="personnal-quiz">
+                <h2>Vos questions</h2>
+                    <div class="table__wrapper">
+                   
+                    {% if questionsUser is defined %}
+                        <table class="table is-fullwidth">
+                            <thead>
+                                <tr>
+                                    <th>Position</th>
+                                    <th>Categorie</th>
+                                    <th>Nom du quiz</th>
+                                    <th>Nom de la question</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Position</th>
+                                    <th>Categorie</th>
+                                    <th>Nom du quiz</th>
+                                    <th>Nom de la question</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                {% for key, listQuestionsUser in questionsUser %}
+                                <tr>
+                                    <td>{{key + 1}}</td>
+                                    <td>   <a href="{{ path('dev-quiz_categories') }}">  {{ listQuestionsUser.quiz.category.nameCategory }} </a></td>
+                                    <td>
+                                        <a href="{{ path('dev-quiz_quiz-read', {'id' : listQuestionsUser.quiz.id}) }}">
+                                        {{ listQuestionsUser.quiz.name }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {{ listQuestionsUser.title }}
+                                    </td>
+                                    <td>
+                                    <button class="button is-warning"><a href="{{ path('dev-quiz_edit-question', {'id' : listQuestionsUser.id}) }}">Editer</a></button>
+                                <button class="button is-danger"><a href="{{ path('dev-quiz_delete-question', {'id' : listQuestionsUser.id}) }}">Supprimer</a></button>
+                                </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+                        {% else %}
+                        <div class="warning">
+                            <p> Vous n'avez pas encore de questions </p>
+                        </div>
+                        {% endif %}
+                        
+                    </div>
+
+    </article>
+ 
+<h2>Formulaire d'ajout</h2>
+
+        
+    {{form_start(form)}}
+           
+    {{form_row(form.title)}}
+    
+    {{form_row(form.infoplus)}}
+
+    {{form_row(form.quiz)}}	
+
+
+  
+    
+    <div class="control">
+        <button id="submit">Envoyer</button>
+    <button id="back"><a href="{{ path('dev-quiz_questions') }}">Retour</a></button>
+    </div>
+
+    {{form_end(form)}}
+    </section>
+</main>
+{{ include('main/footer.html.twig') }}
+{% endblock %}

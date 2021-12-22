@@ -30,52 +30,97 @@
                     <h2>
                         Choisissez un quiz :                
                     </h2>
-                    <div id="quizz">
-                        {% for listQuiz in quiz %}
-                           
-                                <div class="list">
-                                    <a href="{{ path('dev-quiz_quiz-read', {'id' : listQuiz.id}) }}">
-                                       {{ listQuiz.name }}
-                                    </a>
-                                    <div class="category">
-                                        <span>  Catégorie : {{ listQuiz.category.nameCategory }}</span>
-                                    </div>
-                                </div>
-                                
-                       
-  
-                        {% endfor %}
+                    <div class="table__wrapper">
+
+                        <table class="table is-fullwidth">
+                            <thead>
+                                <tr>
+                                    <th>Position</th>
+                                    <th>Categorie</th>
+                                    <th>Nom du quiz</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Position</th>
+                                    <th>Categorie</th>
+                                    <th>Nom du quiz</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                {% for key, listQuiz in quiz %}
+                                <tr>
+                                    <td>{{key + 1}}</td>
+                                    <td>
+                                        <a href="{{ path('dev-quiz_category-quizz', {'id' : listQuiz.category.id}) }}">  
+                                        {{ listQuiz.category.nameCategory }}</a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('dev-quiz_quiz-read', {'id' : listQuiz.id}) }}">
+                                        {{ listQuiz.name }}
+                                     </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                      
                     </div>
                 </div>
             </article>
             <article id="personnal-quiz">
                 <h2>Vos quizz</h2>
-                    <div id="quizz-user">
-                    {% for listQuizUser in quizzUser %}
+                    <div class="table__wrapper">
+                   
+                        {% if quizzUser is defined %}
+                        <table class="table is-fullwidth">
+                            <thead>
+                                <tr>
+                                    <th>Position</th>
+                                    <th>Categorie</th>
+                                    <th>Nom du quiz</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Position</th>
+                                    <th>Categorie</th>
+                                    <th>Nom du quiz</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                       
+                                {% for key, listQuizUser in quizzUser %}
+                                <tr>
+                                    <td>{{key + 1}}</td>
+                                    <td>   <a href="{{ path('dev-quiz_category-quizz', {'id' : listQuizUser.category.id}) }}">  {{ listQuizUser.category.nameCategory }} </a></td>
+                                    <td>
+                                        <a href="{{ path('dev-quiz_quiz-read', {'id' : listQuizUser.id}) }}">
+                                        {{ listQuizUser.name }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <button class="button is-warning"><a href="{{ path('dev-quiz_edit-quiz', {'id' : listQuizUser.id}) }}">Editer</a></button>
+                                        <button class="button is-danger"><a href="{{ path('dev-quiz_delete-quiz', {'id' : listQuizUser.id}) }}">Supprimer</a></button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
                            
-                        <div class="list">
-                            <a href="{{ path('dev-quiz_quiz-read', {'id' : listQuizUser.id}) }}">
-                            {{ listQuizUser.name }}
-                            </a>
+                            </tbody>
+                        </table>
 
-                            <div class="category">
-                                <span>  Catégorie : {{ listQuizUser.category.nameCategory }}</span>
-                            </div>
-                            
-                            <div class="button-quiz-user">
-                                <button><a href="{{ path('dev-quiz_edit-quiz', {'id' : listQuizUser.id}) }}">Modifier</a></button>
-                                <button><a href="{{ path('dev-quiz_delete-quiz', {'id' : listQuizUser.id}) }}">Supprimer</a></button>
-                                <button><a href="{{ path('dev-quiz_add-quiz-questions', {'id' : listQuizUser.id}) }}">Questions</a></button>
-                                <button><a href="{{ path('dev-quiz_add-quiz-answers', {'id' : listQuizUser.id}) }}">Réponses</a></button>
-                            </div>
+                        {% else %}
+                        <div class="warning">
+                            <p> Vous n'avez pas encore de quizz </p>
                         </div>
-
-                    {% endfor %}
-                         </div>
+                        {% endif %}
+                        
                     </div>
                 
 
-    <h2>Formulaire d'ajout de quizz</h2>
+    <h2>Formulaire d'ajout</h2>
 
         {{form_start(form)}}
                

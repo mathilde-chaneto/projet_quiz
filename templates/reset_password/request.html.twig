@@ -1,33 +1,36 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{ parent() }}
-	Reset your password
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
 {% endblock %}
 
 {% block body %}
-	{{ parent() }}
-	<main>
-		<section id="request-container">
-			{% for flashError in app.flashes('reset_password_error') %}
-				<div class="alert alert-danger" role="alert">{{ flashError }}</div>
-			{% endfor %}
-			<h1>Réinitialisation du mot de passe</h1>
-			<article id="request">
-				<h2>Renseignez votre email</h2>
-				{{ form_start(requestForm) }}
-				{{ form_row(requestForm.email) }}
-			
-					<span class="color">Entrez votre email et nous vous enverrons un lien pour réinitinialiser votre mot de passe</span>
-			
+    {{ parent() }}
 
-				<div class="control">
-					<button>Envoyer</button>
-				</div>
-				{{ form_end(requestForm) }}
-			</article>
-		</section>
-	</main>
-	{{ include('main/footer.html.twig') }}
+
+
+    {% for flashError in app.flashes('reset_password_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+    <h1>Demande de réinitialisation du mot de passe</h1>
+
+    {{ form_start(requestForm) }}
+        {{ form_row(requestForm.email) }}
+        <div>
+            <small>
+                Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.
+            </small>
+        </div>
+
+        <button class="button is-info">Envoyer</button>
+    {{ form_end(requestForm) }}
+
+
+{{ include('main/footer.html.twig') }}
 
 {% endblock %}

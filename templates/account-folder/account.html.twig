@@ -23,9 +23,9 @@
             <article id="account">
                     <div id="avatar">
                         <div>
-                            <figure>
+                            <figure class="image is-128x128">
                                 {% if app.user %}
-                                    <img src="/avatar/{{ app.user.image }}">
+                                    <img src="/avatar/{{ app.user.image }}" class="is-rounded image is-128x128">
                                 {% endif %}
                             </figure>
                         </div>

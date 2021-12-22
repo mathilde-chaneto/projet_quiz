@@ -36,7 +36,9 @@ class CategoryController extends AbstractController
     public function categories(QuizRepository $quizRepo, Request $request, UserInterface $user, CategoryRepository $categoryRepo, SessionInterface $session): Response
     {
 
-        dump($user);
+        //dump($user);
+
+        $id = 50;
 
         $category = new Category();
 
@@ -104,16 +106,34 @@ class CategoryController extends AbstractController
 
         dump($categoryRepo->findBy(["user" => $user->getId() ]));
         
-        return $this->render('categories-folder/categories.html.twig', [
-            "quiz" => $quizRepo->findAllQuizBase(), 
+        return $this->render('categories/index.html.twig', [
+            "quiz" => $quizRepo->findAllQuizBase($id), 
             "categoryUserId" => $categoryRepo->findBy(["user" => $user->getId() ]),
             "form" => $form->createView()
                        
         ]);
     }
 
+    
+    /**
+     * @Route("/category/{id}/quizz", name="category-quizz", requirements={"id": "\d+"} )
+     */
+    public function categoryQuiz(Category $category, QuizRepository $quizRepo, UserInterface $user): Response
+    {
+        $catgQuiz = $quizRepo->findBy(["category" => $category->getId()]);
+    
+        
+        dump($catgQuiz);
+
+        return $this->render('quizz-folder/quiz-category.html.twig', [
+            "category" => $category,
+            "catgQuiz" =>$catgQuiz,
+            "user" => $user
+        ]);
+    }
+
      /**
-     * @Route("/edit/category/{id}", name="edit-category", requirements={"id": "\d+"})
+     * @Route("/category/edit/{id}", name="edit-category", requirements={"id": "\d+"})
      */
     public function edit(Category $category, QuizRepository $quizRepo, UserInterface $user, Request $request): Response
     {
@@ -183,7 +203,7 @@ class CategoryController extends AbstractController
             return $this->redirectToRoute('dev-quiz_categories');
         }
 
-        return $this->render('categories-folder/category-edit.html.twig', [
+        return $this->render('categories/edit.html.twig', [
             'form' => $form->createView(),
             "quiz" => $quizRepo->findBy(["category" => $category->getId()]), 
             "category"=> $category
@@ -191,17 +211,26 @@ class CategoryController extends AbstractController
     }
 
      /**
-     * @Route("/delete/category/{id}", name="delete-category", requirements={"id"="\d+"})
+     * @Route("/category/delete/{id}", name="delete-category", requirements={"id"="\d+"})
      */
     public function delete(Category $category, Request $request)
     {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($category);
-            $em->flush();
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
 
-            $this->addFlash('success-delete','La catégorie a bien été supprimé.');
 
-            return $this->redirectToRoute('dev-quiz_categories');
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($category);
+            $entityManager->flush();
+          
+           return $this->redirectToRoute('dev-quiz_categories');
+        }
+
+        return $this->render('answer/delete.html.twig', [
+            "form" => $form->createView()
+         ]);
         
     }
 }

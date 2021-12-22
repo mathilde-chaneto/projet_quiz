@@ -13,26 +13,30 @@
     <main>
         <section id="quiz-edit-container">
             <h1>
-                Quiz - Edition		     
+                Réponses - Suppresion		     
             </h1>
             
 
 
-    <h2>Formulaire d'édition de quiz</h2>
-
-        {{form_start(form)}}
-                    
-        {{form_row(form.name, {'label': 'Nom :'})}}
-
-        {{form_row(form.category.nameCategory, {'label': 'Catégorie :'})}}	
+    <h2>Formulaire de Suppresion </h2>
+        
+        {{form_start(formAnswer)}}
+                   
+        {{form_row(formAnswer.nameAnswer)}}
+        
+        {{form_row(formAnswer.is_correct)}}
+    
+        {{form_row(formAnswer.questions)}}	
+    
+    
       
         
         <div class="control">
             <button id="submit">Envoyer</button>
-        <button id="back"><a href="{{ path('dev-quiz_quizz') }}">Retour</a></button>
+        <button id="back"><a href="{{ path('dev-quiz_answers') }}">Retour</a></button>
         </div>
-
-        {{form_end(form)}}
+    
+        {{form_end(formAnswer)}}
 
 
   

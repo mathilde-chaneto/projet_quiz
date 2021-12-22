@@ -3,7 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Answer;
-use App\Repository\CategoryRepository;
+
+use App\Repository\AnswerRepository;
 
 use App\Form\QuestionsQuizSelectedType;
 
@@ -44,7 +45,7 @@ class AnswerSelectedType extends AbstractType
       
            
         
-           "query_builder" => function (AnswerRepository $answeryRepo) use ($userId) {
+           "query_builder" => function (AnswerRepository $answerRepo) use ($userId) {
                 return $answerRepo
                         ->createQueryBuilder('a')
                         ->join('a.questions', 'questions')

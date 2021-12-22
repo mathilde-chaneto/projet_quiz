@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	Log in!
+{{ parent() }} - Log in!
 {% endblock %}
 
 {% block javascripts %}
@@ -12,7 +12,7 @@
 {% block body %}
 	{{ parent() }}
 	<main>
-		<section id="connexion-container">
+		<section id="container">
 			<h1>Connexion</h1>
 			<article id="connexion">
                 <h2>Formulaire de connexion</h2>
@@ -43,9 +43,10 @@
 
 					<div class="field">
 						<label class="label">
-							Email
+							Email : 
 						</label>
 							<input class="input" type="email" value="{{ last_username }}" name="email" autocomplete="email" required autofocus>
+						
 							<span class="icon is-small is-left">
 								<i class="fas fa-envelope"></i>
 							</span>
@@ -56,22 +57,29 @@
 
 					<div class="field">
 						<label class="label">
-							Mot de passe
+							Mot de passe : 
 						</label>
-						<div class="control">
-							<input class="input" type="password" name="password" autocomplete="current-password" required>
-							<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-							<span class="icon is-small is-left">
-								<i class="fas fa-lock"></i>
-							</span>
+						<div class="control-input">
+							<div class="control">
+								<input class="input" type="password" name="password" autocomplete="current-password" required>
+								<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+								<span class="icon is-small is-left">
+									<i class="fas fa-lock"></i>
+								</span>
+							</div>
+							
 						</div>
-					</div>
+						<div id="link">
+							<p><a href="{{ path('app_forgot_password_request') }}" class="forget">
+								Mot de passe oublié ?
+							</a></p>
+							</div>
+					
+				</div>
+				
+				
 
-					<div id="link">
-						<a href="{{ path('app_forgot_password_request') }}" class="forget">
-							Mot de passe oublié ?
-						</a>
-					</div>
+					
 
 					{#
 					                                        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
@@ -84,7 +92,7 @@
 					                                        </div>
 					                                    #}
 					<div id="control-submit">
-						<button>Envoyer</button>
+						<button class="button is-info">Envoyer</button>
 					</div>
 
 

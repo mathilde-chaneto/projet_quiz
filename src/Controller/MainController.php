@@ -39,7 +39,7 @@ class MainController extends AbstractController
      */
     public function mentions(): Response
     {
-        return $this->render('main/mentions-legales.html.twig');
+        return $this->render('mentions-legales/mentions-legales.html.twig');
     }
 
            /**

@@ -125,10 +125,12 @@ class InfoController extends AbstractController
     }
 
 
+
+
     /**
      * @Route("/questions/{id}", name="detail_info", requirements={"id" : "\d+"})
      */
-    public function questions(Questions $questions ): Response
+    public function questions(Questions $questions): Response
     {
 
         //configure a route we can access in front side to get informations we need to 
@@ -136,6 +138,7 @@ class InfoController extends AbstractController
         
         return $this->json($questions, Response::HTTP_OK, [], [
             'groups' => ['detail_info'],
+            
         ]);
     }
 }

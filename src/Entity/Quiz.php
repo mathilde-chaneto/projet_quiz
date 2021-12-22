@@ -17,13 +17,13 @@ class Quiz
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user_info"})
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Groups({"user_info"})
+     * 
      */
     private $name;
 
@@ -42,6 +42,7 @@ class Quiz
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="quiz")
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
+     * 
      */
     private $user;
 
